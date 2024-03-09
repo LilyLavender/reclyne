@@ -1,0 +1,25 @@
+.logostyle {
+    font-family: Verdana;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--dark);
+    text-shadow: 
+    -2px 0 0 white,
+    -1px 0 0 white,
+    1px 0 0 white,
+    2px 0 0 white;
+    position: relative;
+    z-index: 3;
+    user-select: none;
+    text-transform: lowercase;
+}
+/* Todo: Make this a vector image */
+
+.logostyle::after {
+    content: "";
+    display: block;
+    border-bottom: 1px solid var(--dark);
+    position: relative;
+    top: -3px;
+    z-index: -1;
+}

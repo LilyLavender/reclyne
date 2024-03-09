@@ -1,0 +1,21 @@
+.rotate90left {
+    transform: rotate(-90deg);
+}
+
+.rotate90right {
+    transform: rotate(90deg);
+}
+
+.inactive {
+    opacity: 50%;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Allows for fading in & out */
+.hiddenTrans {
+    opacity: 0;
+    pointer-events: none;
+}

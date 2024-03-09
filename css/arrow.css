@@ -1,0 +1,22 @@
+.arrow-container {
+    position: relative;
+    left: calc(-1 * var(--site-width) + 40px); 
+    padding-top: 1px;
+    font-weight: bolder;
+    z-index: -1;
+}
+
+/* Adds arrow unicode to arrow container */
+.arrow-container::before {
+    content: "\2192"; 
+}
+
+/* Unused arrow point animation */
+@keyframes arrowPoint {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(-14px);
+    }
+}

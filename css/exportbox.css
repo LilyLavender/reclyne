@@ -1,0 +1,7 @@
+.displayBox input[type="button"] {
+    padding: 6px;
+    margin: 6px;
+    background-color: var(--accent);
+    border-radius: 5px;
+    font-size: small;
+}

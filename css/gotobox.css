@@ -1,0 +1,85 @@
+#gotoline1 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#gotoline1 p {
+    text-transform: lowercase;
+    font-style: italic;
+    font-size: small;
+}
+
+#gotoinput {
+    border-bottom: 2px solid var(--accent-75);
+    background-color: var(--light);
+    text-align: left;
+    padding: 3px;
+    margin-left: 5px;
+    max-width: 60%;
+
+    transition: all 150ms ease-in-out;
+    -o-transition: all 150ms ease-in-out;
+    -moz-transition: all 150ms ease-in-out;
+    -webkit-transition: all 150ms ease-in-out;
+}
+
+#gotoinput:focus {
+    background-color: var(--accent-50);
+    border-bottom-color: var(--accent);
+}
+
+#syntaxContainer {
+    margin-right: 8%;
+    user-select: none;
+    cursor: pointer;
+}
+
+#gotoline2 {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: left;
+    gap: 5px;
+}
+
+#gotoline3 {
+    display: flex;
+    user-select: none;
+    cursor: pointer;
+}
+
+#gotopreview {
+    font-weight: bold;
+}
+
+#dateFormatArrow {
+    padding: 0 10px;
+
+    transition: all 150ms ease-in-out;
+    -o-transition: all 150ms ease-in-out;
+    -moz-transition: all 150ms ease-in-out;
+    -webkit-transition: all 150ms ease-in-out;
+}
+
+p:has(+ #dateFormatArrow), #dateFormatArrow + p {
+    transition: all 150ms ease-in-out;
+    -o-transition: all 150ms ease-in-out;
+    -moz-transition: all 150ms ease-in-out;
+    -webkit-transition: all 150ms ease-in-out;
+}
+
+#gotosyntaxbox {
+    left: 80%;
+}
+
+#gotosyntaxbox p {
+    margin-left: 10px;
+}
+
+.syntaxSection {
+    margin: 0 5px 15px 5px;
+}
+
+.syntaxSection:last-child {
+    margin-bottom: 0;
+}

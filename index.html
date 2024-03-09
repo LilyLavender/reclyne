@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>reclyne</title>
+        <!-- STYLES -->
+        <link rel="stylesheet" href="./css/global.css"> <!-- Global vars and basic styling -->
+        <link rel="stylesheet" href="./css/classes.css"> <!-- Classes for inactive, hidden, rotate, etc -->
+        <link rel="stylesheet" href="./css/logo.css"> <!-- Styling of the logo -->
+        <link rel="stylesheet" href="./css/arrow.css"> <!-- Everything related to the today arrow -->
+        <link rel="stylesheet" href="./css/nav.css"> <!-- Header & Footer -->
+        <link rel="stylesheet" href="./css/table.css"> <!-- Table & Rows -->
+        <link rel="stylesheet" href="./css/header.css"> <!-- Table headers -->
+        <link rel="stylesheet" href="./css/displaybox.css"> <!-- Overall displaybox styling -->
+        <link rel="stylesheet" href="./css/gotobox.css"> <!-- Gotobox & syntax box -->
+        <link rel="stylesheet" href="./css/exportbox.css"> <!-- Export box -->
+        <link rel="stylesheet" href="./css/codeblock.css"> <!-- <code> styling -->
+        <link rel="stylesheet" href="./css/wip.css"> <!-- WIP styling -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"> <!-- Icons -->
+        <!-- FAVICON -->
+        <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+        <link rel="manifest" href="./site.webmanifest" crossorigin="use-credentials">
+    </head>
+    <body>
+        <nav>
+            <div class="left-icons">
+                <a class="logostyle">reclyne</a>
+            </div>
+            <div class="middle-icons">
+                <div class="year-select">
+                    <!-- somehow the only way i can get this to not have spacing in betweeen the elements is by putting it all on one line -->
+                    <input type="button" id="prevDateBox" value="&lt;" title="Back one year"><p id="outputDate">Year</p><input type="button" id="nextDateBox" value="&gt;" title="Forward one year">
+                </div>
+                <i class="bi bi-floppy" id="saveButton" title="Save"></i> <!-- Save button -->
+                <i class="bi bi-arrow-right-circle" id="autoscrollButton"></i> <!-- Autoscroll to today -->
+                <i class="bi bi-calendar2-check" id="elapsedMonthsButton"></i> <!-- Hide elapsed months -->
+                <!-- <i class="bi bi-x-diamond" id="clearMonthsButton" title="Clear Month"></i> Clear month -->
+                <i class="bi bi-palette" id="setThemeButton" title="Customize theme"></i> <!-- Set theme -->
+                <i class="bi bi-box-arrow-in-down" id="importDataButton" title="Import data"></i> <!-- Import data -->
+                <i class="bi bi-box-arrow-down" id="exportDataButton" title="Export data"></i> <!-- Export data -->
+            </div>
+            <div class="right-icons">
+                <a class="logostyle">About</a> <!-- Doesn't do anything yet -->
+            </div>
+        </nav>
+        <!-- Empty div that sits behind the nav so the calendar doesn't scroll into the nav -->
+        <div class="phantom-nav"></div>
+        <!-- Transparent overlay that, when clicked, hides all dialog boxes -->
+        <div class="overlay hidden"></div>
+        <!-- Calendar displays here -->
+        <div class="calendar-display"></div>
+        <!-- Goto box -->
+        <div id="gotobox" class="displayBox hiddenTrans">
+            <div id="gotonav" class="displayBoxHeader">
+                <h3>Go To...</h3>
+                <i class="bi bi-x-lg" id="gotoclose"></i>
+            </div>
+            <div class="displayBoxContent">
+                <form id="gotoform">
+                    <div id="gotoline1">
+                        <div id="dateInputContainer">
+                            <label for="gotoinput">Date:</label>
+                            <input type="text" id="gotoinput" autocomplete="off" spellcheck="false">
+                        </div>
+                        <div id="syntaxContainer" title="View Syntax">
+                            <p>Syntax</p>
+                        </div>
+                    </div>
+                    <div id="gotoline2">
+                        <p id="gotopreviewhelper" class="inactive">Preview will show up here</p>
+                        <p id="gotopreview"></p>
+                    </div>
+                    <div id="gotoline3">
+                        <p>Day first</p><i class="bi bi-arrow-up" id="dateFormatArrow"></i><p>Month first</p>
+                    </div>
+                </form>
+            </div> 
+        </div>
+        <!-- Goto syntax box -->
+        <div id="gotosyntaxbox" class="displayBox hiddenTrans">
+            <div id="gotosyntaxheader" class="displayBoxHeader">
+                <h3 id="syntaxheader">Syntax</h3>
+                <i class="bi bi-x-lg" id="syntaxclose"></i>
+            </div>
+            <div class="displayBoxContent">
+                <div class="syntaxSection">
+                    <h4>Month</h4>
+                    <p><code>jan</code>, <code>february</code>, <code>3</code></p>
+                </div>
+                <div class="syntaxSection">
+                    <h4>Month & Day</h4>
+                    <p><code>jan23</code>, <code>jun 9</code>, <code>april 6</code>, <code>5 13</code></p>
+                </div>
+                <div class="syntaxSection">
+                    <h4>Year</h4>
+                    <p><code>2024</code>, <code>10 1 2004</code></p>
+                </div>
+                <div class="syntaxSection">
+                    <h4>Extra</h4>
+                    <p><code>JUNE</code>,
+                    <code>04-08-2006</code>,
+                    <code>10/05</code>,
+                    <code>Nov.8</code>,
+                    <code>11,11</code></p>
+                </div>
+            </div> 
+        </div>
+        <!-- Export data box-->
+        <div id="exportdatabox" class="displayBox hiddenTrans">
+            <div id="exportNav" class="displayBoxHeader">
+                <h3>Export data</h3>
+                <i class="bi bi-x-lg" id="exportclose"></i>
+            </div>
+            <div class="displayBoxContent">
+                <form id="exportForm">
+                    <div id="exportline1">
+                        <h4>Export the following data:</h4>
+                    </div>
+                    <div id="exportline2">
+                        <input type="button" id="exportButtonCancel" value="Cancel"></input>
+                        <input type="button" id="exportButtonSubmit" value="Export Data"></input>
+                    </div>
+                </form>
+            </div> 
+        </div>
+        <footer></footer>
+        <!-- SCRIPT -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery -->
+        <script src="./js/globals.js"></script> <!-- Global vars -->
+        <script src="./js/main.js"></script> <!-- Main functionality and helper functs for generating the table -->
+        <script src="./js/navbuttons.js"></script> <!-- Buttons on the nav -->
+        <script src="./js/monthvis.js"></script> <!-- Toggling visibility of months -->
+        <script src="./js/scroll.js"></script> <!-- Scroll-related functs -->
+        <script src="./js/arrow.js"></script> <!-- Adds the arrow -->
+        <script src="./js/goto.js"></script> <!-- Main functionality of the goto & syntax box -->
+        <script src="./js/getdotodate.js"></script> <!-- Converting input from gotobox into a date object -->
+        <script src="./js/keydown.js"></script> <!-- Shortcuts -->
+        <script src="./js/localstorage.js"></script> <!-- Saving & retrieving data -->
+        <script src="./js/export.js"></script> <!-- Exporting recylne-data file -->
+        <script src="./js/import.js"></script> <!-- Imports recylne-data file -->
+    </body>
+</html>

@@ -1,0 +1,72 @@
+h1 {
+    border-bottom: var(--dark) 2px solid;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+table {
+    margin: 0px 20px 20px 20px;
+    padding: 0px 10px 10px 10px;
+    border-collapse: collapse;
+
+    transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+}
+
+input {
+    all: unset;
+    font-family: sans-serif;
+}
+
+table input {
+    text-align: center;
+    width: 120px;
+    padding: 3px 5px;
+}
+
+tr:nth-child(even) > td > input {
+    background-color: white;
+} 
+
+tr:nth-child(odd) > td > input {
+    background-color: var(--accent-25);
+}
+
+th {
+    background-color: var(--accent);
+    padding: 10px;
+}
+
+td:nth-child(4) input, td:nth-child(5) input {
+    width: 200px;
+}
+
+td:first-child {
+    text-align: center;
+    width: 60px;
+}
+
+/* Rounded corners on table */
+th:first-child {
+    border-radius: 8px 0 0 0;
+}
+
+th:last-child {
+    border-radius: 0 8px 0 0;
+}
+
+tr:last-child > td:first-child {
+    border-radius: 0 0 0 8px;
+}
+
+tr:last-child > td:last-child > input {
+    border-radius: 0 0 8px 0;
+}
+
+/* Debugging-related. Might come in handy again in the future */
+/*table {
+    outline: 2px solid red;
+}*/
