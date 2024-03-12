@@ -1,7 +1,32 @@
-.displayBox input[type="button"] {
-    padding: 6px;
-    margin: 6px;
-    background-color: var(--accent);
-    border-radius: 5px;
-    font-size: small;
+#exportline1 {
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.exportline1header {
+    margin-bottom: 2px;
+}
+
+#exportline2 {
+    display: grid;
+    justify-content: space-around;
+    row-gap: 0.6em;
+    column-gap: 0.4em;
+}
+
+div[class^="export-cont-"] > p {
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+
+    transition: all 150ms ease-in-out;
+    -o-transition: all 150ms ease-in-out;
+    -moz-transition: all 150ms ease-in-out;
+    -webkit-transition: all 150ms ease-in-out;
+}
+
+#exportline1 input[type="button"] {
+    margin-top: 0;
 }

@@ -19,3 +19,12 @@
     opacity: 0;
     pointer-events: none;
 }
+
+input[type=button].inactive {
+    filter: saturate(0);
+}
+
+input[type=button].inactive:hover {
+    -webkit-filter: saturate(0) brightness(106%);
+    filter: saturate(0) brightness(106%);
+}

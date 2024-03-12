@@ -117,13 +117,19 @@
             <div class="displayBoxContent">
                 <form id="exportForm">
                     <div id="exportline1">
-                        <h4>Export the following data:</h4>
+                        <h4 class="exportline1header">Export the following data:</h4>
+                        <div id="exportButtons">
+                            <input type="button" id="exportButtonAll" value="All"></input>
+                            <input type="button" id="exportButtonNone" value="None"></input>
+                        </div>
                     </div>
-                    <div id="exportline2">
+                    <div id="exportline2"></div>
+                    <div id="exportline3">
                         <input type="button" id="exportButtonCancel" value="Cancel"></input>
                         <input type="button" id="exportButtonSubmit" value="Export Data"></input>
                     </div>
                 </form>
+                <p id="exportError">No data in reclyne! Try adding something first</p>
             </div> 
         </div>
         <footer></footer>
@@ -139,7 +145,8 @@
         <script src="./js/getdotodate.js"></script> <!-- Converting input from gotobox into a date object -->
         <script src="./js/keydown.js"></script> <!-- Shortcuts -->
         <script src="./js/localstorage.js"></script> <!-- Saving & retrieving data -->
-        <script src="./js/export.js"></script> <!-- Exporting recylne-data file -->
-        <script src="./js/import.js"></script> <!-- Imports recylne-data file -->
+        <script src="./js/export.js"></script> <!-- Exporting reclyne-data file -->
+        <script src="./js/import.js"></script> <!-- Imports reclyne-data file -->
+        <script src="./js/clear.js"></script> <!-- Clears reclyne's data. Debug only -->
     </body>
 </html>

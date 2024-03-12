@@ -1,7 +1,7 @@
 
 // wip, was literally written in 30 minutes because i accidentally cleared the calendar and needed to put my data back in
 function loadReclyneData() {
-    // Upload recylne-data file
+    // Upload reclyne-data file
     let d = document.createElement("input");
     d.setAttribute('type', 'file');
     d.setAttribute('id', 'fileinput');
@@ -35,7 +35,6 @@ function loadReclyneData() {
         };
         fr.readAsText(myFile);
         document.body.removeChild(d);
-
     });
     d.click();
 }
