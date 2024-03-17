@@ -1,8 +1,13 @@
 const exportline2 = $('#exportline2');
 const dataToExport = new Map();
 
-$('#exportDataButton').on('click', function() {
-    showExportBox();
+$('#exportDataButton').on('click', function(e) {
+    if (!e.ctrlKey) {
+        showExportBox();
+    } else {
+        // Quick export
+        saveReclyneData();
+    }
 });
 
 $('#exportclose').on('click', function() {
@@ -49,10 +54,8 @@ function hideExportBox() {
     exportbox.addClass('hiddenTrans');
     // Hide overlay
     overlay.addClass('hidden');
-    // Unfocus input box
-    //gotoinput.blur();
-    // Clear input
-    //gotoinput.val('');
+    // Clear dataToExport map
+    dataToExport.clear();
 }
 
 function populateExportBox() {
@@ -174,8 +177,14 @@ function saveReclyneData() {
         }
     }
     
-    // Set file to download
-    let blob = new Blob([allStorageStr], { type: "text/plain" });
+    // Download File
+    downloadFile(allStorageStr)
+
+    return true;
+}
+
+function downloadFile(fileToDownload) {
+    let blob = new Blob([fileToDownload], { type: "text/plain" });
     // Download reclyne data file
     let url = URL.createObjectURL(blob);
     let a = document.createElement("a");
@@ -185,8 +194,6 @@ function saveReclyneData() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-
-    return true;
 }
 
 // Sorts allStorage array by year, then month
