@@ -1,22 +1,22 @@
-#exportline1 {
+#exportline1, #importline1 {
     display: flex;
     align-items: center;
     padding-top: 0;
     margin-top: 0;
 }
 
-.exportline1header {
+.exportline1header, .importline1header {
     margin-bottom: 2px;
 }
 
-#exportline2 {
+#exportline2, #importline2 {
     display: grid;
     justify-content: space-around;
     row-gap: 0.6em;
     column-gap: 0.4em;
 }
 
-div[class^="export-cont-"] > p {
+div[class^="export-cont-"] > p, div[class^="import-cont-"] > p {
     white-space: nowrap;
     cursor: pointer;
     user-select: none;
@@ -27,6 +27,10 @@ div[class^="export-cont-"] > p {
     -webkit-transition: all 150ms ease-in-out;
 }
 
-#exportline1 input[type="button"] {
+#exportline1 input[type="button"], #importline1 input[type="button"] {
     margin-top: 0;
+}
+
+#exportline3, #importline3 {
+    margin-top: 4px;
 }

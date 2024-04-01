@@ -41,7 +41,7 @@ $('#exportButtonNone').on('click', function() {
 function showExportBox() {
     // Clear all other boxes
     hideAllBoxes();
-    //Populate box with proper data
+    // Populate box with proper data
     populateExportBox();
     // Visually show box
     exportbox.removeClass('hiddenTrans');

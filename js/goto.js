@@ -145,20 +145,9 @@ $('#gotoclose').on('click', function() {
     hideGotobox();
 });
 
-// todo split file
-overlay.on('click', function() {
-    hideAllBoxes();
-});
-
 $('#syntaxclose').on('click', function() {
     hideSyntaxBox();
 });
-
-function hideAllBoxes() {
-    hideGotobox();
-    hideSyntaxBox();
-    hideExportBox();
-}
 
 // Toggle syntax box via click on syntax label
 $('#syntaxContainer').on('click', function() {

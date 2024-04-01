@@ -25,8 +25,11 @@ function scrollTo(element, speed) {
 
     // Move scroll
     $('html').animate({
-        // The subtraction bit puts the scroll so that the element is a quarter of the way down the screen
-        scrollTop: element.offset().top - ($(window).height()/4)
+        // Set scrollTop to:
+        // The top of the element to scroll to
+        // Minus the height of the screen divided by 4 (so it puts the element at eye height)
+        // Plus 3px (so that the scroll lines up slightly better with table rows)
+        scrollTop: element.offset().top - ($(window).height()/4) + 3
     }, speed);
 }
 

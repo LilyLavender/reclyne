@@ -132,6 +132,33 @@
                 <p id="exportError">No data in reclyne! Try adding something first</p>
             </div> 
         </div>
+        <!-- Export data box-->
+        <div id="importdatabox" class="displayBox hiddenTrans">
+            <div id="importNav" class="displayBoxHeader">
+                <h3>Import data</h3>
+                <i class="bi bi-x-lg" id="importclose"></i>
+            </div>
+            <div class="displayBoxContent">
+                <form id="importForm">
+                    <div id="importline1">
+                        <h4 class="importline1header">Import the following data:</h4>
+                        <div id="importButtons">
+                            <input type="button" id="importButtonAll" value="All"></input>
+                            <input type="button" id="importButtonNone" value="None"></input>
+                        </div>
+                    </div>
+                    <div id="importline2"></div>
+                    <div id="importline3">
+                        <!-- todo switch for replace/add -->
+                    </div>
+                    <div id="importline4">
+                        <input type="button" id="importButtonCancel" value="Cancel"></input>
+                        <input type="button" id="importButtonSubmit" value="Import Data"></input>
+                    </div>
+                </form>
+                <p id="importError">No data found in file!</p>
+            </div> 
+        </div>
         <footer></footer>
         <!-- SCRIPT -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery -->
@@ -141,12 +168,13 @@
         <script src="./js/monthvis.js"></script> <!-- Toggling visibility of months -->
         <script src="./js/scroll.js"></script> <!-- Scroll-related functs -->
         <script src="./js/arrow.js"></script> <!-- Adds the arrow -->
+        <script src="./js/displaybox.js"></script> <!-- Helper functions for all display boxes -->
         <script src="./js/goto.js"></script> <!-- Main functionality of the goto & syntax box -->
         <script src="./js/getdotodate.js"></script> <!-- Converting input from gotobox into a date object -->
-        <script src="./js/keydown.js"></script> <!-- Shortcuts -->
-        <script src="./js/localstorage.js"></script> <!-- Saving & retrieving data -->
         <script src="./js/export.js"></script> <!-- Exporting reclyne-data file -->
         <script src="./js/import.js"></script> <!-- Imports reclyne-data file -->
+        <script src="./js/keydown.js"></script> <!-- Shortcuts -->
+        <script src="./js/localstorage.js"></script> <!-- Saving & retrieving data -->
         <script src="./js/clear.js"></script> <!-- Clears reclyne's data. Debug only -->
     </body>
 </html>
