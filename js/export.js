@@ -1,14 +1,14 @@
 const exportline2 = $('#exportline2');
 const dataToExport = new Map();
 
+// Normal export
 $('#exportDataButton').on('click', function(e) {
-    if (!e.ctrlKey) {
-        // Normal export
-        showExportBox();
-    } else {
-        // Quick export
-        saveReclyneData();
-    }
+    showExportBox();
+});
+
+// Quick export
+$('#exportDataButton').on('dblclick', function(e) {
+    saveReclyneData();
 });
 
 $('#exportclose').on('click', function() {

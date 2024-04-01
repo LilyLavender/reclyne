@@ -3,14 +3,14 @@ const dataToImport = new Map();
 let keysLocal = [];
 let datasLocal = [];
 
+// Normal import
 $('#importDataButton').on('click', function(e) {
-    if (!e.ctrlKey) {
-        // Normal import
-        loadReclyneData(false);
-    } else {
-        // Quick import
-        loadReclyneData(true);
-    }
+    loadReclyneData(false);
+});
+
+// Quick import
+$('#importDataButton').on('dblclick', function(e) {
+    loadReclyneData(true);
 });
 
 $('#importclose').on('click', function() {
@@ -227,7 +227,7 @@ function loadReclyneData(quickImport) {
                 if (gridSize > maxGridSize) { gridSize = maxGridSize; }
                 importline2.css('grid-template-columns', `repeat(${gridSize}, 1fr)`);
             }
-            
+
             // Save keys and datas to local variants
             keysLocal = keys;
             datasLocal = datas;
