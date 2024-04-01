@@ -5,10 +5,11 @@ let datasLocal = [];
 
 $('#importDataButton').on('click', function(e) {
     if (!e.ctrlKey) {
-        loadReclyneData();
+        // Normal import
+        loadReclyneData(false);
     } else {
         // Quick import
-        loadReclyneData(); //TODO
+        loadReclyneData(true);
     }
 });
 
@@ -141,7 +142,7 @@ importline2.on('click', 'div[class^="import-cont-"]', function(e) {
 });
 
 // Import data
-function loadReclyneData() {
+function loadReclyneData(quickImport) {
     // Upload reclyne-data file
     let d = document.createElement("input");
     d.setAttribute('type', 'file');
@@ -178,52 +179,55 @@ function loadReclyneData() {
                     allKeys.push(keys[i]);
                 }
             }
+            
+            if (!quickImport) {
 
-            showImportBox();
+                showImportBox();
 
-            // If no data, display error
-            if (allKeys.length == 0) {
-                // Hide form
-                $('#importForm').hide();
-                // Show error p
-                $('#importError').show();
-                $('#importError').html('No data in reclyne! Try adding something first');
-                // End function
-                return;
-            } else {
-                // Show form
-                $('#importForm').show();
-                // Hide error p
-                $('#importError').hide();
+                // If no data, display error
+                if (allKeys.length == 0) {
+                    // Hide form
+                    $('#importForm').hide();
+                    // Show error p
+                    $('#importError').show();
+                    $('#importError').html('No data in reclyne! Try adding something first');
+                    // End function
+                    return;
+                } else {
+                    // Show form
+                    $('#importForm').show();
+                    // Hide error p
+                    $('#importError').hide();
+                }
+
+                // If only one item, remove all and none buttons
+                if (allKeys.length == 1) {
+                    // Hide buttons
+                    $('#importButtons').hide();
+                } else {
+                    // Show buttons
+                    $('#importButtons').show();
+                }
+            
+                // Sort allKeys array by month
+                let allKeysSort = sortAllKeys(allKeys);
+            
+                //Clear html
+                importline2.html('');
+                // Add elements to html
+                allKeysSort.forEach((element) => {
+                    let eleParts = element.split('-');
+                    eleParts[0] = eleParts[0].charAt(0).toUpperCase() + eleParts[0].slice(1);
+                    importline2.append(`<div class="import-cont-${element}"><p class="import-p-${element}" data-key="${element}">${eleParts[0]} ${eleParts[1]}</p></div>`);
+                    dataToImport.set(element, true);
+                });
+                const maxGridSize = 11; // Would've loved to do 12 for a full year but it's *slightly* too unnatural looking
+                let numItems = importline2.children().length;
+                let gridSize = Math.ceil(Math.sqrt(numItems));
+                if (gridSize > maxGridSize) { gridSize = maxGridSize; }
+                importline2.css('grid-template-columns', `repeat(${gridSize}, 1fr)`);
             }
-
-            // If only one item, remove all and none buttons
-            if (allKeys.length == 1) {
-                // Hide buttons
-                $('#importButtons').hide();
-            } else {
-                // Show buttons
-                $('#importButtons').show();
-            }
-        
-            // Sort allKeys array by month
-            let allKeysSort = sortAllKeys(allKeys);
-        
-            //Clear html
-            importline2.html('');
-            // Add elements to html
-            allKeysSort.forEach((element) => {
-                let eleParts = element.split('-');
-                eleParts[0] = eleParts[0].charAt(0).toUpperCase() + eleParts[0].slice(1);
-                importline2.append(`<div class="import-cont-${element}"><p class="import-p-${element}" data-key="${element}">${eleParts[0]} ${eleParts[1]}</p></div>`);
-                dataToImport.set(element, true);
-            });
-            const maxGridSize = 11; // Would've loved to do 12 for a full year but it's *slightly* too unnatural looking
-            let numItems = importline2.children().length;
-            let gridSize = Math.ceil(Math.sqrt(numItems));
-            if (gridSize > maxGridSize) { gridSize = maxGridSize; }
-            importline2.css('grid-template-columns', `repeat(${gridSize}, 1fr)`);
-
+            
             // Save keys and datas to local variants
             keysLocal = keys;
             datasLocal = datas;

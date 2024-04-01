@@ -3,6 +3,7 @@ const dataToExport = new Map();
 
 $('#exportDataButton').on('click', function(e) {
     if (!e.ctrlKey) {
+        // Normal export
         showExportBox();
     } else {
         // Quick export
