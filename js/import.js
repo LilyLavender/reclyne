@@ -3,13 +3,20 @@ const dataToImport = new Map();
 let keysLocal = [];
 let datasLocal = [];
 
+var importDataTimer;
+const importDataButton = $('#importDataButton');
+
 // Normal import
-$('#importDataButton').on('click', function(e) {
-    loadReclyneData(false);
+importDataButton.on('click', function(e) {
+    if (importDataTimer) clearTimeout(importDataTimer);
+    importDataTimer = setTimeout(function() { 
+        loadReclyneData(false);
+    }, 200);  
 });
 
 // Quick import
-$('#importDataButton').on('dblclick', function(e) {
+importDataButton.on('dblclick', function(e) {
+    clearTimeout(importDataTimer);
     loadReclyneData(true);
 });
 

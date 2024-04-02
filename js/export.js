@@ -1,13 +1,20 @@
 const exportline2 = $('#exportline2');
 const dataToExport = new Map();
 
+var exportDataTimer;
+const exportDataButton = $('#exportDataButton');
+
 // Normal export
-$('#exportDataButton').on('click', function(e) {
-    showExportBox();
+exportDataButton.on('click', function(e) {
+    if (exportDataTimer) clearTimeout(exportDataTimer);
+    exportDataTimer = setTimeout(function() { 
+        showExportBox();
+    }, 200);  
 });
 
 // Quick export
-$('#exportDataButton').on('dblclick', function(e) {
+exportDataButton.on('dblclick', function(e) {
+    clearTimeout(exportDataTimer);
     saveReclyneData();
 });
 
