@@ -24,3 +24,21 @@ div {
     max-width: var(--site-width);
     margin: 0 auto;
 }
+
+
+/* Transitions when hovering and clicking buttons */
+input[type=button], button {
+    text-align: center;
+    padding: 3px 5px;
+
+    transition: all .1s ease-in-out;
+}
+
+input[type=button]:active, button:active {
+    background-color: var(--accent);
+}
+
+input[type=button]:hover, button:hover {
+    -webkit-filter: brightness(106%);
+    filter: brightness(106%);
+}

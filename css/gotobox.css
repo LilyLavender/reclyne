@@ -83,3 +83,13 @@ p:has(+ #dateFormatArrow), #dateFormatArrow + p {
 .syntaxSection:last-child {
     margin-bottom: 0;
 }
+
+#gotosyntaxbox h3, #gotosyntaxbox h4, #gotosyntaxbox p {
+    user-select: none;
+    cursor: default;
+}
+
+#gotosyntaxbox code {
+    user-select: text;
+    cursor: text;
+}

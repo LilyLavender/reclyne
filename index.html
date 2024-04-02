@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="./css/logo.css"> <!-- Styling of the logo -->
         <link rel="stylesheet" href="./css/arrow.css"> <!-- Everything related to the today arrow -->
         <link rel="stylesheet" href="./css/nav.css"> <!-- Header & Footer -->
+        <link rel="stylesheet" href="./css/tooltips.css"> <!-- Tooltip Styling -->
         <link rel="stylesheet" href="./css/table.css"> <!-- Table & Rows -->
         <link rel="stylesheet" href="./css/header.css"> <!-- Table headers -->
         <link rel="stylesheet" href="./css/displaybox.css"> <!-- Overall displaybox styling -->
@@ -32,15 +33,15 @@
             <div class="middle-icons">
                 <div class="year-select">
                     <!-- somehow the only way i can get this to not have spacing in betweeen the elements is by putting it all on one line -->
-                    <input type="button" id="prevDateBox" value="&lt;" title="Back one year"><p id="outputDate">Year</p><input type="button" id="nextDateBox" value="&gt;" title="Forward one year">
+                    <button id="prevDateBox" class="tooltip">&lt;<div class="tooltiptext">Go back one year</div></button><p id="outputDate">Year</p><button id="nextDateBox" class="tooltip">&gt;<div class="tooltiptext">Go forward one year</div></button>
                 </div>
-                <i class="bi bi-floppy" id="saveButton" title="Save"></i> <!-- Save button -->
-                <i class="bi bi-arrow-right-circle" id="autoscrollButton"></i> <!-- Autoscroll to today -->
-                <i class="bi bi-calendar2-check" id="elapsedMonthsButton"></i> <!-- Hide elapsed months -->
-                <!-- <i class="bi bi-x-diamond" id="clearMonthsButton" title="Clear Month"></i> Clear month -->
-                <i class="bi bi-palette" id="setThemeButton" title="Customize theme"></i> <!-- Set theme -->
-                <i class="bi bi-box-arrow-in-down" id="importDataButton" title="Import data"></i> <!-- Import data -->
-                <i class="bi bi-box-arrow-down" id="exportDataButton" title="Export data"></i> <!-- Export data -->
+                <!-- Save button --> <i class="bi bi-floppy tooltip" id="saveButton"><div class="tooltiptext">Save</div></i>
+                <!-- Autoscroll to today --> <i class="bi bi-arrow-right-circle tooltip" id="autoscrollButton"><div class="tooltiptext">If you see this text, this is a bug.</div></i>
+                <!-- Hide elapsed months --> <i class="bi bi-calendar2-check tooltip" id="elapsedMonthsButton"><div class="tooltiptext">If you see this text, this is a bug.</div></i>
+                <!-- Clear month <i class="bi bi-x-diamond tooltip" id="clearMonthsButton"><div class="tooltiptext">Clear month<div class="tooltipextra">• Currently a WIP</div></div></i> -->
+                <!-- Set theme --> <i class="bi bi-palette tooltip" id="setThemeButton"><div class="tooltiptext">Customize theme<div class="tooltipextra">• Currently a WIP</div></div></i>
+                <!-- Import data --> <i class="bi bi-box-arrow-in-down tooltip" id="importDataButton"><div class="tooltiptext">Import data<div class="tooltipextra">• Double-click to quick import</div></div></i>
+                <!-- Export data --> <i class="bi bi-box-arrow-down tooltip" id="exportDataButton"><div class="tooltiptext">Export data<div class="tooltipextra">• Double-click to quick export</div></div></i>
             </div>
             <div class="right-icons">
                 <a class="logostyle">About</a> <!-- Doesn't do anything yet -->
@@ -65,12 +66,13 @@
                             <label for="gotoinput">Date:</label>
                             <input type="text" id="gotoinput" autocomplete="off" spellcheck="false">
                         </div>
-                        <div id="syntaxContainer" title="View Syntax">
+                        <div id="syntaxContainer" class="tooltip">
                             <p>Syntax</p>
+                            <div class="tooltiptext">View syntax</div>
                         </div>
                     </div>
                     <div id="gotoline2">
-                        <p id="gotopreviewhelper" class="inactive">Preview will show up here</p>
+                        <p id="gotopreviewhelper" class="inactive">Preview will appear here</p>
                         <p id="gotopreview"></p>
                     </div>
                     <div id="gotoline3">
@@ -132,7 +134,7 @@
                 <p id="exportError">No data in reclyne! Try adding something first</p>
             </div> 
         </div>
-        <!-- Export data box-->
+        <!-- Import data box-->
         <div id="importdatabox" class="displayBox hiddenTrans">
             <div id="importNav" class="displayBoxHeader">
                 <h3>Import data</h3>
@@ -168,6 +170,7 @@
         <script src="./js/monthvis.js"></script> <!-- Toggling visibility of months -->
         <script src="./js/scroll.js"></script> <!-- Scroll-related functs -->
         <script src="./js/arrow.js"></script> <!-- Adds the arrow -->
+        <script src="./js/tooltips.js"></script> <!-- Helper functions for tooltips -->
         <script src="./js/displaybox.js"></script> <!-- Helper functions for all display boxes -->
         <script src="./js/goto.js"></script> <!-- Main functionality of the goto & syntax box -->
         <script src="./js/getdotodate.js"></script> <!-- Converting input from gotobox into a date object -->

@@ -30,7 +30,7 @@ $(document).ready(function() {
 });
 
 function updateDate(num, onRefresh) {
-    getEditedYearData(currentYear);
+    getEditedYearData(currentYear, onRefresh);
     var currDate = parseInt(outputDate.html());
     currDate += num;
     currentYear = currDate;
@@ -112,7 +112,7 @@ function generateTable(scroll) {
     }
 }
 
-function getEditedYearData(currYear) {
+function getEditedYearData(currYear, onRefresh) {
     for (let h = 0; h < 12; h++) {
         let currMonthShort = monthsShort[h];
         let currMonthLong = monthsLong[h];
@@ -143,5 +143,6 @@ function getEditedYearData(currYear) {
             removeFromLocalStorage(`${currMonthShort}-${currYear}`);
         } 
     }
-    console.log("Saved!");
+
+    if (!onRefresh) console.log("Saved!");
 }
