@@ -1,11 +1,5 @@
 :root {
-    --dark: #110b1d;
-    --light: #d5d9f2;
-    --accent-25: #c8cdf1;
-    --accent-50: #bac1ef;
-    --accent-75: #acb5ee;
-    --accent: #9da8ec;
-    --link: #31c5e6;
+    /* Colors are added during runtime */
     --site-width: 800px;
 }
 

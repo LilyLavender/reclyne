@@ -23,6 +23,9 @@ $(document).ready(function() {
     // Add classes to nav icons
     addClassesToNavIcons();
 
+    // Calculate and set colors
+    calculateColors();
+
     // Generate calendar
     updateDate(0, preferences[AUTOSCROLL_TO_ARROW]);
 

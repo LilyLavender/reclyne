@@ -27,4 +27,6 @@ When reporting bugs, please include your browser & operating system. It helps op
 If you wish to help with programming *reclyne*, feel free to message my discord, @LilyLambda. Or just make a pr. Code is, for the most part, all commented.
 
 ## Credits
-All of the code was written by [LilyLambda](https://github.com/LilyLavender). Much appreciated was some conceptual help from alpha tester [SyncGX](https://twitter.com/eguzerokkuman).
+All of the main code was written by [LilyLambda](https://github.com/LilyLavender). Much appreciated was some conceptual help from alpha tester [SyncGX](https://twitter.com/eguzerokkuman).
+
+*reclyne* uses [jQuery xcolor](https://github.com/infusion/jQuery-xcolor). Due to the lack of an xcolor cdn, xcolor is included in the js/plugins folder.
