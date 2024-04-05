@@ -197,7 +197,7 @@ function loadReclyneData(quickImport) {
                     $('#importForm').hide();
                     // Show error p
                     $('#importError').show();
-                    $('#importError').html('No data in reclyne! Try adding something first');
+                    $('#importError').html('No data was found in file');
                     // End function
                     return;
                 } else {
@@ -238,6 +238,10 @@ function loadReclyneData(quickImport) {
             // Save keys and datas to local variants
             keysLocal = keys;
             datasLocal = datas;
+
+            if (quickImport) {
+                loadReclyneDataQuick();
+            }
         };
         fr.readAsText(myFile);
         document.body.removeChild(d);
@@ -246,9 +250,12 @@ function loadReclyneData(quickImport) {
 }
 
 function loadReclyneData2() {
+    // Restrict data to store
+    let restrictedData = restrictAllStorage2(keysLocal, datasLocal);
+
     // Save data to localstorage
     for (let i = 0; i < keysLocal.length; i++) {
-        updateLocalStorage(keysLocal[i], datasLocal[i]);
+        updateLocalStorage(restrictedData[i][0], restrictedData[i][1]);
     }
 
     // Refresh table
@@ -257,13 +264,24 @@ function loadReclyneData2() {
     return true;
 }
 
+// todo optimize combine
+function loadReclyneDataQuick() {
+    // Save data to localstorage
+    for (let i = 0; i < keysLocal.length; i++) {
+        updateLocalStorage(keysLocal[i], datasLocal[i]);
+    }
+
+    // Refresh table
+    generateTable(false);
+}
+
 // Removes all keys from allStorage that aren't active in the dataToImport map
-function restrictAllStorage2(allStorage) {
+function restrictAllStorage2(keys, datas) {
     let ret = [];
-    allStorage.forEach(element => {
-        if (dataToImport.get(element[0]) != false) {
-            ret.push(element);
+    for (let i = 0; i < keys.length; i++) {
+        if (dataToImport.get(keys[i]) != false) {
+            ret.push(new Array(keys[i], datas[i]));
         }
-    });
+    }
     return ret;
 }

@@ -186,7 +186,7 @@ function saveReclyneData() {
     }
     
     // Download File
-    downloadFile(allStorageStr)
+    downloadFile(allStorageStr);
 
     return true;
 }
