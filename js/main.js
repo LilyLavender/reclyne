@@ -149,7 +149,7 @@ function getEditedYearData(currYear, onRefresh) {
         // Only store data if it's not empty
         if (!dataToStore.every(function(a) { return !a.length })) {
             updateLocalStorage(`${currMonthShort}-${currYear}`, dataToStore);
-            $('#saveButton').removeClass("btn-active");
+            updateSaveButtonSaved();
         } else {
             // Remove empty data from storage
             removeFromLocalStorage(`${currMonthShort}-${currYear}`);

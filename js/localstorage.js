@@ -8,7 +8,7 @@ function updateStorageForPreference(prefNum, setting) {
 // Save data to local storage
 $('#saveButton').on('click', function() {
     getEditedYearData(currentYear);
-    $(this).removeClass("btn-active");
+    updateSaveButtonSaved();
 });
 
 // Add data to local storage

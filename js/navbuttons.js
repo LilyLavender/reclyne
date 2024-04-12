@@ -43,5 +43,19 @@ function updateButton(selector, setting, prefNum, class1, class2, onTitle, offTi
 
 // Update save button styles when typing
 $(document).on('input', `table input[type='text']`, function() {
-    $('#saveButton').addClass('btn-active');
+    updateSaveButtonUnsaved();
 })
+
+function updateSaveButtonSaved() {
+    $('#saveButton').removeClass("btn-active");
+    $("#favicon-16x16").attr("href", "./favicon/favicon-16x16.png");
+    $("#favicon-32x32").attr("href", "./favicon/favicon-32x32.png");
+    $(document).prop('title', 'reclyne');
+}
+
+function updateSaveButtonUnsaved() {
+    $('#saveButton').addClass('btn-active');
+    $("#favicon-16x16").attr("href", "./favicon/favicon-16x16-red.png");
+    $("#favicon-32x32").attr("href", "./favicon/favicon-32x32-red.png");
+    $(document).prop('title', 'reclyne - Unsaved Changes');
+}
