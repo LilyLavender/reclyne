@@ -1,9 +1,7 @@
 const root = $(':root');
-// Dark, light, accent
-var allColors = ["#110b1d", "#d5d9f2", "#9da8ec"];
 
-// WIP
-function themeChanger() {
+// WIP, depreciated, todo
+function themeChanger(colorType) {
     let c = document.createElement("input");
     c.setAttribute('type', 'color');
     c.setAttribute('id', 'colorinput');
@@ -11,37 +9,66 @@ function themeChanger() {
     c.addEventListener('change', function() {
         // Get color from picker
         pickedColor = this.value;
-
-        // Calculate light and dark colors from accent (DEBUG ONLY, TODO)
-        allColors[0] = $.xcolor.opacity(pickedColor, '#101010', 0.90);
-        allColors[1] = $.xcolor.opacity(pickedColor, '#F0F0F0', 0.90);
-
-        // Set colors
-        allColors[2] = pickedColor;
-        calculateColors();
+        console.log(pickedColor);
     });
     c.click();
 }
 
-// Calculate colors and set them in :root
-function calculateColors() {
-    // Get dark, light, and accent colors
-    var colorDark = allColors[0];
-    var colorLight = allColors[1];
-    var colorAccent = allColors[2];
+function initializeTheme(themeNumber) {
+    let themePreferences = retrieveFromLocalStorage('reclyne-theme');
+    if (themePreferences == null) {
+        // Create theme data if doesn't exist
+        updateLocalStorage('reclyne-theme', defaultThemeColors);
+        // Get theme data from localStorage, now that it exists
+        themePreferences = retrieveFromLocalStorage('reclyne-theme');
+    }
+    if (themePreferences[themeNumber][4] == null) {
+        calculateAndSetMiddleColors(themeNumber);
+    }
+    setPageColors(themeNumber);
+}
 
-    // Set dark, light, and accent colors
-    root.css('--dark', colorDark);
-    root.css('--light', colorLight);
-    root.css('--accent', colorAccent);
+function calculateAndSetMiddleColors(themeNumber) {
+    // Get color preferences
+    let allColors = retrieveFromLocalStorage('reclyne-theme');
+
+    // Get dark, light, and accent colors
+    var colorLight = allColors[themeNumber][2];
+    var colorAccent = allColors[themeNumber][3];
 
     // Get middle colors between light and accent
-    var colorAccent50 = $.xcolor.average(colorLight, colorAccent).getRGB(); // xcolor.average returns an xcolor object, but cannot take one
-    var colorAccent25 = $.xcolor.average(colorAccent50, colorLight);
-    var colorAccent75 = $.xcolor.average(colorAccent50, colorAccent);
+    var colorAccent50 = String($.xcolor.average(colorLight, colorAccent));
+    var colorAccent25 = String($.xcolor.average(colorAccent50, colorLight));
+    var colorAccent75 = String($.xcolor.average(colorAccent50, colorAccent));
 
-    // Set middle colors
-    root.css('--accent-25', colorAccent25);
-    root.css('--accent-50', colorAccent50);
-    root.css('--accent-75', colorAccent75);
+    // Set middle colors in localstorage
+    allColors[themeNumber][4] = colorAccent25;
+    allColors[themeNumber][5] = colorAccent50;
+    allColors[themeNumber][6] = colorAccent75;
+    updateLocalStorage('reclyne-theme', allColors);
+}
+
+function setPageColors(themeNumber) {
+    // Get color preferences
+    let allColors = retrieveFromLocalStorage('reclyne-theme');
+
+    // Set colors on page
+    root.css({
+        '--dark' : allColors[themeNumber][1],
+        '--light' : allColors[themeNumber][2],
+        '--accent' : allColors[themeNumber][3],
+        '--accent-25' : allColors[themeNumber][4],
+        '--accent-50' : allColors[themeNumber][5],
+        '--accent-75' : allColors[themeNumber][6]
+    });
+}
+
+// debug
+function setThemeNumber(num) {
+    updateStorageForPreference(THEME_NUMBER, num);
+}
+
+// debug
+function removeThemeData() {
+    removeFromLocalStorage('reclyne-theme');
 }

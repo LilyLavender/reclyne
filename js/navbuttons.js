@@ -10,7 +10,7 @@ $('#autoscrollButton').on('click', function() {
 function addClassesToNavIcons() {
     let preferences = retrieveFromLocalStorage('reclyne-preferences');
     for (i = 0; i < preferences.length; i++) {
-        if (i == 2) continue;
+        if (i == 2 || i == 3) continue;
         updateButton(buttonData[i][0], preferences[i], i, buttonData[i][1], buttonData[i][2], buttonData[i][3], buttonData[i][4]);
     }
 }

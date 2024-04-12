@@ -28,5 +28,6 @@ const allMonthsNames = ["jan","feb","mar","apr","may","jun","jul","aug","sep","o
 const HIDE_ELAPSED = 0;
 const AUTOSCROLL_TO_ARROW = 1;
 const MONTH_FIRST = 2;
+const THEME_NUMBER = 3;
 // Current Year String
 let currentYear = "";

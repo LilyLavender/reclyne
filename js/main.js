@@ -1,3 +1,12 @@
+const defaultThemeColors = [
+    // Name, dark, light, accent
+    // accentXX colors are generated during runtime
+    ["Winter Reclyne", "#110b1d", "#d5d9f2", "#9da8ec"], 
+    ["Spring Reclyne", "#0c1c0b", "#c9efce", "#53c763"], 
+    ["Summer Reclyne", "#1d130b", "#fff3c3", "#efea5f"], 
+    ["Fall Reclyne", "#1d0f0b", "#f9cfb6", "#fa724c"]
+];
+
 // Document.ready
 $(document).ready(function() {
     // Add a height attribute to the phantom nav
@@ -9,13 +18,13 @@ $(document).ready(function() {
     if (retrieveFromLocalStorage('reclyne-preferences') == null) {
         console.log(`Preferences data doesn't exist! Creating...`);
         // Tried getting a map to work, but no dice. 
-        // reclye-preferences array is [hide-elapsed, autoscroll-to-arrow, month-first]
-        updateLocalStorage('reclyne-preferences', [false, true, true]);
+        // reclye-preferences array is [hide-elapsed, autoscroll-to-arrow, month-first, theme-number]
+        updateLocalStorage('reclyne-preferences', [false, true, true, 0]);
         console.log(`Created preferences data!`);
     }
 
     // Get preferences data
-    let preferences = retrieveFromLocalStorage('reclyne-preferences')
+    let preferences = retrieveFromLocalStorage('reclyne-preferences');
 
     // Add classes to month/day first selector
     dateFormatAddClasses(preferences[MONTH_FIRST]);
@@ -23,8 +32,8 @@ $(document).ready(function() {
     // Add classes to nav icons
     addClassesToNavIcons();
 
-    // Calculate and set colors
-    calculateColors();
+    // Many important theme-related actions
+    initializeTheme(preferences[THEME_NUMBER]);
 
     // Generate calendar
     updateDate(0, preferences[AUTOSCROLL_TO_ARROW]);
