@@ -3,7 +3,7 @@ const defaultThemeColors = [
     // accentXX colors are generated during runtime
     ["Winter Reclyne", "#110b1d", "#d5d9f2", "#9da8ec"], 
     ["Spring Reclyne", "#0c1c0b", "#c9efce", "#53c763"], 
-    ["Summer Reclyne", "#1d130b", "#fff3c3", "#efea5f"], 
+    ["Summer Reclyne", "#1d130b", "#f3e696", "#ded95a"], 
     ["Fall Reclyne", "#1d0f0b", "#f9cfb6", "#fa724c"]
 ];
 

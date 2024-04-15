@@ -20,6 +20,9 @@ div[class^="export-cont-"] > p, div[class^="import-cont-"] > p {
     white-space: nowrap;
     cursor: pointer;
     user-select: none;
+    background-color: var(--accent-25);
+    padding: 5px;
+    border-radius: 6px;
 
     transition: all 150ms ease-in-out;
     -o-transition: all 150ms ease-in-out;

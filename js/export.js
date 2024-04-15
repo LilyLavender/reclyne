@@ -1,5 +1,6 @@
 const exportline2 = $('#exportline2');
 const dataToExport = new Map();
+const maxGridSize = 9;
 
 var exportDataTimer;
 const exportDataButton = $('#exportDataButton');
@@ -119,7 +120,6 @@ function populateExportBox() {
         exportline2.append(`<div class="export-cont-${element}"><p class="export-p-${element}" data-key="${element}">${eleParts[0]} ${eleParts[1]}</p></div>`);
         dataToExport.set(element, true);
     });
-    const maxGridSize = 11; // Would've loved to do 12 for a full year but it's *slightly* too unnatural looking
     let numItems = exportline2.children().length;
     let gridSize = Math.ceil(Math.sqrt(numItems));
     if (gridSize > maxGridSize) { gridSize = maxGridSize; }

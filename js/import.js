@@ -2,6 +2,7 @@ const importline2 = $('#importline2');
 const dataToImport = new Map();
 let keysLocal = [];
 let datasLocal = [];
+let allKeysLocal = [];
 
 var importDataTimer;
 const importDataButton = $('#importDataButton');
@@ -70,27 +71,15 @@ function hideImportBox() {
 
 function populateImportBox() {
     // Get all data from imported file
-    let keys = dataToImport;
-    // Declare important vars
-    let i = keys.length;
-    let allKeys = [];
+    let allKeys = allKeysLocal;
 
-    // Add all data into allKeys array
-    while (i--) {
-        // Make sure data is actually reclyne's data
-        if (/^[a-z]{3}-\d{4}$/.test(keys[i].toString())) {
-            // Add key to array
-            allKeys.push(keys[i]);
-        }
-    }
-    
     // If no data, display error
     if (allKeys.length == 0) {
         // Hide form
         $('#importForm').hide();
         // Show error p
         $('#importError').show();
-        $('#importError').html('No data in reclyne! Try adding something first');
+        $('#importError').html('No data was found in file');
         // End function
         return;
     } else {
@@ -99,7 +88,7 @@ function populateImportBox() {
         // Hide error p
         $('#importError').hide();
     }
-    
+
     // If only one item, remove all and none buttons
     if (allKeys.length == 1) {
         // Hide buttons
@@ -112,16 +101,18 @@ function populateImportBox() {
     // Sort allKeys array by month
     let allKeysSort = sortAllKeys(allKeys);
 
+    // Remove duplicate keys
+    let allKeysFinal = [...new Set(allKeysSort)];
+
     //Clear html
     importline2.html('');
     // Add elements to html
-    allKeysSort.forEach((element) => {
+    allKeysFinal.forEach((element) => {
         let eleParts = element.split('-');
         eleParts[0] = eleParts[0].charAt(0).toUpperCase() + eleParts[0].slice(1);
         importline2.append(`<div class="import-cont-${element}"><p class="import-p-${element}" data-key="${element}">${eleParts[0]} ${eleParts[1]}</p></div>`);
         dataToImport.set(element, true);
     });
-    const maxGridSize = 11; // Would've loved to do 12 for a full year but it's *slightly* too unnatural looking
     let numItems = importline2.children().length;
     let gridSize = Math.ceil(Math.sqrt(numItems));
     if (gridSize > maxGridSize) { gridSize = maxGridSize; }
@@ -187,52 +178,10 @@ function loadReclyneData(quickImport) {
                 }
             }
             
+            // Display import box if not quick import
             if (!quickImport) {
-
+                allKeysLocal = allKeys;
                 showImportBox();
-
-                // If no data, display error
-                if (allKeys.length == 0) {
-                    // Hide form
-                    $('#importForm').hide();
-                    // Show error p
-                    $('#importError').show();
-                    $('#importError').html('No data was found in file');
-                    // End function
-                    return;
-                } else {
-                    // Show form
-                    $('#importForm').show();
-                    // Hide error p
-                    $('#importError').hide();
-                }
-
-                // If only one item, remove all and none buttons
-                if (allKeys.length == 1) {
-                    // Hide buttons
-                    $('#importButtons').hide();
-                } else {
-                    // Show buttons
-                    $('#importButtons').show();
-                }
-            
-                // Sort allKeys array by month
-                let allKeysSort = sortAllKeys(allKeys);
-            
-                //Clear html
-                importline2.html('');
-                // Add elements to html
-                allKeysSort.forEach((element) => {
-                    let eleParts = element.split('-');
-                    eleParts[0] = eleParts[0].charAt(0).toUpperCase() + eleParts[0].slice(1);
-                    importline2.append(`<div class="import-cont-${element}"><p class="import-p-${element}" data-key="${element}">${eleParts[0]} ${eleParts[1]}</p></div>`);
-                    dataToImport.set(element, true);
-                });
-                const maxGridSize = 11; // Would've loved to do 12 for a full year but it's *slightly* too unnatural looking
-                let numItems = importline2.children().length;
-                let gridSize = Math.ceil(Math.sqrt(numItems));
-                if (gridSize > maxGridSize) { gridSize = maxGridSize; }
-                importline2.css('grid-template-columns', `repeat(${gridSize}, 1fr)`);
             }
 
             // Save keys and datas to local variants
@@ -254,7 +203,7 @@ function loadReclyneData2() {
     let restrictedData = restrictAllStorage2(keysLocal, datasLocal);
 
     // Save data to localstorage
-    for (let i = 0; i < keysLocal.length; i++) {
+    for (let i = 0; i < restrictedData.length; i++) {
         updateLocalStorage(restrictedData[i][0], restrictedData[i][1]);
     }
 
