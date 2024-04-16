@@ -9,7 +9,7 @@
     padding: 6px;
     border-radius: 6px;
     position: absolute;
-    z-index: 3;
+    z-index: 4;
     user-select: none;
     pointer-events: none;
     font-size: medium;

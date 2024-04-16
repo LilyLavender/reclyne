@@ -66,6 +66,12 @@ tr:last-child > td:last-child > input {
     border-radius: 0 0 8px 0;
 }
 
+td:first-child {
+    position: relative;
+    z-index: 1;
+    user-select: none;
+}
+
 /* Debugging-related. Might come in handy again in the future */
 /*table {
     outline: 2px solid red;

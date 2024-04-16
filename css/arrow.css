@@ -1,14 +1,30 @@
 .arrow-container {
     position: relative;
     left: calc(-1 * var(--site-width) + 40px); 
-    padding-top: 1px;
-    font-weight: bolder;
-    z-index: -1;
+    font-size: larger;
+    z-index: 0;
+    pointer-events: all;
+    background-color: var(--accent-25);
+    padding: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
 }
 
-/* Adds arrow unicode to arrow container */
+.arrow-container:hover {
+    filter: brightness(93%);
+}
+
+.arrow-container:active {
+    filter: brightness(104%);
+}
+
 .arrow-container::before {
-    content: "\2192"; 
+    margin-top: 2px;
 }
 
 /* Unused arrow point animation */

@@ -28,11 +28,12 @@ input[type=button], button {
     transition: all .1s ease-in-out;
 }
 
-input[type=button]:active, button:active {
-    background-color: var(--accent);
-}
-
 input[type=button]:hover, button:hover {
     -webkit-filter: brightness(106%);
     filter: brightness(106%);
+}
+
+input[type=button]:active, button:active {
+    -webkit-filter: brightness(92%);
+    filter: brightness(92%);
 }
