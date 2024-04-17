@@ -1,22 +1,8 @@
 // Elements
-const outputDate = $('#outputDate');
-const gotobox = $('#gotobox');
-const gotosyntaxbox = $('#gotosyntaxbox');
-const gotoinput = $('#gotoinput');
-const gotopreview = $('#gotopreview');
-const gotopreviewhelper = $('#gotopreviewhelper');
-const exportbox = $('#exportdatabox'); //todo move specific consts to their respective files
-const importbox = $('#importdatabox');
+const doc = $(document);
 const overlay = $('.overlay');
-const dateFormatArrow = $('#dateFormatArrow');
-const dateFormatLeft = $('p:has(+ #dateFormatArrow)');
-const dateFormatRight = $('#dateFormatArrow + p');
+const calendarDisplay = $('.calendar-display');
 // Data Arrays
-const buttonData = [
-    ['#elapsedMonthsButton', 'bi-calendar2-check', 'bi-calendar2-check-fill', 'Show elapsed months', 'Hide elapsed months'], // hide-elapsed
-    ['#autoscrollButton', 'bi-arrow-right-circle', 'bi-arrow-right-circle-fill', 'Do not automatically scroll to today', 'Automatically scroll to today'], // autoscroll-to-arrow
-    false // month-first
-];
 const weekdaysLong = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 const weekdaysShort = ["sun","mon","tue","wed","thu","fri","sat"];
 const monthsLong = ["january","february","march","april","may","june","july","august","september","october","november","december"];

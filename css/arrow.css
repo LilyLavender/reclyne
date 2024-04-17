@@ -1,6 +1,6 @@
 .arrow-container {
     position: relative;
-    left: calc(-1 * var(--site-width) + 40px); 
+    left: calc(-1 * var(--site-width) + 83px); 
     font-size: larger;
     z-index: 0;
     pointer-events: all;

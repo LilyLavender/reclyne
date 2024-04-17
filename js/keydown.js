@@ -1,5 +1,5 @@
-// 
-$(document).on('keydown', function(e) {
+// Key presses
+doc.on('keydown', function(e) {
     if (e.ctrlKey) {
         if (e.key === 's') {
             e.preventDefault();
@@ -8,7 +8,7 @@ $(document).on('keydown', function(e) {
             // if statement is necessary so ctrl right arrow still works in text boxes
             if ($('input:focus').length == 0) {
                 e.preventDefault();
-                scrollTo("arrow", 300);
+                scrollToArrow(scrollToArrowDelayFast);
             }
         } else if (e.key === 'g') {
             e.preventDefault();

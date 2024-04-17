@@ -1,16 +1,22 @@
+const exportbox = $('#exportdatabox');
+const exportForm = $('#exportForm');
+const exportError = $('#exportError');
 const exportline2 = $('#exportline2');
-const dataToExport = new Map();
+const exportButtons = $('#exportButtons');
+const exportButtonSubmit = $('#exportButtonSubmit');
+const exportDataButton = $('#exportDataButton');
+const dataToPort = new Map();
+const dblclickDelay = 200;
 const maxGridSize = 9;
 
 var exportDataTimer;
-const exportDataButton = $('#exportDataButton');
 
 // Normal export
 exportDataButton.on('click', function(e) {
     if (exportDataTimer) clearTimeout(exportDataTimer);
     exportDataTimer = setTimeout(function() { 
         showExportBox();
-    }, 200);  
+    }, dblclickDelay);  
 });
 
 // Quick export
@@ -23,7 +29,7 @@ $('#exportclose').on('click', function() {
     hideExportBox();
 });
 
-$('#exportButtonSubmit').on('click', function() {
+exportButtonSubmit.on('click', function() {
     // Makes sure button is active
     if (!$(this).hasClass('inactive')) {
         // Only if data was saved, hide the export box
@@ -36,15 +42,15 @@ $('#exportButtonCancel').on('click', function() {
 });
 
 $('#exportButtonAll').on('click', function() {
-    [...dataToExport.keys()].forEach((key) => dataToExport.set(key, true));
+    [...dataToPort.keys()].forEach((key) => dataToPort.set(key, true));
     [exportline2.children()].forEach((child) => child.children().removeClass('inactive'));
-    $('#exportButtonSubmit').removeClass('inactive');
+    exportButtonSubmit.removeClass('inactive');
 });
 
 $('#exportButtonNone').on('click', function() {
-    [...dataToExport.keys()].forEach((key) => dataToExport.set(key, false));
+    [...dataToPort.keys()].forEach((key) => dataToPort.set(key, false));
     [exportline2.children()].forEach((child) => child.children().addClass('inactive'));
-    $('#exportButtonSubmit').addClass('inactive');
+    exportButtonSubmit.addClass('inactive');
 });
 
 function showExportBox() {
@@ -63,8 +69,8 @@ function hideExportBox() {
     exportbox.addClass('hiddenTrans');
     // Hide overlay
     overlay.addClass('hidden');
-    // Clear dataToExport map
-    dataToExport.clear();
+    // Clear dataToPort map
+    dataToPort.clear();
 }
 
 function populateExportBox() {
@@ -86,26 +92,26 @@ function populateExportBox() {
     // If no data, display error
     if (allKeys.length == 0) {
         // Hide form
-        $('#exportForm').hide();
+        exportForm.hide();
         // Show error p
-        $('#exportError').show();
-        $('#exportError').html('No data in reclyne! Try adding something first');
+        exportError.show();
+        exportError.html('No data in reclyne! Try adding something first');
         // End function
         return;
     } else {
         // Show form
-        $('#exportForm').show();
+        exportForm.show();
         // Hide error p
-        $('#exportError').hide();
+        exportError.hide();
     }
     
     // If only one item, remove all and none buttons
     if (allKeys.length == 1) {
         // Hide buttons
-        $('#exportButtons').hide();
+        exportButtons.hide();
     } else {
         // Show buttons
-        $('#exportButtons').show();
+        exportButtons.show();
     }
 
     // Sort allKeys array by month
@@ -118,7 +124,7 @@ function populateExportBox() {
         let eleParts = element.split('-');
         eleParts[0] = eleParts[0].charAt(0).toUpperCase() + eleParts[0].slice(1);
         exportline2.append(`<div class="export-cont-${element}"><p class="export-p-${element}" data-key="${element}">${eleParts[0]} ${eleParts[1]}</p></div>`);
-        dataToExport.set(element, true);
+        dataToPort.set(element, true);
     });
     let numItems = exportline2.children().length;
     let gridSize = Math.ceil(Math.sqrt(numItems));
@@ -130,19 +136,19 @@ exportline2.on('click', 'div[class^="export-cont-"]', function(e) {
     // Set value of key on click
     let tar = $(e.target);
     let key = tar.data("key");
-    if (dataToExport.get(key)) {
+    if (dataToPort.get(key)) {
         tar.addClass('inactive');
-        dataToExport.set(key, false);
+        dataToPort.set(key, false);
     } else {
         tar.removeClass('inactive');
-        dataToExport.set(key, true);
+        dataToPort.set(key, true);
     }
     
     // Grey out submit button if every value is false
-    if (dataToExport.values().every((v) => v === false)) {
-        $('#exportButtonSubmit').addClass('inactive');
+    if (dataToPort.values().every((v) => v === false)) {
+        exportButtonSubmit.addClass('inactive');
     } else {
-        $('#exportButtonSubmit').removeClass('inactive');
+        exportButtonSubmit.removeClass('inactive');
     }
 });
 
@@ -223,11 +229,11 @@ function sortAllStorage(allStorage) {
     return allStorage;
 }
 
-// Removes all keys from allStorage that aren't active in the dataToExport map
+// Removes all keys from allStorage that aren't active in the dataToPort map
 function restrictAllStorage(allStorage) {
     let ret = [];
     allStorage.forEach(element => {
-        if (dataToExport.get(element[0]) != false) {
+        if (dataToPort.get(element[0]) != false) {
             ret.push(element);
         }
     });

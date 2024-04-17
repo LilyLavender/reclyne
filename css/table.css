@@ -47,6 +47,9 @@ td:nth-child(4) input, td:nth-child(5) input {
 td:first-child {
     text-align: center;
     width: 60px;
+    position: relative;
+    z-index: 1;
+    user-select: none;
 }
 
 /* Rounded corners on table */
@@ -64,12 +67,6 @@ tr:last-child > td:first-child {
 
 tr:last-child > td:last-child > input {
     border-radius: 0 0 8px 0;
-}
-
-td:first-child {
-    position: relative;
-    z-index: 1;
-    user-select: none;
 }
 
 /* Debugging-related. Might come in handy again in the future */

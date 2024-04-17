@@ -1,5 +1,5 @@
 // Toggle month visibility based on clicked h2 header
-$('.calendar-display').on('click', `h2[class*="-header"]`, function(e) {
+calendarDisplay.on('click', `h2[class*="-header"]`, function(e) {
     // Get specific header
     let header = $(e.target);
 

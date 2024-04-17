@@ -1,3 +1,10 @@
+const buttonData = [
+    ['#elapsedMonthsButton', 'bi-calendar2-check', 'bi-calendar2-check-fill', 'Show elapsed months', 'Hide elapsed months'], // hide-elapsed
+    ['#autoscrollButton', 'bi-arrow-right-circle', 'bi-arrow-right-circle-fill', 'Do not automatically scroll to today', 'Automatically scroll to today'] // autoscroll-to-arrow
+];
+const saveButton = $('#saveButton');
+const favicon16 = $("#favicon-16x16");
+const favicon32 = $("#favicon-32x32");
 
 $('#elapsedMonthsButton').on('click', function() {
     updateButton('#elapsedMonthsButton', "unk", HIDE_ELAPSED, buttonData[HIDE_ELAPSED][1], buttonData[HIDE_ELAPSED][2], buttonData[HIDE_ELAPSED][3], buttonData[HIDE_ELAPSED][4]);
@@ -42,20 +49,20 @@ function updateButton(selector, setting, prefNum, class1, class2, onTitle, offTi
 }
 
 // Update save button styles when typing
-$(document).on('input', `table input[type='text']`, function() {
+doc.on('input', `table input[type='text']`, function() {
     updateSaveButtonUnsaved();
 })
 
 function updateSaveButtonSaved() {
-    $('#saveButton').removeClass("btn-active");
-    $("#favicon-16x16").attr("href", "./favicon/favicon-16x16.png");
-    $("#favicon-32x32").attr("href", "./favicon/favicon-32x32.png");
-    $(document).prop('title', 'reclyne');
+    saveButton.removeClass("btn-active");
+    favicon16.attr("href", "./favicon/favicon-16x16.png");
+    favicon32.attr("href", "./favicon/favicon-32x32.png");
+    doc.prop('title', 'reclyne');
 }
 
 function updateSaveButtonUnsaved() {
-    $('#saveButton').addClass('btn-active');
-    $("#favicon-16x16").attr("href", "./favicon/favicon-16x16-red.png");
-    $("#favicon-32x32").attr("href", "./favicon/favicon-32x32-red.png");
-    $(document).prop('title', 'reclyne - Unsaved Changes');
+    saveButton.addClass('btn-active');
+    favicon16.attr("href", "./favicon/favicon-16x16-red.png");
+    favicon32.attr("href", "./favicon/favicon-32x32-red.png");
+    doc.prop('title', 'reclyne - Unsaved Changes');
 }

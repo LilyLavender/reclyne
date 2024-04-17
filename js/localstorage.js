@@ -1,4 +1,4 @@
-// 
+// Save one preference to localstorage
 function updateStorageForPreference(prefNum, setting) {
     let preferences = retrieveFromLocalStorage(`reclyne-preferences`);
     preferences[prefNum] = setting;

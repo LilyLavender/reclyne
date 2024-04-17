@@ -6,9 +6,10 @@ const defaultThemeColors = [
     ["Summer Reclyne", "#1d130b", "#f3e696", "#ded95a"], 
     ["Fall Reclyne", "#1d0f0b", "#f9cfb6", "#fa724c"]
 ];
+const outputDate = $('#outputDate');
 
 // Document.ready
-$(document).ready(function() {
+doc.ready(function() {
     // Add a height attribute to the phantom nav
     $('.phantom-nav').height($('nav').outerHeight());
     // Add current date to nav datebox
@@ -72,7 +73,7 @@ function setYearTo(yearToSetTo) {
 // Generate Table
 function generateTable(scroll) {
     let tableOutput = "";
-    const calEle = $('.calendar-display');
+    const calEle = calendarDisplay;
     // MDO stands for month date object (verbose, i know)
     let MDO = "";
     for (let h = 0; h < 12; h++) {
@@ -119,7 +120,7 @@ function generateTable(scroll) {
     if (currentYear == new Date().getFullYear()) {
         addArrow();
         if (scroll) {
-            scrollTo("arrow", 600);
+            scrollToArrow(scrollToArrowDelaySlow);
         }
     }
 }

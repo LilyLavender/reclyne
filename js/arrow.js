@@ -7,6 +7,6 @@ function addArrow() {
 }
 
 // Scroll to arrow when clicked
-$(document).on('click', '.arrow-container', function() {
-    scrollTo('arrow', 300);
+doc.on('click', '.arrow-container', function() {
+    scrollToArrow(scrollToArrowDelayFast);
 });

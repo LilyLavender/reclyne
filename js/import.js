@@ -1,18 +1,22 @@
+const importbox = $('#importdatabox');
+const importForm = $('#importForm');
+const importError = $('#importError');
 const importline2 = $('#importline2');
-const dataToImport = new Map();
+const importButtons = $('#importButtons');
+const importButtonSubmit = $('#importButtonSubmit');
+const importDataButton = $('#importDataButton');
 let keysLocal = [];
 let datasLocal = [];
-let allKeysLocal = [];
+let allKeysLocal = []; // todo deduce necessity of this
 
 var importDataTimer;
-const importDataButton = $('#importDataButton');
 
 // Normal import
 importDataButton.on('click', function(e) {
     if (importDataTimer) clearTimeout(importDataTimer);
     importDataTimer = setTimeout(function() { 
         loadReclyneData(false);
-    }, 200);  
+    }, dblclickDelay);  
 });
 
 // Quick import
@@ -25,7 +29,7 @@ $('#importclose').on('click', function() {
     hideImportBox();
 });
 
-$('#importButtonSubmit').on('click', function() {
+importButtonSubmit.on('click', function() {
     // Makes sure button is active
     if (!$(this).hasClass('inactive')) {
         // Only if data was saved, hide the import box
@@ -38,15 +42,15 @@ $('#importButtonCancel').on('click', function() {
 });
 
 $('#importButtonAll').on('click', function() {
-    [...dataToImport.keys()].forEach((key) => dataToImport.set(key, true));
+    [...dataToPort.keys()].forEach((key) => dataToPort.set(key, true));
     [importline2.children()].forEach((child) => child.children().removeClass('inactive'));
-    $('#importButtonSubmit').removeClass('inactive');
+    importButtonSubmit.removeClass('inactive');
 });
 
 $('#importButtonNone').on('click', function() {
-    [...dataToImport.keys()].forEach((key) => dataToImport.set(key, false));
+    [...dataToPort.keys()].forEach((key) => dataToPort.set(key, false));
     [importline2.children()].forEach((child) => child.children().addClass('inactive'));
-    $('#importButtonSubmit').addClass('inactive');
+    importButtonSubmit.addClass('inactive');
 });
 
 function showImportBox() {
@@ -65,8 +69,8 @@ function hideImportBox() {
     importbox.addClass('hiddenTrans');
     // Hide overlay
     overlay.addClass('hidden');
-    // Clear dataToImport map
-    dataToImport.clear();
+    // Clear dataToPort map
+    dataToPort.clear();
 }
 
 function populateImportBox() {
@@ -76,26 +80,26 @@ function populateImportBox() {
     // If no data, display error
     if (allKeys.length == 0) {
         // Hide form
-        $('#importForm').hide();
+        importForm.hide();
         // Show error p
-        $('#importError').show();
-        $('#importError').html('No data was found in file');
+        importError.show();
+        importError.html('No data was found in file');
         // End function
         return;
     } else {
         // Show form
-        $('#importForm').show();
+        importForm.show();
         // Hide error p
-        $('#importError').hide();
+        importError.hide();
     }
 
     // If only one item, remove all and none buttons
     if (allKeys.length == 1) {
         // Hide buttons
-        $('#importButtons').hide();
+        importButtons.hide();
     } else {
         // Show buttons
-        $('#importButtons').show();
+        importButtons.show();
     }
 
     // Sort allKeys array by month
@@ -111,7 +115,7 @@ function populateImportBox() {
         let eleParts = element.split('-');
         eleParts[0] = eleParts[0].charAt(0).toUpperCase() + eleParts[0].slice(1);
         importline2.append(`<div class="import-cont-${element}"><p class="import-p-${element}" data-key="${element}">${eleParts[0]} ${eleParts[1]}</p></div>`);
-        dataToImport.set(element, true);
+        dataToPort.set(element, true);
     });
     let numItems = importline2.children().length;
     let gridSize = Math.ceil(Math.sqrt(numItems));
@@ -123,19 +127,19 @@ importline2.on('click', 'div[class^="import-cont-"]', function(e) {
     // Set value of key on click
     let tar = $(e.target);
     let key = tar.data("key");
-    if (dataToImport.get(key)) {
+    if (dataToPort.get(key)) {
         tar.addClass('inactive');
-        dataToImport.set(key, false);
+        dataToPort.set(key, false);
     } else {
         tar.removeClass('inactive');
-        dataToImport.set(key, true);
+        dataToPort.set(key, true);
     }
     
     // Grey out submit button if every value is false
-    if (dataToImport.values().every((v) => v === false)) {
-        $('#importButtonSubmit').addClass('inactive');
+    if (dataToPort.values().every((v) => v === false)) {
+        importButtonSubmit.addClass('inactive');
     } else {
-        $('#importButtonSubmit').removeClass('inactive');
+        importButtonSubmit.removeClass('inactive');
     }
 });
 
@@ -213,7 +217,6 @@ function loadReclyneData2() {
     return true;
 }
 
-// todo optimize combine
 function loadReclyneDataQuick() {
     // Save data to localstorage
     for (let i = 0; i < keysLocal.length; i++) {
@@ -224,11 +227,11 @@ function loadReclyneDataQuick() {
     generateTable(false);
 }
 
-// Removes all keys from allStorage that aren't active in the dataToImport map
+// Removes all keys from allStorage that aren't active in the dataToPort map
 function restrictAllStorage2(keys, datas) {
     let ret = [];
     for (let i = 0; i < keys.length; i++) {
-        if (dataToImport.get(keys[i]) != false) {
+        if (dataToPort.get(keys[i]) != false) {
             ret.push(new Array(keys[i], datas[i]));
         }
     }

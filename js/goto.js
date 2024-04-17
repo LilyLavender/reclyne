@@ -1,3 +1,12 @@
+const gotobox = $('#gotobox');
+const gotosyntaxbox = $('#gotosyntaxbox');
+const gotoinput = $('#gotoinput');
+const gotopreview = $('#gotopreview');
+const gotopreviewhelper = $('#gotopreviewhelper');
+const dateFormatArrow = $('#dateFormatArrow');
+const dateFormatLeft = $('p:has(+ #dateFormatArrow)');
+const dateFormatRight = $('#dateFormatArrow + p');
+
 function showGotobox() {
     // Clear all other boxes
     hideAllBoxes();
@@ -42,7 +51,7 @@ $('#gotoform').on('submit', function(e) {
     // If date is valid
     if (!!gotoDate[0]) {
         // Scroll to date
-        scrollToDate(gotoDate, 400);
+        scrollToDate(gotoDate, scrollToDateDelay);
         // Hide gotobox
         hideGotobox();
     }
