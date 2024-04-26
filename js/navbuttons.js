@@ -6,14 +6,19 @@ const saveButton = $('#saveButton');
 const favicon16 = $("#favicon-16x16");
 const favicon32 = $("#favicon-32x32");
 
-$('#elapsedMonthsButton').on('click', function() {
-    updateButton('#elapsedMonthsButton', "unk", HIDE_ELAPSED, buttonData[HIDE_ELAPSED][1], buttonData[HIDE_ELAPSED][2], buttonData[HIDE_ELAPSED][3], buttonData[HIDE_ELAPSED][4]);
+// Update elapsedMonthsButton on click
+$(buttonData[HIDE_ELAPSED][0]).on('click', function() {
+    updateButton(buttonData[HIDE_ELAPSED][0], "unk", HIDE_ELAPSED, buttonData[HIDE_ELAPSED][1], buttonData[HIDE_ELAPSED][2], buttonData[HIDE_ELAPSED][3], buttonData[HIDE_ELAPSED][4]);
 });
 
-$('#autoscrollButton').on('click', function() {
-    updateButton('#autoscrollButton', "unk", AUTOSCROLL_TO_ARROW, buttonData[AUTOSCROLL_TO_ARROW][1], buttonData[AUTOSCROLL_TO_ARROW][2], buttonData[AUTOSCROLL_TO_ARROW][3], buttonData[AUTOSCROLL_TO_ARROW][4]);
+// Update autoscrollButton on click
+$(buttonData[AUTOSCROLL_TO_ARROW][0]).on('click', function() {
+    updateButton(buttonData[AUTOSCROLL_TO_ARROW][0], "unk", AUTOSCROLL_TO_ARROW, buttonData[AUTOSCROLL_TO_ARROW][1], buttonData[AUTOSCROLL_TO_ARROW][2], buttonData[AUTOSCROLL_TO_ARROW][3], buttonData[AUTOSCROLL_TO_ARROW][4]);
 });
 
+/**
+ * Update nav button styling based on preferences
+ */
 function addClassesToNavIcons() {
     let preferences = retrieveFromLocalStorage('reclyne-preferences');
     for (i = 0; i < preferences.length; i++) {
@@ -22,6 +27,16 @@ function addClassesToNavIcons() {
     }
 }
 
+/**
+ * Update nav button styling & localstorage
+ * @param {string} selector - CSS selector for the nav button as a string. A JS object is not used so that the selector can be manipulated
+ * @param {bool|string} setting - Whether to turn the button on or off
+ * @param {int} prefNum - The respective number of the preference
+ * @param {string} class1 - Off class for nav icon
+ * @param {string} class2 - On class for nav icon
+ * @param {string} onTitle - Tooltip text for when button is on
+ * @param {string} offTitle - Tooltip text for when button is off
+ */
 function updateButton(selector, setting, prefNum, class1, class2, onTitle, offTitle) {
     // Declare element vars
     var element = $(selector);
@@ -30,7 +45,7 @@ function updateButton(selector, setting, prefNum, class1, class2, onTitle, offTi
     // Update styling
     if (setting == "unk") {
         setting = false;
-    if (element.hasClass(class1)) setting = true
+        if (element.hasClass(class1)) setting = true;
     }
     if (setting) {
         element.addClass(class2);
@@ -48,11 +63,14 @@ function updateButton(selector, setting, prefNum, class1, class2, onTitle, offTi
     updateStorageForPreference(prefNum, setting);
 }
 
-// Update save button styles when typing
+// Update save button styles when typing. Uses event delegation on the document because table content is added during runtime
 doc.on('input', `table input[type='text']`, function() {
     updateSaveButtonUnsaved();
 })
 
+/**
+ * Update save button styling for when data is saved
+ */
 function updateSaveButtonSaved() {
     saveButton.removeClass("btn-active");
     favicon16.attr("href", "./favicon/favicon-16x16.png");
@@ -60,6 +78,9 @@ function updateSaveButtonSaved() {
     doc.prop('title', 'reclyne');
 }
 
+/**
+ * Update save button styling for when data is unsaved
+ */
 function updateSaveButtonUnsaved() {
     saveButton.addClass('btn-active');
     favicon16.attr("href", "./favicon/favicon-16x16-red.png");

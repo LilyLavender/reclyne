@@ -8,14 +8,31 @@ const defaultThemeColors = [
 ];
 const outputDate = $('#outputDate');
 
-// Document.ready
+// document.ready, runs when the page is loaded. Runs a lot of important code so reclyne functions properly
 doc.ready(function() {
     // Add a height attribute to the phantom nav
     $('.phantom-nav').height($('nav').outerHeight());
     // Add current date to nav datebox
     outputDate.html((new Date()).getFullYear());
-
     // Create preferences data if doesn't already exists
+    createPreferencesData();
+    // Get preferences data
+    let preferences = retrieveFromLocalStorage('reclyne-preferences');
+    // Add classes to month/day first selector
+    dateFormatAddClasses(preferences[MONTH_FIRST]);
+    // Add classes to nav icons
+    addClassesToNavIcons();
+    // Many important theme-related actions
+    initializeTheme(preferences[THEME_NUMBER]);
+    // Generate calendar
+    updateDate(0, preferences[AUTOSCROLL_TO_ARROW]);
+    // Todo: loading screen go here
+});
+
+/**
+ * Creates preference data in localstorage if it doesn't already exist
+ */
+function createPreferencesData() {
     if (retrieveFromLocalStorage('reclyne-preferences') == null) {
         console.log(`Preferences data doesn't exist! Creating...`);
         // Tried getting a map to work, but no dice. 
@@ -23,25 +40,14 @@ doc.ready(function() {
         updateLocalStorage('reclyne-preferences', [false, true, true, 0]);
         console.log(`Created preferences data!`);
     }
+}
 
-    // Get preferences data
-    let preferences = retrieveFromLocalStorage('reclyne-preferences');
-
-    // Add classes to month/day first selector
-    dateFormatAddClasses(preferences[MONTH_FIRST]);
-
-    // Add classes to nav icons
-    addClassesToNavIcons();
-
-    // Many important theme-related actions
-    initializeTheme(preferences[THEME_NUMBER]);
-
-    // Generate calendar
-    updateDate(0, preferences[AUTOSCROLL_TO_ARROW]);
-
-    // Todo: loading screen go here
-});
-
+/**
+ * Moves the calendar forward/back an amount of years and reloads it
+ * <br>Also runs generateTable()
+ * @param {*} num - Years to move the calendar forward. Can be negative, which moves the calendar backward
+ * @param {*} onRefresh - Whether or not the code is being ran on refresh. This is used when scrolling to the arrow automatically
+ */
 function updateDate(num, onRefresh) {
     getEditedYearData(currentYear);
     var currDate = parseInt(outputDate.html());
@@ -51,17 +57,22 @@ function updateDate(num, onRefresh) {
     generateTable(onRefresh);
 }
 
+// Moves the calendar forward one year when the nextyear button is clicked
 $('#nextDateBox').on('click', function() {
     updateDate(1, false);
-    hideGotobox();
+    hideAllBoxes();
 });
 
+// Moves the calendar back one year when the previousyear button is clicked
 $('#prevDateBox').on('click', function() {
     updateDate(-1, false);
-    hideGotobox();
+    hideAllBoxes();
 });
 
-// Set year to year passed in
+/**
+ * Sets calendar to a specific year. Runs updateDate()
+ * @param {*} yearToSetTo - Year to set the calendar to
+ */
 function setYearTo(yearToSetTo) {
     let yearCalendarIsOn = currentYear;
     if (yearCalendarIsOn != yearToSetTo) {
@@ -70,7 +81,10 @@ function setYearTo(yearToSetTo) {
     }
 }
 
-// Generate Table
+/**
+ * Generate calendar for the current year
+ * @param {*} scroll - Whether or not to scroll to the arrow
+ */
 function generateTable(scroll) {
     let tableOutput = "";
     const calEle = calendarDisplay;
@@ -125,6 +139,11 @@ function generateTable(scroll) {
     }
 }
 
+/**
+ * Saves all data from calendar to localstorage
+ * @param {string} currYear - The year to save the data for. Pretty sure it doesn't work if you put in a year other than the current one
+ * @todo Rename, remove argument necessity
+ */
 function getEditedYearData(currYear) {
     for (let h = 0; h < 12; h++) {
         let currMonthShort = monthsShort[h];

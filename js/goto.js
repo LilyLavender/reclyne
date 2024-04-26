@@ -7,6 +7,10 @@ const dateFormatArrow = $('#dateFormatArrow');
 const dateFormatLeft = $('p:has(+ #dateFormatArrow)');
 const dateFormatRight = $('#dateFormatArrow + p');
 
+/**
+ * Shows the export box. 
+ * <br>Also puts the cursor in gotoinput so the user can start typing right away
+ */
 function showGotobox() {
     // Clear all other boxes
     hideAllBoxes();
@@ -18,6 +22,10 @@ function showGotobox() {
     gotoinput.focus();
 }
 
+/**
+ * Hides the export box.
+ * <br>Also clears input & preview boxes, and hides syntax box as well
+ */
 function hideGotobox() {
     // Visually hide box
     gotobox.addClass('hiddenTrans');
@@ -36,14 +44,21 @@ function hideGotobox() {
     gotopreview.html("");
 }
 
+/**
+ * Hides goto syntax box
+ */
 function hideSyntaxBox() {
     gotosyntaxbox.addClass('hiddenTrans');
 }
 
+/**
+ * Shows goto syntax box
+ */
 function showSyntaxBox() {
     gotosyntaxbox.removeClass('hiddenTrans');
 }
 
+// Scrolls to the correct date when gotoform is submitted. Doesn't scroll if date isn't valid
 $('#gotoform').on('submit', function(e) {
     e.preventDefault();
     // Get date to scroll to
@@ -57,16 +72,22 @@ $('#gotoform').on('submit', function(e) {
     }
 });
 
+/**
+ * Update date preview when typing in gotoinput
+ */
 gotoinput.on('input', function() {
-    gotoHelper();
+    showDatePreview();
 });
 
+// Update date preview when switching the date locale
 $('#gotoline3').on('click', function() {
-    gotoHelper();
+    showDatePreview();
 });
 
-// todo name this function something more descriptive
-function gotoHelper() {
+/**
+ * Shows the preview of the date the user is going to in gotopreviewhelper & gotopreview
+ */
+function showDatePreview() {
     let gotoDate = getGotoDate();
     if (!gotoDate[0]) {
         // Date in preview box invalid
@@ -83,7 +104,12 @@ function gotoHelper() {
     }
 }
 
-// For stuff like feburary 30th, apr 31st
+/**
+ * Checks if a date exists
+ * @param {Date} date - The day/month combo to check. Year is ignored
+ * @param {string} year - The year to check
+ * @returns True for a valid date (eg 12/15/2024) and false for an invalid date (eg 02/29/2023, 06/31/2024)
+ */
 function dateIsExist(date, year) {
     let formattedDate = date.toLowerCase().replace(" 0", " ");
     let dateObj = new Date(`${year} ${date}`);
@@ -95,8 +121,13 @@ function dateIsExist(date, year) {
     return false;
 }
 
-// Format date in Fullname Xth, yyyy
-// Takes a date object and two bools
+/**
+ * Formats a date in Fullname Xth, yyyy
+ * @param {Date} date - Date object to format
+ * @param {bool} isMonth - Whether or not to include the month. If false, just returns the year as a string
+ * @param {bool} isDay - Whether or not to include the day. If false, returns a format such as "January 2024"
+ * @returns string of the date object in Fullname Xth, yyyy (eg August 3rd, 2022)
+ */
 function getPrettyDate(date, isMonth, isDay) {
     var daySuffixes = ["st", "nd", "rd", "th"];
     var day = date.getDate();
@@ -113,19 +144,22 @@ function getPrettyDate(date, isMonth, isDay) {
     return ret;
 }
 
-// Todo figure out if you can just check for the current pref instead of the class
+// Changes date locale to month first when clicked 
+// todo figure out if you can just check for the current pref instead of the class
 dateFormatRight.on('click', function() {
     if (!dateFormatArrow.hasClass('rotate90right')) {
         dateFormatAddClasses(true);
     }
 });
 
+// Changes date locale to day first when clicked
 dateFormatLeft.on('click', function() {
     if (!dateFormatArrow.hasClass('rotate90left')) {
         dateFormatAddClasses(false);
     }
 });
 
+// Toggles date locale when the arrow is clicked
 dateFormatArrow.on('click', function() {
     if (dateFormatArrow.hasClass('rotate90left')) {
         dateFormatAddClasses(true);
@@ -134,6 +168,11 @@ dateFormatArrow.on('click', function() {
     }
 });
 
+/**
+ * Controls CSS of the locale switcher
+ * <br>Also updates localstorage for the preference
+ * @param {bool} right - If the arrow should point right (false is left)
+ */
 function dateFormatAddClasses(right) {
     // Update classes
     if (right) {
@@ -150,10 +189,12 @@ function dateFormatAddClasses(right) {
     updateStorageForPreference(MONTH_FIRST, right);
 }
 
+// Hides goto box when close button is clicked
 $('#gotoclose').on('click', function() {
     hideGotobox();
 });
 
+// Hides syntax box when close button is clicked
 $('#syntaxclose').on('click', function() {
     hideSyntaxBox();
 });

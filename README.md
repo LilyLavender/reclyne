@@ -17,14 +17,15 @@ As *reclyne* is currently in alpha, it is not recommended to use at this very mo
 `git clone https://github.com/LilyLavender/reclyne`
 
 ## Optimization
-*reclyne* is currently optimized for PC usage. As of now, *reclyne* has only been tested on Chrome, but optimizaton for other browsers is planned for beta.
+- As of now, *reclyne* has only been tested on Chrome, but optimizaton for other browsers is planned for beta.
+- *reclyne* is currently optimized for PC usage. Mobile optimization is not currently planned.
 
 ## How Can I Help?
 #### Conceptual Help
 Report bugs, nitpicks, features you want, or whatever else to the issues page  
 When reporting bugs, please include your browser & operating system. It helps optimize for other browsers and devices
 #### Programming
-If you wish to help with programming *reclyne*, feel free to message my discord, @LilyLambda. Or just make a pr. Code is, for the most part, all commented.
+If you wish to help with programming *reclyne*, feel free to message my discord, @LilyLambda. Or just make a pr. Code is commented fairly well, and if you have JSDoc installed, you can run the JSDoc command for the js file you'd like documentation for.
 
 ## Credits
 All of the main code was written by [LilyLambda](https://github.com/LilyLavender). Much appreciated was some conceptual help from alpha tester [SyncGX](https://twitter.com/eguzerokkuman).

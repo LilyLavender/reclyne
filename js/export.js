@@ -11,7 +11,7 @@ const maxGridSize = 9;
 
 var exportDataTimer;
 
-// Normal export
+// Show export box when export nav button is clicked
 exportDataButton.on('click', function(e) {
     if (exportDataTimer) clearTimeout(exportDataTimer);
     exportDataTimer = setTimeout(function() { 
@@ -19,16 +19,18 @@ exportDataButton.on('click', function(e) {
     }, dblclickDelay);  
 });
 
-// Quick export
+// Immediately exports all data in reclyne when export nav button is double-clicked
 exportDataButton.on('dblclick', function(e) {
     clearTimeout(exportDataTimer);
     saveReclyneData();
 });
 
+// Hides export box when close button is clicked
 $('#exportclose').on('click', function() {
     hideExportBox();
 });
 
+// Exports select data in reclyne when the "export data" button in the export box is clicked
 exportButtonSubmit.on('click', function() {
     // Makes sure button is active
     if (!$(this).hasClass('inactive')) {
@@ -37,22 +39,29 @@ exportButtonSubmit.on('click', function() {
     }
 });
 
+// Hides export box when cancel button is clicked
 $('#exportButtonCancel').on('click', function() {
     hideExportBox();
 });
 
+// Selects everything to be exported when the "all" button in the export box is clicked
 $('#exportButtonAll').on('click', function() {
     [...dataToPort.keys()].forEach((key) => dataToPort.set(key, true));
     [exportline2.children()].forEach((child) => child.children().removeClass('inactive'));
     exportButtonSubmit.removeClass('inactive');
 });
 
+// Selects nothing to be exported when the "none" button in the export box is clicked
 $('#exportButtonNone').on('click', function() {
     [...dataToPort.keys()].forEach((key) => dataToPort.set(key, false));
     [exportline2.children()].forEach((child) => child.children().addClass('inactive'));
     exportButtonSubmit.addClass('inactive');
 });
 
+/**
+ * Shows the export box. 
+ * <br>Also populates it with data from the file gotten from the user
+ */
 function showExportBox() {
     // Clear all other boxes
     hideAllBoxes();
@@ -64,6 +73,9 @@ function showExportBox() {
     overlay.removeClass('hidden');
 }
 
+/**
+ * Hides the export box. 
+ */
 function hideExportBox() {
     // Visually hide box
     exportbox.addClass('hiddenTrans');
@@ -73,6 +85,9 @@ function hideExportBox() {
     dataToPort.clear();
 }
 
+/**
+ * Fills the export box with all "month-year" data found in localstorage
+ */
 function populateExportBox() {
     // Get names of all localStorage objects
     let keys = Object.keys(localStorage);
@@ -132,6 +147,7 @@ function populateExportBox() {
     exportline2.css('grid-template-columns', `repeat(${gridSize}, 1fr)`);
 }
 
+// Allows toggling of an exportbox item on and off when clicked. Uses event delegation on exportline2 because exportbox items are added during runtime
 exportline2.on('click', 'div[class^="export-cont-"]', function(e) {
     // Set value of key on click
     let tar = $(e.target);
@@ -152,6 +168,10 @@ exportline2.on('click', 'div[class^="export-cont-"]', function(e) {
     }
 });
 
+/**
+ * Creates reclyne-data file and downloads it
+ * @returns True if data was successfully saved, error message as a string otherwise
+ */
 function saveReclyneData() {
     // Get names of all localStorage objects
     let keys = Object.keys(localStorage);
@@ -192,25 +212,35 @@ function saveReclyneData() {
     }
     
     // Download File
-    downloadFile(allStorageStr);
+    downloadFile(allStorageStr, `reclyne-data-${getVerboseDateTime()}.txt`);
 
     return true;
 }
 
-function downloadFile(fileToDownload) {
-    let blob = new Blob([fileToDownload], { type: "text/plain" });
+/**
+ * Downloads a file with the given content and name
+ * @param {string} fileContent - The content within the file
+ * @param {string} fileName - The name of the file
+ */
+function downloadFile(fileContent, fileName) {
+    let blob = new Blob([fileContent], { type: "text/plain" });
     // Download reclyne data file
     let url = URL.createObjectURL(blob);
     let a = document.createElement("a");
     a.href = url;
-    a.download = `reclyne-data-${getVerboseDateTime()}.txt`;
+    a.download = fileName;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
 
-// Sorts allStorage array by year, then month
+/**
+ * Sorts allStorage array by year, then month
+ * <br>Sorts in chronological order, ie jan-2024 comes before apr-2024
+ * @param {string[]} allStorage - Array of key and data pairs from localstorage
+ * @returns allStorage, sorted
+ */
 function sortAllStorage(allStorage) {  
     allStorage.sort((a, b) => {
         // For reclyne-preferences file
@@ -229,7 +259,11 @@ function sortAllStorage(allStorage) {
     return allStorage;
 }
 
-// Removes all keys from allStorage that aren't active in the dataToPort map
+/**
+ * Removes all keys from allStorage that aren't active in the dataToPort map
+ * @param {string[]} allStorage - Array of key and data pairs from localstorage
+ * @returns allStorage, only with keys present in the dataToPort map
+ */
 function restrictAllStorage(allStorage) {
     let ret = [];
     allStorage.forEach(element => {
@@ -240,7 +274,13 @@ function restrictAllStorage(allStorage) {
     return ret;
 }
 
-// Sorts allKeys array by year, then month
+/**
+ * Sorts allKeys array by year, then month
+ * <br>Sorts in chronological order, ie jan-2024 comes before apr-2024
+ * @param {string[]} allKeys - Array of keys from localstorage
+ * @returns allkeys, sorted
+ * @todo This might not be needed, if we get rid of allStorage completely in favor of allKeys
+ */
 function sortAllKeys(allKeys) {  
     allKeys.sort((a, b) => {
         const [monthA, yearA] = a.split('-');
@@ -255,7 +295,11 @@ function sortAllKeys(allKeys) {
     return allKeys;
 }
 
-// Get current date & time in format yyyy-mm-dd-hh-mm-ss
+/**
+ * Get current date & time in format yyyy-mm-dd-hh-mm-ss
+ * @returns String in the format of yyyy-mm-dd-hh-mm-ss
+ * @todo is this best in the export.js file? It's only used in it but it's more of a main function
+ */
 function getVerboseDateTime() {
     let date = new Date();
     

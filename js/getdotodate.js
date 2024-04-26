@@ -1,5 +1,9 @@
-// Gets the text in the gotobox and rets an array of [date, bool, bool] 
-// (first arg is false if text doesn't match an allowed syntax)
+/**
+ * Gets the text inside of gotoinput and returns a date object (kind of..) if it's valid
+ * <br>The two bools are used in scrollToDate(). See that function for examples of their usage.
+ * @returns array of [date, bool, bool]. First arg is false if text doesn't match an allowed syntax. The bools are "scroll to month" and "scroll to day" respectively. If both are false, you're just going to a year.
+ * @todo make the return mechanism easier to understand
+ */
 function getGotoDate() {
     let input = gotoinput.val();
     //let monthFirst = dateFormatArrow.hasClass('rotate90right');

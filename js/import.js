@@ -11,7 +11,7 @@ let allKeysLocal = []; // todo deduce necessity of this
 
 var importDataTimer;
 
-// Normal import
+// Show import box when export nav button is clicked
 importDataButton.on('click', function(e) {
     if (importDataTimer) clearTimeout(importDataTimer);
     importDataTimer = setTimeout(function() { 
@@ -19,16 +19,18 @@ importDataButton.on('click', function(e) {
     }, dblclickDelay);  
 });
 
-// Quick import
+// Quick import when import nav button is double-clicked
 importDataButton.on('dblclick', function(e) {
     clearTimeout(importDataTimer);
     loadReclyneData(true);
 });
 
+// Hides import box when close button is clicked
 $('#importclose').on('click', function() {
     hideImportBox();
 });
 
+// Imports select data from reclyne data file when the "import data" button in the import box is clicked
 importButtonSubmit.on('click', function() {
     // Makes sure button is active
     if (!$(this).hasClass('inactive')) {
@@ -37,22 +39,29 @@ importButtonSubmit.on('click', function() {
     }
 });
 
+// Hides import box when cancel button is clicked
 $('#importButtonCancel').on('click', function() {
     hideImportBox();
 });
 
+// Selects everything to be imported when the "all" button in the import box is clicked
 $('#importButtonAll').on('click', function() {
     [...dataToPort.keys()].forEach((key) => dataToPort.set(key, true));
     [importline2.children()].forEach((child) => child.children().removeClass('inactive'));
     importButtonSubmit.removeClass('inactive');
 });
 
+// Selects nothing to be imported when the "none" button in the import box is clicked
 $('#importButtonNone').on('click', function() {
     [...dataToPort.keys()].forEach((key) => dataToPort.set(key, false));
     [importline2.children()].forEach((child) => child.children().addClass('inactive'));
     importButtonSubmit.addClass('inactive');
 });
 
+/**
+ * Shows the import box
+ * <br>Also populates the import box with data from the reclyne-data file
+ */
 function showImportBox() {
     // Clear all other boxes
     hideAllBoxes();
@@ -64,6 +73,9 @@ function showImportBox() {
     overlay.removeClass('hidden');
 }
 
+/**
+ * Hides the import box
+ */
 function hideImportBox() {
     // Visually hide box
     importbox.addClass('hiddenTrans');
@@ -73,6 +85,9 @@ function hideImportBox() {
     dataToPort.clear();
 }
 
+/**
+ * Populates the import box with all month-day keys from reclyne-data file
+ */
 function populateImportBox() {
     // Get all data from imported file
     let allKeys = allKeysLocal;
@@ -123,6 +138,7 @@ function populateImportBox() {
     importline2.css('grid-template-columns', `repeat(${gridSize}, 1fr)`);
 }
 
+// Allows toggling of an importbox item on and off when clicked. Uses event delegation on importline2 because importbox items are added during runtime
 importline2.on('click', 'div[class^="import-cont-"]', function(e) {
     // Set value of key on click
     let tar = $(e.target);
@@ -143,7 +159,10 @@ importline2.on('click', 'div[class^="import-cont-"]', function(e) {
     }
 });
 
-// Import data
+/**
+ * Pulls up the file upload option for the user to import their reclyne-data file
+ * @param {bool} quickImport - Quick import - whether or not to display the import box
+ */
 function loadReclyneData(quickImport) {
     // Upload reclyne-data file
     let d = document.createElement("input");
@@ -202,6 +221,12 @@ function loadReclyneData(quickImport) {
     d.click();
 }
 
+/**
+ * Saves all data from reclyne-data file to localstorage
+ * <br>Also restricts data based on only what the user wants to import
+ * @returns True if data was successfully saved
+ * @todo Rename
+ */
 function loadReclyneData2() {
     // Restrict data to store
     let restrictedData = restrictAllStorage2(keysLocal, datasLocal);
@@ -217,6 +242,11 @@ function loadReclyneData2() {
     return true;
 }
 
+/**
+ * Saves all data from reclyne-data file to localstorage
+ * <br>Doesn't restrict data
+ * @todo Combine
+ */
 function loadReclyneDataQuick() {
     // Save data to localstorage
     for (let i = 0; i < keysLocal.length; i++) {
@@ -227,7 +257,12 @@ function loadReclyneDataQuick() {
     generateTable(false);
 }
 
-// Removes all keys from allStorage that aren't active in the dataToPort map
+/**
+ * Removes all keys from allStorage that aren't active in the dataToPort map
+ * @param {string[]} keys - Array of keys from reclyne-data file
+ * @param {string[]} datas - Array of data from reclyne-data file
+ * @returns A single array of the keys and datas, and only the ones present in the dataToPort map
+ */
 function restrictAllStorage2(keys, datas) {
     let ret = [];
     for (let i = 0; i < keys.length; i++) {

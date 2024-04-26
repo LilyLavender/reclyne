@@ -4,7 +4,7 @@
     font-size: larger;
     z-index: 0;
     pointer-events: all;
-    background-color: var(--accent-25);
+    background-color: var(--accent-50);
     padding: 5px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -16,11 +16,11 @@
 }
 
 .arrow-container:hover {
-    filter: brightness(93%);
+    filter: brightness(104%);
 }
 
 .arrow-container:active {
-    filter: brightness(104%);
+    filter: brightness(93%);
 }
 
 .arrow-container::before {

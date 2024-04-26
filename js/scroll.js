@@ -2,8 +2,13 @@ const scrollToArrowDelayFast = 300;
 const scrollToArrowDelaySlow = 600;
 const scrollToDateDelay = 400;
 
-// Scroll to an element
+/**
+ * Scroll to a specific element
+ * @param {jQuery obejct} element - The element to scroll to
+ * @param {int} speed - The total duration in ms to scroll over
+ */
 function scrollTo(element, speed) {
+    console.log(typeof element);
     // If element isn't shown, show it
     if (element.is(":hidden")) {
         parement = element.parent();
@@ -26,7 +31,11 @@ function scrollTo(element, speed) {
     }, speed);
 }
 
-// Scroll to the arrow (calls scrollTo)
+/**
+ * Scroll to the arrow
+ * @param {int} speed - The total duration in ms to scroll over
+ * @fires scrollTo()
+ */
 function scrollToArrow(speed) {
     // Set year on calendar to current year
     let currentYearOnComputer = (new Date()).getFullYear();
@@ -35,7 +44,12 @@ function scrollToArrow(speed) {
     scrollTo($('.arrow-container'), speed);
 }
 
-// Scroll to a date (calls scrollTo)
+/**
+ * Scroll to a date on the calendar
+ * @param {array} dateArray - The [date, bool, bool] array returned by getGotoDate()
+ * @param {int} speed - The total duration in ms to scroll over
+ * @fires scrollTo()
+ */
 function scrollToDate(dateArray, speed) {
     // Change year
     let scrollToYear = dateArray[0].getFullYear();

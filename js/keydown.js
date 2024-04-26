@@ -1,4 +1,4 @@
-// Key presses
+// Controls keyboard shortcuts
 doc.on('keydown', function(e) {
     if (e.ctrlKey) {
         if (e.key === 's') {

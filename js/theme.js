@@ -1,6 +1,11 @@
 const root = $(':root');
 
-// WIP, depreciated, todo
+/**
+ * Old themeChanger from [a1.0.8]. Exists only to make finishing the themeChanger faster
+ * @param {*} colorType depreciated
+ * @deprecated
+ * @todo
+ */
 function themeChanger(colorType) {
     let c = document.createElement("input");
     c.setAttribute('type', 'color');
@@ -14,20 +19,31 @@ function themeChanger(colorType) {
     c.click();
 }
 
+/**
+ * Creates theme data, calculates middle colors for the current theme, and sets colors on the page
+ * @param {*} themeNumber - The current theme number from reclyne-preferences, not to be confused with reclyne-theme
+ */
 function initializeTheme(themeNumber) {
+    // Get theme data from localstorage
     let themePreferences = retrieveFromLocalStorage('reclyne-theme');
     if (themePreferences == null) {
         // Create theme data if doesn't exist
         updateLocalStorage('reclyne-theme', defaultThemeColors);
-        // Get theme data from localStorage, now that it exists
+        // Get theme data from localstorage, now that it exists
         themePreferences = retrieveFromLocalStorage('reclyne-theme');
     }
+    // If current theme doesn't have middle colors, create them
     if (themePreferences[themeNumber][4] == null) {
         calculateAndSetMiddleColors(themeNumber);
     }
+    // Set colors on the page
     setPageColors(themeNumber);
 }
 
+/**
+ * Calculates and sets colors in-bewteen light and accent colors
+ * @param {int} themeNumber - The current theme number from reclyne-preferences
+ */
 function calculateAndSetMiddleColors(themeNumber) {
     // Get color preferences
     let allColors = retrieveFromLocalStorage('reclyne-theme');
@@ -48,6 +64,10 @@ function calculateAndSetMiddleColors(themeNumber) {
     updateLocalStorage('reclyne-theme', allColors);
 }
 
+/**
+ * Sets all colors for the current theme to the :root selector
+ * @param {int} themeNumber - The current theme number from reclyne-preferences
+ */
 function setPageColors(themeNumber) {
     // Get color preferences
     let allColors = retrieveFromLocalStorage('reclyne-theme');
@@ -63,12 +83,16 @@ function setPageColors(themeNumber) {
     });
 }
 
-// debug
+/**
+ * DEBUG - Sets the theme number to the number passed in
+ */
 function setThemeNumber(num) {
     updateStorageForPreference(THEME_NUMBER, num);
 }
 
-// debug
+/**
+ * DEBUG - Removes reclyne-theme from localstorage
+ */
 function removeThemeData() {
     removeFromLocalStorage('reclyne-theme');
 }

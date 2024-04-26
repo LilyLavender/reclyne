@@ -1,4 +1,6 @@
-// For debug use only
+/**
+ * (DEBUG) Clears all data in localstorage containing "reclyne"
+ */
 function clearReclyneData() {
     let keys = Object.keys(localStorage);
     let i = keys.length;
