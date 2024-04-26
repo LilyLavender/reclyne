@@ -5,8 +5,7 @@
  * @todo make the return mechanism easier to understand
  */
 function getGotoDate() {
-    let input = gotoinput.val();
-    //let monthFirst = dateFormatArrow.hasClass('rotate90right');
+    let input = gotoInput.val();
     let monthFirst = retrieveFromLocalStorage('reclyne-preferences')[MONTH_FIRST];
     let foundDate;
 

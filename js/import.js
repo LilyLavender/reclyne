@@ -1,10 +1,10 @@
-const importbox = $('#importdatabox');
-const importForm = $('#importForm');
-const importError = $('#importError');
-const importline2 = $('#importline2');
-const importButtons = $('#importButtons');
-const importButtonSubmit = $('#importButtonSubmit');
-const importDataButton = $('#importDataButton');
+const importbox = $('#import-data-box');
+const importForm = $('#import-form');
+const importError = $('#import-error');
+const importline2 = $('#import-line-2');
+const importButtons = $('#import-buttons');
+const importButtonSubmit = $('#import-button-submit');
+const importDataButton = $('#import-data-button');
 let keysLocal = [];
 let datasLocal = [];
 let allKeysLocal = []; // todo deduce necessity of this
@@ -26,7 +26,7 @@ importDataButton.on('dblclick', function(e) {
 });
 
 // Hides import box when close button is clicked
-$('#importclose').on('click', function() {
+$('#import-close').on('click', function() {
     hideImportBox();
 });
 
@@ -40,19 +40,19 @@ importButtonSubmit.on('click', function() {
 });
 
 // Hides import box when cancel button is clicked
-$('#importButtonCancel').on('click', function() {
+$('#import-button-cancel').on('click', function() {
     hideImportBox();
 });
 
 // Selects everything to be imported when the "all" button in the import box is clicked
-$('#importButtonAll').on('click', function() {
+$('#import-button-all').on('click', function() {
     [...dataToPort.keys()].forEach((key) => dataToPort.set(key, true));
     [importline2.children()].forEach((child) => child.children().removeClass('inactive'));
     importButtonSubmit.removeClass('inactive');
 });
 
 // Selects nothing to be imported when the "none" button in the import box is clicked
-$('#importButtonNone').on('click', function() {
+$('#import-button-none').on('click', function() {
     [...dataToPort.keys()].forEach((key) => dataToPort.set(key, false));
     [importline2.children()].forEach((child) => child.children().addClass('inactive'));
     importButtonSubmit.addClass('inactive');
@@ -68,7 +68,7 @@ function showImportBox() {
     // Populate box with proper data
     populateImportBox();
     // Visually show box
-    importbox.removeClass('hiddenTrans');
+    importbox.removeClass('hidden-trans');
     // Show overlay
     overlay.removeClass('hidden');
 }
@@ -77,12 +77,14 @@ function showImportBox() {
  * Hides the import box
  */
 function hideImportBox() {
-    // Visually hide box
-    importbox.addClass('hiddenTrans');
-    // Hide overlay
-    overlay.addClass('hidden');
-    // Clear dataToPort map
-    dataToPort.clear();
+    if (!importbox.hasClass('hidden-trans')) {
+        // Visually hide box
+        importbox.addClass('hidden-trans');
+        // Hide overlay
+        overlay.addClass('hidden');
+        // Clear dataToPort map
+        dataToPort.clear();
+    }
 }
 
 /**

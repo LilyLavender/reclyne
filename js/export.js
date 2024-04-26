@@ -1,10 +1,10 @@
-const exportbox = $('#exportdatabox');
-const exportForm = $('#exportForm');
-const exportError = $('#exportError');
-const exportline2 = $('#exportline2');
-const exportButtons = $('#exportButtons');
-const exportButtonSubmit = $('#exportButtonSubmit');
-const exportDataButton = $('#exportDataButton');
+const exportbox = $('#export-data-box');
+const exportForm = $('#export-form');
+const exportError = $('#export-error');
+const exportline2 = $('#export-line-2');
+const exportButtons = $('#export-buttons');
+const exportButtonSubmit = $('#export-button-submit');
+const exportDataButton = $('#export-data-button');
 const dataToPort = new Map();
 const dblclickDelay = 200;
 const maxGridSize = 9;
@@ -26,7 +26,7 @@ exportDataButton.on('dblclick', function(e) {
 });
 
 // Hides export box when close button is clicked
-$('#exportclose').on('click', function() {
+$('#export-close').on('click', function() {
     hideExportBox();
 });
 
@@ -40,19 +40,19 @@ exportButtonSubmit.on('click', function() {
 });
 
 // Hides export box when cancel button is clicked
-$('#exportButtonCancel').on('click', function() {
+$('#export-button-cancel').on('click', function() {
     hideExportBox();
 });
 
 // Selects everything to be exported when the "all" button in the export box is clicked
-$('#exportButtonAll').on('click', function() {
+$('#export-button-all').on('click', function() {
     [...dataToPort.keys()].forEach((key) => dataToPort.set(key, true));
     [exportline2.children()].forEach((child) => child.children().removeClass('inactive'));
     exportButtonSubmit.removeClass('inactive');
 });
 
 // Selects nothing to be exported when the "none" button in the export box is clicked
-$('#exportButtonNone').on('click', function() {
+$('#export-button-none').on('click', function() {
     [...dataToPort.keys()].forEach((key) => dataToPort.set(key, false));
     [exportline2.children()].forEach((child) => child.children().addClass('inactive'));
     exportButtonSubmit.addClass('inactive');
@@ -68,7 +68,7 @@ function showExportBox() {
     // Populate box with proper data
     populateExportBox();
     // Visually show box
-    exportbox.removeClass('hiddenTrans');
+    exportbox.removeClass('hidden-trans');
     // Show overlay
     overlay.removeClass('hidden');
 }
@@ -77,12 +77,14 @@ function showExportBox() {
  * Hides the export box. 
  */
 function hideExportBox() {
-    // Visually hide box
-    exportbox.addClass('hiddenTrans');
-    // Hide overlay
-    overlay.addClass('hidden');
-    // Clear dataToPort map
-    dataToPort.clear();
+    if (!exportbox.hasClass('hidden-trans')) {
+        // Visually hide box
+        exportbox.addClass('hidden-trans');
+        // Hide overlay
+        overlay.addClass('hidden');
+        // Clear dataToPort map
+        dataToPort.clear();
+    }
 }
 
 /**

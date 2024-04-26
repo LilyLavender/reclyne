@@ -1,25 +1,25 @@
-const gotobox = $('#gotobox');
-const gotosyntaxbox = $('#gotosyntaxbox');
-const gotoinput = $('#gotoinput');
-const gotopreview = $('#gotopreview');
-const gotopreviewhelper = $('#gotopreviewhelper');
-const dateFormatArrow = $('#dateFormatArrow');
-const dateFormatLeft = $('p:has(+ #dateFormatArrow)');
-const dateFormatRight = $('#dateFormatArrow + p');
+const gotobox = $('#goto-box');
+const gotosyntaxbox = $('#goto-syntax-box');
+const gotoInput = $('#goto-input');
+const gotoPreview = $('#goto-preview');
+const gotoPreviewHelper = $('#goto-preview-helper');
+const dateFormatArrow = $('#date-format-arrow');
+const dateFormatLeft = $('p:has(+ #date-format-arrow)');
+const dateFormatRight = $('#date-format-arrow + p');
 
 /**
  * Shows the export box. 
- * <br>Also puts the cursor in gotoinput so the user can start typing right away
+ * <br>Also puts the cursor in gotoInput so the user can start typing right away
  */
 function showGotobox() {
     // Clear all other boxes
     hideAllBoxes();
     // Visually show box
-    gotobox.removeClass('hiddenTrans');
+    gotobox.removeClass('hidden-trans');
     // Show overlay
     overlay.removeClass('hidden');
     // Put cursor in text box
-    gotoinput.focus();
+    gotoInput.focus();
 }
 
 /**
@@ -27,39 +27,41 @@ function showGotobox() {
  * <br>Also clears input & preview boxes, and hides syntax box as well
  */
 function hideGotobox() {
-    // Visually hide box
-    gotobox.addClass('hiddenTrans');
-    // Hide syntax box
-    hideSyntaxBox();
-    // Hide overlay
-    overlay.addClass('hidden');
-    // Unfocus input box
-    gotoinput.blur();
-    // Clear input
-    gotoinput.val('');
-    // Clear preview box
-    gotopreviewhelper
-        .html("Preview will show up here")
-        .addClass('inactive');
-    gotopreview.html("");
+    if (!gotobox.hasClass('hidden-trans')) {
+        // Visually hide box
+        gotobox.addClass('hidden-trans');
+        // Hide syntax box
+        hideSyntaxBox();
+        // Hide overlay
+        overlay.addClass('hidden');
+        // Clear & unfocus gotoInput
+        gotoInput.val('').blur();
+        // Clear preview box
+        gotoPreviewHelper
+            .html("Preview will show up here")
+            .addClass('inactive');
+        gotoPreview.html("");
+    }
 }
 
 /**
  * Hides goto syntax box
  */
 function hideSyntaxBox() {
-    gotosyntaxbox.addClass('hiddenTrans');
+    if (!gotosyntaxbox.hasClass('hidden-trans')) {
+        gotosyntaxbox.addClass('hidden-trans');
+    }
 }
 
 /**
  * Shows goto syntax box
  */
 function showSyntaxBox() {
-    gotosyntaxbox.removeClass('hiddenTrans');
+    gotosyntaxbox.removeClass('hidden-trans');
 }
 
 // Scrolls to the correct date when gotoform is submitted. Doesn't scroll if date isn't valid
-$('#gotoform').on('submit', function(e) {
+$('#goto-form').on('submit', function(e) {
     e.preventDefault();
     // Get date to scroll to
     let gotoDate = getGotoDate();
@@ -75,32 +77,32 @@ $('#gotoform').on('submit', function(e) {
 /**
  * Update date preview when typing in gotoinput
  */
-gotoinput.on('input', function() {
+gotoInput.on('input', function() {
     showDatePreview();
 });
 
 // Update date preview when switching the date locale
-$('#gotoline3').on('click', function() {
+$('#goto-line-3').on('click', function() {
     showDatePreview();
 });
 
 /**
- * Shows the preview of the date the user is going to in gotopreviewhelper & gotopreview
+ * Shows the preview of the date the user is going to in gotoPreviewHelper & gotoPreview
  */
 function showDatePreview() {
     let gotoDate = getGotoDate();
     if (!gotoDate[0]) {
         // Date in preview box invalid
-        gotopreviewhelper
+        gotoPreviewHelper
             .html("Preview will show up here")
             .addClass('inactive');
-        gotopreview.html("");
+        gotoPreview.html("");
     } else {
         // Date in preview box valid
-        gotopreviewhelper
+        gotoPreviewHelper
             .html("Going to:")
             .removeClass('inactive');
-        gotopreview.html(getPrettyDate(gotoDate[0], gotoDate[1], gotoDate[2]));
+        gotoPreview.html(getPrettyDate(gotoDate[0], gotoDate[1], gotoDate[2]));
     }
 }
 
@@ -190,18 +192,18 @@ function dateFormatAddClasses(right) {
 }
 
 // Hides goto box when close button is clicked
-$('#gotoclose').on('click', function() {
+$('#goto-close').on('click', function() {
     hideGotobox();
 });
 
 // Hides syntax box when close button is clicked
-$('#syntaxclose').on('click', function() {
+$('#syntax-close').on('click', function() {
     hideSyntaxBox();
 });
 
 // Toggle syntax box via click on syntax label
-$('#syntaxContainer').on('click', function() {
-    if (gotosyntaxbox.hasClass('hiddenTrans')) {
+$('#syntax-container').on('click', function() {
+    if (gotosyntaxbox.hasClass('hidden-trans')) {
         showSyntaxBox();
     } else {
         hideSyntaxBox();

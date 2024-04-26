@@ -10,8 +10,8 @@ function updateStorageForPreference(prefNum, setting) {
 }
 
 // Save all data in the calendar to localstorage when save button is clicked. Also updates save button CSS
-$('#saveButton').on('click', function() {
-    if ($('#saveButton').hasClass('btn-active')) {
+saveButton.on('click', function() {
+    if (saveButton.hasClass('btn-active')) {
         getEditedYearData(currentYear);
         updateSaveButtonSaved();
         console.log("Saved!");

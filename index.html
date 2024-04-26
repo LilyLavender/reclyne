@@ -33,15 +33,15 @@
             <div class="middle-icons">
                 <div class="year-select">
                     <!-- somehow the only way i can get this to not have spacing in betweeen the elements is by putting it all on one line -->
-                    <button id="prevDateBox" class="tooltip">&lt;<div class="tooltiptext">Go back one year</div></button><p id="outputDate">Year</p><button id="nextDateBox" class="tooltip">&gt;<div class="tooltiptext">Go forward one year</div></button>
+                    <button id="prev-date-box" class="tooltip">&lt;<div class="tooltiptext">Go back one year</div></button><p id="output-date">Year</p><button id="next-date-box" class="tooltip">&gt;<div class="tooltiptext">Go forward one year</div></button>
                 </div>
-                <!-- Save button --> <i class="bi bi-floppy tooltip" id="saveButton"><div class="tooltiptext">Save</div></i>
-                <!-- Autoscroll to today --> <i class="bi bi-arrow-right-circle tooltip" id="autoscrollButton"><div class="tooltiptext">If you see this text, this is a bug.</div></i>
-                <!-- Hide elapsed months --> <i class="bi bi-calendar2-check tooltip" id="elapsedMonthsButton"><div class="tooltiptext">If you see this text, this is a bug.</div></i>
-                <!-- Clear month <i class="bi bi-x-diamond tooltip" id="clearMonthsButton"><div class="tooltiptext">Clear month<div class="tooltipextra">• Currently a WIP</div></div></i> -->
-                <!-- Set theme --> <i class="bi bi-palette tooltip" id="setThemeButton"><div class="tooltiptext">Customize theme<div class="tooltipextra">• Currently a WIP</div></div></i>
-                <!-- Import data --> <i class="bi bi-box-arrow-in-down tooltip" id="importDataButton"><div class="tooltiptext">Import data<div class="tooltipextra">• Double-click to quick import</div></div></i>
-                <!-- Export data --> <i class="bi bi-box-arrow-down tooltip" id="exportDataButton"><div class="tooltiptext">Export data<div class="tooltipextra">• Double-click to quick export</div></div></i>
+                <!-- Save button --> <i class="bi bi-floppy tooltip" id="save-button"><div class="tooltiptext">Save</div></i>
+                <!-- Autoscroll to today --> <i class="bi bi-arrow-right-circle tooltip" id="autoscroll-button"><div class="tooltiptext">If you see this text, this is a bug.</div></i>
+                <!-- Hide elapsed months --> <i class="bi bi-calendar2-check tooltip" id="elapsed-months-button"><div class="tooltiptext">If you see this text, this is a bug.</div></i>
+                <!-- Clear month <i class="bi bi-x-diamond tooltip" id="clear-months-button"><div class="tooltiptext">Clear month<div class="tooltipextra">• Currently a WIP</div></div></i> -->
+                <!-- Set theme --> <i class="bi bi-palette tooltip" id="set-theme-button"><div class="tooltiptext">Customize theme<div class="tooltipextra">• Currently a WIP</div></div></i>
+                <!-- Import data --> <i class="bi bi-box-arrow-in-down tooltip" id="import-data-button"><div class="tooltiptext">Import data<div class="tooltipextra">• Double-click to quick import</div></div></i>
+                <!-- Export data --> <i class="bi bi-box-arrow-down tooltip" id="export-data-button"><div class="tooltiptext">Export data<div class="tooltipextra">• Double-click to quick export</div></div></i>
             </div>
             <div class="right-icons">
                 <a class="logostyle">About</a> <!-- Doesn't do anything yet -->
@@ -54,53 +54,53 @@
         <!-- Calendar displays here -->
         <div class="calendar-display"></div>
         <!-- Goto box -->
-        <div id="gotobox" class="displayBox hiddenTrans">
-            <div id="gotonav" class="displayBoxHeader">
+        <div id="goto-box" class="display-box hidden-trans">
+            <div id="goto-nav" class="display-box-header">
                 <h3>Go To...</h3>
-                <i class="bi bi-x-lg" id="gotoclose"></i>
+                <i class="bi bi-x-lg" id="goto-close"></i>
             </div>
-            <div class="displayBoxContent">
-                <form id="gotoform">
-                    <div id="gotoline1">
-                        <div id="dateInputContainer">
-                            <label for="gotoinput">Date:</label>
-                            <input type="text" id="gotoinput" autocomplete="off" spellcheck="false">
+            <div class="display-box-content">
+                <form id="goto-form">
+                    <div id="goto-line-1">
+                        <div id="date-input-container">
+                            <label for="goto-input">Date:</label>
+                            <input type="text" id="goto-input" autocomplete="off" spellcheck="false">
                         </div>
-                        <div id="syntaxContainer" class="tooltip">
+                        <div id="syntax-container" class="tooltip">
                             <p>Syntax</p>
                             <div class="tooltiptext">View syntax</div>
                         </div>
                     </div>
-                    <div id="gotoline2">
-                        <p id="gotopreviewhelper" class="inactive">Preview will appear here</p>
-                        <p id="gotopreview"></p>
+                    <div id="goto-line-2">
+                        <p id="goto-preview-helper" class="inactive">Preview will appear here</p>
+                        <p id="goto-preview"></p>
                     </div>
-                    <div id="gotoline3">
-                        <p>Day first</p><i class="bi bi-arrow-up" id="dateFormatArrow"></i><p>Month first</p>
+                    <div id="goto-line-3">
+                        <p>Day first</p><i class="bi bi-arrow-up" id="date-format-arrow"></i><p>Month first</p>
                     </div>
                 </form>
             </div> 
         </div>
         <!-- Goto syntax box -->
-        <div id="gotosyntaxbox" class="displayBox hiddenTrans">
-            <div id="gotosyntaxheader" class="displayBoxHeader">
-                <h3 id="syntaxheader">Syntax</h3>
-                <i class="bi bi-x-lg" id="syntaxclose"></i>
+        <div id="goto-syntax-box" class="display-box hidden-trans">
+            <div id="goto-syntax-nav" class="display-box-header">
+                <h3 id="syntax-header">Syntax</h3>
+                <i class="bi bi-x-lg" id="syntax-close"></i>
             </div>
-            <div class="displayBoxContent">
-                <div class="syntaxSection">
+            <div class="display-box-content">
+                <div class="syntax-section">
                     <h4>Month</h4>
                     <p><code>jan</code>, <code>february</code>, <code>3</code></p>
                 </div>
-                <div class="syntaxSection">
+                <div class="syntax-section">
                     <h4>Month & Day</h4>
                     <p><code>jan23</code>, <code>jun 9</code>, <code>april 6</code>, <code>5 13</code></p>
                 </div>
-                <div class="syntaxSection">
+                <div class="syntax-section">
                     <h4>Year</h4>
                     <p><code>2024</code>, <code>10 1 2004</code></p>
                 </div>
-                <div class="syntaxSection">
+                <div class="syntax-section">
                     <h4>Extra</h4>
                     <p><code>JUNE</code>,
                     <code>04-08-2006</code>,
@@ -111,54 +111,54 @@
             </div> 
         </div>
         <!-- Export data box-->
-        <div id="exportdatabox" class="displayBox hiddenTrans">
-            <div id="exportNav" class="displayBoxHeader">
+        <div id="export-data-box" class="display-box hidden-trans">
+            <div id="export-nav" class="display-box-header">
                 <h3>Export data</h3>
-                <i class="bi bi-x-lg" id="exportclose"></i>
+                <i class="bi bi-x-lg" id="export-close"></i>
             </div>
-            <div class="displayBoxContent">
-                <form id="exportForm">
-                    <div id="exportline1">
-                        <h4 class="exportline1header">Export the following data:</h4>
-                        <div id="exportButtons">
-                            <input type="button" id="exportButtonAll" value="All"></input>
-                            <input type="button" id="exportButtonNone" value="None"></input>
+            <div class="display-box-content">
+                <form id="export-form">
+                    <div id="export-line-1">
+                        <h4 class="export-line-1-header">Export the following data:</h4>
+                        <div id="export-buttons">
+                            <input type="button" id="export-button-all" value="All"></input>
+                            <input type="button" id="export-button-none" value="None"></input>
                         </div>
                     </div>
-                    <div id="exportline2"></div>
-                    <div id="exportline3">
-                        <input type="button" id="exportButtonCancel" value="Cancel"></input>
-                        <input type="button" id="exportButtonSubmit" value="Export Data"></input>
+                    <div id="export-line-2"></div>
+                    <div id="export-line-3">
+                        <input type="button" id="export-button-cancel" value="Cancel"></input>
+                        <input type="button" id="export-button-submit" value="Export Data"></input>
                     </div>
                 </form>
-                <p id="exportError">If you see this text, this is a bug.</p>
+                <p id="export-error">If you see this text, this is a bug.</p>
             </div> 
         </div>
         <!-- Import data box-->
-        <div id="importdatabox" class="displayBox hiddenTrans">
-            <div id="importNav" class="displayBoxHeader">
+        <div id="import-data-box" class="display-box hidden-trans">
+            <div id="import-nav" class="display-box-header">
                 <h3>Import data</h3>
-                <i class="bi bi-x-lg" id="importclose"></i>
+                <i class="bi bi-x-lg" id="import-close"></i>
             </div>
-            <div class="displayBoxContent">
-                <form id="importForm">
-                    <div id="importline1">
-                        <h4 class="importline1header">Import the following data:</h4>
-                        <div id="importButtons">
-                            <input type="button" id="importButtonAll" value="All"></input>
-                            <input type="button" id="importButtonNone" value="None"></input>
+            <div class="display-box-content">
+                <form id="import-form">
+                    <div id="import-line-1">
+                        <h4 class="import-line-1-header">Import the following data:</h4>
+                        <div id="import-buttons">
+                            <input type="button" id="import-button-all" value="All"></input>
+                            <input type="button" id="import-button-none" value="None"></input>
                         </div>
                     </div>
-                    <div id="importline2"></div>
-                    <div id="importline3">
+                    <div id="import-line-2"></div>
+                    <div id="import-line-3">
                         <!-- todo switch for replace/add -->
                     </div>
-                    <div id="importline4">
-                        <input type="button" id="importButtonCancel" value="Cancel"></input>
-                        <input type="button" id="importButtonSubmit" value="Import Data"></input>
+                    <div id="import-line-4">
+                        <input type="button" id="import-button-cancel" value="Cancel"></input>
+                        <input type="button" id="import-button-submit" value="Import Data"></input>
                     </div>
                 </form>
-                <p id="importError">If you see this text, this is a bug.</p>
+                <p id="import-error">If you see this text, this is a bug.</p>
             </div> 
         </div>
         <footer></footer>

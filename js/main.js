@@ -6,7 +6,7 @@ const defaultThemeColors = [
     ["Summer Reclyne", "#1d130b", "#f3e696", "#ded95a"], 
     ["Fall Reclyne", "#1d0f0b", "#f9cfb6", "#fa724c"]
 ];
-const outputDate = $('#outputDate');
+const outputDate = $('#output-date');
 
 // document.ready, runs when the page is loaded. Runs a lot of important code so reclyne functions properly
 doc.ready(function() {
@@ -58,13 +58,13 @@ function updateDate(num, onRefresh) {
 }
 
 // Moves the calendar forward one year when the nextyear button is clicked
-$('#nextDateBox').on('click', function() {
+$('#next-date-box').on('click', function() {
     updateDate(1, false);
     hideAllBoxes();
 });
 
 // Moves the calendar back one year when the previousyear button is clicked
-$('#prevDateBox').on('click', function() {
+$('#prev-date-box').on('click', function() {
     updateDate(-1, false);
     hideAllBoxes();
 });

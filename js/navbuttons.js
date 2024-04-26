@@ -1,17 +1,17 @@
 const buttonData = [
-    ['#elapsedMonthsButton', 'bi-calendar2-check', 'bi-calendar2-check-fill', 'Show elapsed months', 'Hide elapsed months'], // hide-elapsed
-    ['#autoscrollButton', 'bi-arrow-right-circle', 'bi-arrow-right-circle-fill', 'Do not automatically scroll to today', 'Automatically scroll to today'] // autoscroll-to-arrow
+    ['#elapsed-months-button', 'bi-calendar2-check', 'bi-calendar2-check-fill', 'Show elapsed months', 'Hide elapsed months'], // hide-elapsed
+    ['#autoscroll-button', 'bi-arrow-right-circle', 'bi-arrow-right-circle-fill', 'Do not automatically scroll to today', 'Automatically scroll to today'] // autoscroll-to-arrow
 ];
-const saveButton = $('#saveButton');
+const saveButton = $('#save-button');
 const favicon16 = $("#favicon-16x16");
 const favicon32 = $("#favicon-32x32");
 
-// Update elapsedMonthsButton on click
+// Update elapsed-months-button on click
 $(buttonData[HIDE_ELAPSED][0]).on('click', function() {
     updateButton(buttonData[HIDE_ELAPSED][0], "unk", HIDE_ELAPSED, buttonData[HIDE_ELAPSED][1], buttonData[HIDE_ELAPSED][2], buttonData[HIDE_ELAPSED][3], buttonData[HIDE_ELAPSED][4]);
 });
 
-// Update autoscrollButton on click
+// Update autoscroll-button on click
 $(buttonData[AUTOSCROLL_TO_ARROW][0]).on('click', function() {
     updateButton(buttonData[AUTOSCROLL_TO_ARROW][0], "unk", AUTOSCROLL_TO_ARROW, buttonData[AUTOSCROLL_TO_ARROW][1], buttonData[AUTOSCROLL_TO_ARROW][2], buttonData[AUTOSCROLL_TO_ARROW][3], buttonData[AUTOSCROLL_TO_ARROW][4]);
 });

@@ -65,7 +65,7 @@ footer {
 
 
 
-#outputDate {
+#output-date {
     all: unset;
     padding: 10px;
     background-color: var(--accent);
@@ -78,7 +78,7 @@ footer {
     user-select: none;
 }
 
-#outputDate + button, button:has(+ #outputDate) {
+#output-date + button, button:has(+ #output-date) {
     background-color: var(--accent);
     display: inline-block;
     color: white;
@@ -90,12 +90,12 @@ footer {
     border: none;
 }
 
-button:has(+ #outputDate) {
+button:has(+ #output-date) {
     border-radius: 8px 0 0 8px;
     padding-left: 12px;
 }
 
-#outputDate + button {
+#output-date + button {
     border-radius: 0 8px 8px 0;
     padding-right: 12px;
 }

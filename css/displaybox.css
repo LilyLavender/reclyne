@@ -1,4 +1,4 @@
-.displayBox {
+.display-box {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -20,23 +20,23 @@
     -webkit-transition: all 150ms ease-in-out;
 }
 
-.displayBoxContent {
+.display-box-content {
     background-color: var(--light);
     padding: 16px;
 }
 
-.displayBoxHeader {
+.display-box-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.displayBoxHeader > * {
+.display-box-header > * {
     padding: 5px;
     height: 100%;
 }
 
-.displayBox h4 {
+.display-box h4 {
     font-weight: 500;
 }
 
@@ -54,7 +54,7 @@ i[id$="close"]:hover {
     filter: brightness(10);
 }
 
-.displayBox h3 {
+.display-box h3 {
     font-weight: 500;
     font-size: medium;
     font-style: italic;
@@ -72,7 +72,7 @@ i[id$="close"]:hover {
     z-index: 0;
 }
 
-.displayBox input[type="button"] {
+.display-box input[type="button"] {
     padding: 6px;
     margin: 6px;
     background-color: var(--accent);

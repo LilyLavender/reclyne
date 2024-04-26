@@ -15,7 +15,7 @@
 }
 
 /* Allows for fading in & out */
-.hiddenTrans {
+.hidden-trans {
     opacity: 0;
     pointer-events: none;
 }

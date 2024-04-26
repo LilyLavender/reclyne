@@ -1,16 +1,16 @@
-#gotoline1 {
+#goto-line-1 {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-#gotoline1 p {
+#goto-line-1 p {
     text-transform: lowercase;
     font-style: italic;
     font-size: small;
 }
 
-#gotoinput {
+#goto-input {
     border-bottom: 2px solid var(--accent-75);
     background-color: var(--light);
     text-align: left;
@@ -24,35 +24,35 @@
     -webkit-transition: all 150ms ease-in-out;
 }
 
-#gotoinput:focus {
+#goto-input:focus {
     background-color: var(--accent-50);
     border-bottom-color: var(--accent);
 }
 
-#syntaxContainer {
+#syntax-container {
     margin-right: 8%;
     user-select: none;
     cursor: pointer;
 }
 
-#gotoline2 {
+#goto-line-2 {
     margin-bottom: 10px;
     display: flex;
     justify-content: left;
     gap: 5px;
 }
 
-#gotoline3 {
+#goto-line-3 {
     display: flex;
     user-select: none;
     cursor: pointer;
 }
 
-#gotopreview {
+#goto-preview {
     font-weight: bold;
 }
 
-#dateFormatArrow {
+#date-format-arrow {
     padding: 0 10px;
 
     transition: all 150ms ease-in-out;
@@ -61,35 +61,35 @@
     -webkit-transition: all 150ms ease-in-out;
 }
 
-p:has(+ #dateFormatArrow), #dateFormatArrow + p {
+p:has(+ #date-format-arrow), #date-format-arrow + p {
     transition: all 150ms ease-in-out;
     -o-transition: all 150ms ease-in-out;
     -moz-transition: all 150ms ease-in-out;
     -webkit-transition: all 150ms ease-in-out;
 }
 
-#gotosyntaxbox {
+#goto-syntax-box {
     left: 80%;
 }
 
-#gotosyntaxbox p {
+#goto-syntax-box p {
     margin-left: 10px;
 }
 
-.syntaxSection {
+.syntax-section {
     margin: 0 5px 15px 5px;
 }
 
-.syntaxSection:last-child {
+.syntax-section:last-child {
     margin-bottom: 0;
 }
 
-#gotosyntaxbox h3, #gotosyntaxbox h4, #gotosyntaxbox p {
+#goto-syntax-box h3, #goto-syntax-box h4, #goto-syntax-box p {
     user-select: none;
     cursor: default;
 }
 
-#gotosyntaxbox code {
+#goto-syntax-box code {
     user-select: text;
     cursor: text;
 }

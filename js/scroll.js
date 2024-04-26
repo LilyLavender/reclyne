@@ -6,15 +6,17 @@ const scrollToDateDelay = 400;
  * Scroll to a specific element
  * @param {jQuery obejct} element - The element to scroll to
  * @param {int} speed - The total duration in ms to scroll over
+ * @fires click on headers
  */
 function scrollTo(element, speed) {
-    console.log(typeof element);
     // If element isn't shown, show it
-    if (element.is(":hidden")) {
+    if (element.is(`[class*='-header']`) && !element.hasClass('open')) {
+        element.click();
+    } else if (element.is(":hidden")) {
         parement = element.parent();
         while (true) {
             parement = parement.parent();
-            if (parement.is('[class *= -table]')) {
+            if (parement.is(`[class*='-table']`)) {
                 parement.prev().click();
                 break;
             }
