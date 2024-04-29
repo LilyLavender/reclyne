@@ -2,11 +2,10 @@ const root = $(':root');
 
 /**
  * Old themeChanger from [a1.0.8]. Exists only to make finishing the themeChanger faster
- * @param {*} colorType depreciated
  * @deprecated
  * @todo
  */
-function themeChanger(colorType) {
+function themeChanger() {
     let c = document.createElement("input");
     c.setAttribute('type', 'color');
     c.setAttribute('id', 'colorinput');
@@ -28,7 +27,9 @@ function initializeTheme(themeNumber) {
     let themePreferences = retrieveFromLocalStorage('reclyne-theme');
     if (themePreferences == null) {
         // Create theme data if doesn't exist
+        console.log(`Theme data doesn't exist! Creating...`);
         updateLocalStorage('reclyne-theme', defaultThemeColors);
+        console.log(`Created theme data!`);
         // Get theme data from localstorage, now that it exists
         themePreferences = retrieveFromLocalStorage('reclyne-theme');
     }

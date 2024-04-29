@@ -12,10 +12,10 @@ doc.on('keydown', function(e) {
             }
         } else if (e.key === 'g') {
             e.preventDefault();
-            if (gotobox.hasClass('hidden-trans')) {
-                showGotobox();
+            if (!displayboxes[GOTO_BOX].isShown) {
+                displayboxes[GOTO_BOX].show();
             } else {
-                hideGotobox();
+                displayboxes[GOTO_BOX].hide();
             }
         }
     } else if (e.key === "Escape") {

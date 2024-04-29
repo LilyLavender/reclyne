@@ -5,7 +5,7 @@
  * @todo make the return mechanism easier to understand
  */
 function getGotoDate() {
-    let input = gotoInput.val();
+    let input = displayboxes[GOTO_BOX].input.val();
     let monthFirst = retrieveFromLocalStorage('reclyne-preferences')[MONTH_FIRST];
     let foundDate;
 

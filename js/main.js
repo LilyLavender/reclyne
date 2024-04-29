@@ -7,6 +7,7 @@ const defaultThemeColors = [
     ["Fall Reclyne", "#1d0f0b", "#f9cfb6", "#fa724c"]
 ];
 const outputDate = $('#output-date');
+var displayboxes = [];
 
 // document.ready, runs when the page is loaded. Runs a lot of important code so reclyne functions properly
 doc.ready(function() {
@@ -18,8 +19,10 @@ doc.ready(function() {
     createPreferencesData();
     // Get preferences data
     let preferences = retrieveFromLocalStorage('reclyne-preferences');
+    // Create display boxes
+    createDisplayBoxes();
     // Add classes to month/day first selector
-    dateFormatAddClasses(preferences[MONTH_FIRST]);
+    displayboxes[GOTO_BOX].dateFormatAddClasses(preferences[MONTH_FIRST]);
     // Add classes to nav icons
     addClassesToNavIcons();
     // Many important theme-related actions
@@ -36,7 +39,7 @@ function createPreferencesData() {
     if (retrieveFromLocalStorage('reclyne-preferences') == null) {
         console.log(`Preferences data doesn't exist! Creating...`);
         // Tried getting a map to work, but no dice. 
-        // reclye-preferences array is [hide-elapsed, autoscroll-to-arrow, month-first, theme-number]
+        // reclyne-preferences array is [hide-elapsed, autoscroll-to-arrow, month-first, theme-number]
         updateLocalStorage('reclyne-preferences', [false, true, true, 0]);
         console.log(`Created preferences data!`);
     }

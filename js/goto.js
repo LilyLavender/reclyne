@@ -1,111 +1,3 @@
-const gotobox = $('#goto-box');
-const gotosyntaxbox = $('#goto-syntax-box');
-const gotoInput = $('#goto-input');
-const gotoPreview = $('#goto-preview');
-const gotoPreviewHelper = $('#goto-preview-helper');
-const dateFormatArrow = $('#date-format-arrow');
-const dateFormatLeft = $('p:has(+ #date-format-arrow)');
-const dateFormatRight = $('#date-format-arrow + p');
-
-/**
- * Shows the export box. 
- * <br>Also puts the cursor in gotoInput so the user can start typing right away
- */
-function showGotobox() {
-    // Clear all other boxes
-    hideAllBoxes();
-    // Visually show box
-    gotobox.removeClass('hidden-trans');
-    // Show overlay
-    overlay.removeClass('hidden');
-    // Put cursor in text box
-    gotoInput.focus();
-}
-
-/**
- * Hides the export box.
- * <br>Also clears input & preview boxes, and hides syntax box as well
- */
-function hideGotobox() {
-    if (!gotobox.hasClass('hidden-trans')) {
-        // Visually hide box
-        gotobox.addClass('hidden-trans');
-        // Hide syntax box
-        hideSyntaxBox();
-        // Hide overlay
-        overlay.addClass('hidden');
-        // Clear & unfocus gotoInput
-        gotoInput.val('').blur();
-        // Clear preview box
-        gotoPreviewHelper
-            .html("Preview will show up here")
-            .addClass('inactive');
-        gotoPreview.html("");
-    }
-}
-
-/**
- * Hides goto syntax box
- */
-function hideSyntaxBox() {
-    if (!gotosyntaxbox.hasClass('hidden-trans')) {
-        gotosyntaxbox.addClass('hidden-trans');
-    }
-}
-
-/**
- * Shows goto syntax box
- */
-function showSyntaxBox() {
-    gotosyntaxbox.removeClass('hidden-trans');
-}
-
-// Scrolls to the correct date when gotoform is submitted. Doesn't scroll if date isn't valid
-$('#goto-form').on('submit', function(e) {
-    e.preventDefault();
-    // Get date to scroll to
-    let gotoDate = getGotoDate();
-    // If date is valid
-    if (!!gotoDate[0]) {
-        // Scroll to date
-        scrollToDate(gotoDate, scrollToDateDelay);
-        // Hide gotobox
-        hideGotobox();
-    }
-});
-
-/**
- * Update date preview when typing in gotoinput
- */
-gotoInput.on('input', function() {
-    showDatePreview();
-});
-
-// Update date preview when switching the date locale
-$('#goto-line-3').on('click', function() {
-    showDatePreview();
-});
-
-/**
- * Shows the preview of the date the user is going to in gotoPreviewHelper & gotoPreview
- */
-function showDatePreview() {
-    let gotoDate = getGotoDate();
-    if (!gotoDate[0]) {
-        // Date in preview box invalid
-        gotoPreviewHelper
-            .html("Preview will show up here")
-            .addClass('inactive');
-        gotoPreview.html("");
-    } else {
-        // Date in preview box valid
-        gotoPreviewHelper
-            .html("Going to:")
-            .removeClass('inactive');
-        gotoPreview.html(getPrettyDate(gotoDate[0], gotoDate[1], gotoDate[2]));
-    }
-}
-
 /**
  * Checks if a date exists
  * @param {Date} date - The day/month combo to check. Year is ignored
@@ -146,66 +38,148 @@ function getPrettyDate(date, isMonth, isDay) {
     return ret;
 }
 
-// Changes date locale to month first when clicked 
-// todo figure out if you can just check for the current pref instead of the class
-dateFormatRight.on('click', function() {
-    if (!dateFormatArrow.hasClass('rotate90right')) {
-        dateFormatAddClasses(true);
-    }
-});
-
-// Changes date locale to day first when clicked
-dateFormatLeft.on('click', function() {
-    if (!dateFormatArrow.hasClass('rotate90left')) {
-        dateFormatAddClasses(false);
-    }
-});
-
-// Toggles date locale when the arrow is clicked
-dateFormatArrow.on('click', function() {
-    if (dateFormatArrow.hasClass('rotate90left')) {
-        dateFormatAddClasses(true);
-    } else {
-        dateFormatAddClasses(false);
-    }
-});
-
-/**
- * Controls CSS of the locale switcher
- * <br>Also updates localstorage for the preference
- * @param {bool} right - If the arrow should point right (false is left)
- */
-function dateFormatAddClasses(right) {
-    // Update classes
-    if (right) {
-        dateFormatArrow.addClass('rotate90right').removeClass('rotate90left');
-        dateFormatLeft.addClass('inactive');
-        dateFormatRight.removeClass('inactive');
-    } else {
-        dateFormatArrow.addClass('rotate90left').removeClass('rotate90right');
-        dateFormatRight.addClass('inactive');
-        dateFormatLeft.removeClass('inactive');
+class GotoBox extends DisplayBox {
+    /**
+     * The gotobox. Handles going to dates
+     */
+    constructor() {
+        super('goto-box', 'goto');
+        // Properties 
+        this.input = $('#goto-input');
+        this.preview = $('#goto-preview');
+        this.previewHelper = $('#goto-preview-helper');
+        this.dateFormatArrow = $('#date-format-arrow');
+        this.dateFormatLeft = $('p:has(+ #date-format-arrow)');
+        this.dateFormatRight = $('#date-format-arrow + p');
+        
+        // Event listeners
+        this.input.on('input', () => this.showDatePreview()); // Show preview of date when typing
+        // Update locale switcher when elements are clicked
+        this.dateFormatRight.on('click', () => this.dateFormatAddClasses(true));
+        this.dateFormatLeft.on('click', () => this.dateFormatAddClasses(false));
+        this.dateFormatArrow.on('click', () => this.toggleDateFormat());
+        // Goto date when pressing enter in gotoinput
+        $('#goto-form').on('submit', (e) => {
+            e.preventDefault();
+            // Get date to scroll to
+            let gotoDate = getGotoDate();
+            // If date is valid
+            if (!!gotoDate[0]) {
+                // Scroll to date
+                scrollToDate(gotoDate, scrollToDateDelay);
+                // Hide all boxes
+                hideAllBoxes();
+            }
+        });
+        $('#goto-line-3').on('click', () => { this.showDatePreview(); }); // Show preview of date when locale switcher elements are clicked
     }
     
-    // Update storage
-    updateStorageForPreference(MONTH_FIRST, right);
+    // Methods
+    show() {
+        super.show();
+        // Put cursor in text box
+        this.input.focus();
+    }
+
+    hide() {
+        super.hide();
+        // Hide syntax box
+        displayboxes[GOTO_SYNTAX_BOX].hide();
+        // Clear & unfocus gotoInput
+        this.input.val('').blur();
+        // Clear preview box & helper
+        this.previewHelper.html("Preview will show up here").addClass('inactive');
+        this.preview.html("");
+    }
+
+    /**
+     * Shows the preview of the date the user is going to in gotoPreviewHelper & gotoPreview
+     */
+    showDatePreview() {
+        let gotoDate = getGotoDate();
+        if (!gotoDate[0]) {
+            // Date in preview box invalid
+            this.previewHelper.html("Preview will show up here").addClass('inactive');
+            this.preview.html("");
+        } else {
+            // Date in preview box valid
+            this.previewHelper.html("Going to:").removeClass('inactive');
+            this.preview.html(getPrettyDate(gotoDate[0], gotoDate[1], gotoDate[2]));
+        }
+    }
+
+    /**
+     * Controls CSS of the locale switcher
+     * <br>Also updates localstorage for the preference
+     * @param {bool} right - If the arrow should point right (false is left)
+     */
+    dateFormatAddClasses(right) {
+        // Update classes
+        if (right) {
+            if (!this.dateFormatArrow.hasClass('rotate90right')) {
+                this.dateFormatArrow.addClass('rotate90right').removeClass('rotate90left');
+                this.dateFormatLeft.addClass('inactive');
+                this.dateFormatRight.removeClass('inactive');
+            }
+        } else {
+            if (!this.dateFormatArrow.hasClass('rotate90left')) {
+                this.dateFormatArrow.addClass('rotate90left').removeClass('rotate90right');
+                this.dateFormatRight.addClass('inactive');
+                this.dateFormatLeft.removeClass('inactive');
+            }
+        }
+        
+        // Update storage
+        updateStorageForPreference(MONTH_FIRST, right);
+    }
+
+    /**
+     * Toggles CSS of locale switcher via dateFormatAddClasses()
+     */
+    toggleDateFormat() {
+        if (this.dateFormatArrow.hasClass('rotate90left')) {
+            this.dateFormatAddClasses(true);
+        } else {
+            this.dateFormatAddClasses(false);
+        }
+    }
+
 }
 
-// Hides goto box when close button is clicked
-$('#goto-close').on('click', function() {
-    hideGotobox();
-});
+class SyntaxBox extends DisplayBox {
+    /**
+     * SyntaxBox that displays many different syntaxes for the gotobox
+     * @class
+     */
+    constructor() {
+        super('goto-syntax-box', 'goto-syntax');
 
-// Hides syntax box when close button is clicked
-$('#syntax-close').on('click', function() {
-    hideSyntaxBox();
-});
-
-// Toggle syntax box via click on syntax label
-$('#syntax-container').on('click', function() {
-    if (gotosyntaxbox.hasClass('hidden-trans')) {
-        showSyntaxBox();
-    } else {
-        hideSyntaxBox();
+        // Event listeners
+        $('#syntax-container').on('click', () => {
+            if (!this.isShown) {
+                this.show();
+            } else {
+                this.hide();
+            }
+        });
     }
-});
+    
+    // Methods
+    show() {
+        if (!this.isShown) {
+            // Visually show box
+            this.element.removeClass('hidden-trans');
+            // Update shown prop
+            this.setShown = true;
+        }
+    }
+
+    hide() {
+        if (this.isShown) {
+            // Visually hide box
+            this.element.addClass('hidden-trans');
+            // Update shown prop
+            this.setShown = false;
+        }
+    }
+}
