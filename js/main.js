@@ -11,25 +11,26 @@ var displayboxes = [];
 
 // document.ready, runs when the page is loaded. Runs a lot of important code so reclyne functions properly
 doc.ready(function() {
-    // Add a height attribute to the phantom nav
-    $('.phantom-nav').height($('nav').outerHeight());
-    // Add current date to nav datebox
-    outputDate.html((new Date()).getFullYear());
     // Create preferences data if doesn't already exists
     createPreferencesData();
     // Get preferences data
     let preferences = retrieveFromLocalStorage('reclyne-preferences');
+    // Many important theme-related actions
+    initializeTheme(preferences[THEME_NUMBER]);
     // Create display boxes
     createDisplayBoxes();
+    // Add a height attribute to the phantom nav
+    $('.phantom-nav').height($('nav').outerHeight());
+    // Add current date to nav datebox
+    outputDate.html((new Date()).getFullYear());
     // Add classes to month/day first selector
     displayboxes[GOTO_BOX].dateFormatAddClasses(preferences[MONTH_FIRST]);
     // Add classes to nav icons
     addClassesToNavIcons();
-    // Many important theme-related actions
-    initializeTheme(preferences[THEME_NUMBER]);
     // Generate calendar
     updateDate(0, preferences[AUTOSCROLL_TO_ARROW]);
-    // Todo: loading screen go here
+    // Hide loading screen
+    hideLoadingScreen();
 });
 
 /**
@@ -137,7 +138,7 @@ function generateTable(scroll) {
     if (currentYear == new Date().getFullYear()) {
         addArrow();
         if (scroll) {
-            scrollToArrow(scrollToArrowDelaySlow);
+            scrollToArrow(0);
         }
     }
 }

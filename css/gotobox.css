@@ -90,6 +90,6 @@ p:has(+ #date-format-arrow), #date-format-arrow + p {
 }
 
 #goto-syntax-box code {
-    user-select: text;
+    user-select: all;
     cursor: text;
 }

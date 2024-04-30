@@ -7,6 +7,7 @@
         <!-- STYLES -->
         <link rel="stylesheet" href="./css/global.css"> <!-- Global vars and basic styling -->
         <link rel="stylesheet" href="./css/classes.css"> <!-- Classes for inactive, hidden, rotate, etc -->
+        <link rel="stylesheet" href="./css/loading.css"> <!-- Loading Screen -->
         <link rel="stylesheet" href="./css/logo.css"> <!-- Styling of the logo -->
         <link rel="stylesheet" href="./css/arrow.css"> <!-- Everything related to the today arrow -->
         <link rel="stylesheet" href="./css/nav.css"> <!-- Header & Footer -->
@@ -26,6 +27,16 @@
         <!-- <link rel="manifest" href="./favicon/site.webmanifest" crossorigin="use-credentials"> -->
     </head>
     <body>
+        <!-- Loading Screen -->
+        <div id="loading-screen">
+            <div id="loading-anim-cont">
+                <a class="logostyle">reclyne</a>
+            </div>
+            <div id="loading-disp-cont">
+                <div id="loading-helper">Loading...</div>
+                <div id="loading-message"></div>
+            </div>
+        </div>
         <nav>
             <div class="left-icons">
                 <a class="logostyle">reclyne</a>
@@ -90,23 +101,19 @@
             <div class="display-box-content">
                 <div class="syntax-section">
                     <h4>Month</h4>
-                    <p><code>jan</code>, <code>february</code>, <code>3</code></p>
+                    <p><code>jan</code> <code>february</code> <code>3</code></p>
                 </div>
                 <div class="syntax-section">
                     <h4>Month & Day</h4>
-                    <p><code>jan23</code>, <code>jun 9</code>, <code>april 6</code>, <code>5 13</code></p>
+                    <p><code>jan23</code> <code>jun 9</code> <code>april 6</code> <code>5 13</code></p>
                 </div>
                 <div class="syntax-section">
                     <h4>Year</h4>
-                    <p><code>2024</code>, <code>10 1 2004</code></p>
+                    <p><code>2024</code> <code>10 1 2004</code></p>
                 </div>
                 <div class="syntax-section">
                     <h4>Extra</h4>
-                    <p><code>JUNE</code>,
-                    <code>04-08-2006</code>,
-                    <code>10/05</code>,
-                    <code>Nov.8</code>,
-                    <code>11,11</code></p>
+                    <p><code>JUNE</code> <code>04-08-2006</code> <code>10/05</code> <code>Nov.8</code> <code>11,11</code></p>
                 </div>
             </div> 
         </div>
@@ -167,6 +174,7 @@
         <script src="./js/plugins/jQuery-xcolor-1.8.0/jquery.xcolor.min.js"></script> <!-- jQuery xcolor -->
         <script src="./js/globals.js"></script> <!-- Global vars -->
         <script src="./js/main.js"></script> <!-- Main functionality and helper functs for generating the table -->
+        <script src="./js/loading.js"></script> <!-- Loading Screen -->
         <script src="./js/navbuttons.js"></script> <!-- Buttons on the nav -->
         <script src="./js/monthvis.js"></script> <!-- Toggling visibility of months -->
         <script src="./js/scroll.js"></script> <!-- Scroll-related functs -->

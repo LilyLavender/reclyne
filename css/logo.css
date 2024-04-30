@@ -23,3 +23,7 @@
     top: -3px;
     z-index: -1;
 }
+
+.left-icons .logostyle:hover::after {
+    animation: 2.6s infinite cubic-bezier(0.85,0.2,0.2,0.85) loading;
+}

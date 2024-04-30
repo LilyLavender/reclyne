@@ -51,7 +51,7 @@ i[id$="close"] {
 }
 
 i[id$="close"]:hover {
-    filter: brightness(10);
+    filter: brightness(3);
 }
 
 .display-box h3 {
