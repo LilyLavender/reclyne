@@ -7,7 +7,7 @@ function addArrow() {
     const currDate = new Date();
     const currDay = currDate.getDate();
     const currMonth = currDate.toLocaleString('en-US', { month: 'short' });
-    $(`.day:contains(${currMonth} ${currDay})`).append($(`<i class="bi bi-arrow-right arrow-container"></i>`));
+    $(`.day:contains(${currMonth} ${currDay})`).addClass('today').append($(`<i class="bi bi-arrow-right arrow-container"></i>`));
 }
 
 // Scroll to arrow when it's clicked. Uses event delegation on the document because .arrow-container is added during runtime

@@ -54,19 +54,19 @@ td:first-child {
 
 /* Rounded corners on table */
 th:first-child {
-    border-radius: 8px 0 0 0;
+    border-top-left-radius: 8px;
 }
 
 th:last-child {
-    border-radius: 0 8px 0 0;
+    border-top-right-radius: 8px;
 }
 
 tr:last-child > td:first-child {
-    border-radius: 0 0 0 8px;
+    border-bottom-left-radius: 8px;
 }
 
-tr:last-child > td:last-child > input {
-    border-radius: 0 0 8px 0;
+tr:last-child > td:last-of-type > input {
+    border-bottom-right-radius: 8px;
 }
 
 /* Debugging-related. Might come in handy again in the future */

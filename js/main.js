@@ -29,6 +29,8 @@ doc.ready(function() {
     addClassesToNavIcons();
     // Generate calendar
     updateDate(0, preferences[AUTOSCROLL_TO_ARROW]);
+    // Determine if border-radii need to be adjusted (last day of month)
+    setBorderRadii();
     // Hide loading screen
     setTimeout(() => { hideLoadingScreen() }, 20);
 });
@@ -83,6 +85,27 @@ function setYearTo(yearToSetTo) {
         let yearsToMove = yearToSetTo - yearCalendarIsOn;
         updateDate(yearsToMove, false);
     }
+}
+
+/**
+ * Checks if it's the last day of the month, and if so, sets border radii for arrow & bottom left of table
+ */
+function setBorderRadii() {
+    if (isLastDay(new Date())) {
+        $('i.arrow-container').css('border-bottom-right-radius', '5px');
+        $('.today > td:first-child').css('border-bottom-left-radius', '0');
+    }
+}
+
+/**
+ * Whether or not the given day is the last day of the month
+ * @param {Date} dateToCheck - The date to check
+ * @returns bool
+ */
+function isLastDay(dateToCheck) {
+    let test = new Date(dateToCheck.getTime());
+    test.setDate(test.getDate() + 1);
+    return test.getDate() == 1;
 }
 
 /**
