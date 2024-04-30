@@ -30,7 +30,7 @@ doc.ready(function() {
     // Generate calendar
     updateDate(0, preferences[AUTOSCROLL_TO_ARROW]);
     // Hide loading screen
-    hideLoadingScreen();
+    setTimeout(() => { hideLoadingScreen() }, 20);
 });
 
 /**

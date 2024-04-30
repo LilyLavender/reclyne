@@ -68,18 +68,17 @@
         <div id="goto-box" class="display-box hidden-trans">
             <div id="goto-nav" class="display-box-header">
                 <h3>Go To...</h3>
+                <div id="syntax-container" class="tooltip">
+                    <p>Syntax</p>
+                    <div class="tooltiptext">View syntax</div>
+                </div>
                 <i class="bi bi-x-lg" id="goto-close"></i>
             </div>
             <div class="display-box-content">
                 <form id="goto-form">
                     <div id="goto-line-1">
                         <div id="date-input-container">
-                            <label for="goto-input">Date:</label>
-                            <input type="text" id="goto-input" autocomplete="off" spellcheck="false">
-                        </div>
-                        <div id="syntax-container" class="tooltip">
-                            <p>Syntax</p>
-                            <div class="tooltiptext">View syntax</div>
+                            <label for="goto-input" id="goto-input-label">Date:</label><input type="text" id="goto-input" autocomplete="off" spellcheck="false"><input type="button" id="goto-submit-button" value="Goto!">
                         </div>
                     </div>
                     <div id="goto-line-2">

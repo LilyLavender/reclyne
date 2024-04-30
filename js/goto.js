@@ -58,19 +58,8 @@ class GotoBox extends DisplayBox {
         this.dateFormatRight.on('click', () => this.dateFormatAddClasses(true));
         this.dateFormatLeft.on('click', () => this.dateFormatAddClasses(false));
         this.dateFormatArrow.on('click', () => this.toggleDateFormat());
-        // Goto date when pressing enter in gotoinput
-        $('#goto-form').on('submit', (e) => {
-            e.preventDefault();
-            // Get date to scroll to
-            let gotoDate = getGotoDate();
-            // If date is valid
-            if (!!gotoDate[0]) {
-                // Scroll to date
-                scrollToDate(gotoDate, scrollToDateDelay);
-                // Hide all boxes
-                hideAllBoxes();
-            }
-        });
+        $('#goto-form').on('submit', (e) => { this.handleFormSubmit(e) }); // Goto date when pressing enter in gotoinput
+        $('#goto-submit-button').on('click', (e) => { this.handleFormSubmit(e) }); // Goto date when clicking the goto button
         $('#goto-line-3').on('click', () => { this.showDatePreview(); }); // Show preview of date when locale switcher elements are clicked
     }
     
@@ -90,6 +79,23 @@ class GotoBox extends DisplayBox {
         // Clear preview box & helper
         this.previewHelper.html("Preview will show up here").addClass('inactive');
         this.preview.html("");
+    }
+
+    /**
+     * Goes to the date from gotoinput
+     * @param {event} e - Should come from an event listener. Used for e.preventDefault();
+     */
+    handleFormSubmit(e) {
+        e.preventDefault();
+        // Get date to scroll to
+        let gotoDate = getGotoDate();
+        // If date is valid
+        if (!!gotoDate[0]) {
+            // Scroll to date
+            scrollToDate(gotoDate, scrollToDateDelay);
+            // Hide all boxes
+            hideAllBoxes();
+        }
     }
 
     /**

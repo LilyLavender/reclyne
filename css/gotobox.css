@@ -1,27 +1,42 @@
-#goto-line-1 {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+#goto-nav {
+    user-select: none;
+    cursor: default;
 }
 
-#goto-line-1 p {
-    text-transform: lowercase;
-    font-style: italic;
-    font-size: small;
+#goto-line-1 {
+    margin-bottom: 10px;
 }
 
 #goto-input {
     border-bottom: 2px solid var(--accent-75);
-    background-color: var(--light);
+    background-color: var(--accent-25);
     text-align: left;
+    height: 19px;
     padding: 3px;
-    margin-left: 5px;
-    max-width: 60%;
+    max-width: 135px;
 
     transition: all 150ms ease-in-out;
     -o-transition: all 150ms ease-in-out;
     -moz-transition: all 150ms ease-in-out;
     -webkit-transition: all 150ms ease-in-out;
+}
+
+#goto-submit-button {
+    margin: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#goto-input-label {
+    margin: 0;
+    margin-right: 0;
+    background-color: var(--accent-50);
+    padding: 6px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: small;
+    height: 15.5px; /* For some reason, this works. I feel like I should be publicly executed for it, but it works */
+    display: inline-block;
 }
 
 #goto-input:focus {
@@ -30,9 +45,14 @@
 }
 
 #syntax-container {
-    margin-right: 8%;
-    user-select: none;
+    margin-left: 0;
     cursor: pointer;
+}
+
+#syntax-container p {
+    text-transform: lowercase;
+    font-style: italic;
+    font-size: small;
 }
 
 #goto-line-2 {
@@ -67,7 +87,11 @@ p:has(+ #date-format-arrow), #date-format-arrow + p {
     -moz-transition: all 150ms ease-in-out;
     -webkit-transition: all 150ms ease-in-out;
 }
+/* Goto box */
 
+
+
+/* Syntax box */
 #goto-syntax-box {
     left: 80%;
 }
