@@ -32,13 +32,13 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    z-index: 2;
+    z-index: 4;
 }
 
 nav::after {
     content: "";
     position: absolute;
-    z-index: 3;
+    z-index: 5;
     bottom: 4px;
     border-bottom: 4px solid var(--light);
     width: 100%;
@@ -63,7 +63,9 @@ footer {
     height: 60px;
 }
 
-
+#about-button {
+    cursor: pointer;
+}
 
 #output-date {
     all: unset;
@@ -104,7 +106,7 @@ button:has(+ #output-date) {
 /* Fixes a bug with yearselect tooltip position */
 .year-select .tooltip {
     position: relative;
-    z-index: 4;
+    z-index: 6;
 }
 
 .year-select .tooltip .tooltiptext {

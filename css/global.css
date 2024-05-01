@@ -37,3 +37,13 @@ input[type=button]:active, button:active {
     -webkit-filter: brightness(92%);
     filter: brightness(92%);
 }
+
+/* Offpage link bootstrap icon */
+.bi-box-arrow-up-right {
+    font-size: smaller;
+    margin-left: 2px;
+}
+
+.bi-box-arrow-up-right::before {
+    transform: translateY(-1px);
+}

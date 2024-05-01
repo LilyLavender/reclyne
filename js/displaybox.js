@@ -20,7 +20,7 @@ function hideAllBoxes() {
  * <br>Needs to be updated when a new type of displaybox is added
  */
 function createDisplayBoxes() {
-    displayboxes.push(new GotoBox(), new SyntaxBox(), new ImportBox(), new ExportBox());
+    displayboxes.push(new GotoBox(), new SyntaxBox(), new ImportBox(), new ExportBox(), new AboutBox());
 }
 
 class DisplayBox {

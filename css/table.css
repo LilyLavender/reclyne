@@ -38,6 +38,8 @@ tr:nth-child(odd) > td > input {
 th {
     background-color: var(--accent);
     padding: 10px;
+    position: relative;
+    z-index: 1;
 }
 
 td:nth-child(4) input, td:nth-child(5) input {

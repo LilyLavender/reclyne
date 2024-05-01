@@ -6,6 +6,8 @@ const defaultThemeColors = [
     ["Summer Reclyne", "#1d130b", "#f3e696", "#ded95a"], 
     ["Fall Reclyne", "#1d0f0b", "#f9cfb6", "#fa724c"]
 ];
+// [hide-elapsed, autoscroll-to-arrow, month-first, theme-number]
+const defaultPreferences = [false, true, true, 0]; 
 const outputDate = $('#output-date');
 var displayboxes = [];
 
@@ -37,15 +39,43 @@ doc.ready(function() {
 
 /**
  * Creates preference data in localstorage if it doesn't already exist
+ * <br>If preferences are invalid, recreates preferences data
+ * @todo detect if an invalid theme is being used
  */
 function createPreferencesData() {
-    if (retrieveFromLocalStorage('reclyne-preferences') == null) {
+    // Get preferences
+    let preferences = retrieveFromLocalStorage('reclyne-preferences');
+    // Create preferences if they don't exist
+    if (preferences == null) {
         console.log(`Preferences data doesn't exist! Creating...`);
-        // Tried getting a map to work, but no dice. 
-        // reclyne-preferences array is [hide-elapsed, autoscroll-to-arrow, month-first, theme-number]
-        updateLocalStorage('reclyne-preferences', [false, true, true, 0]);
+        updateLocalStorage('reclyne-preferences', defaultPreferences);
         console.log(`Created preferences data!`);
+    // Remake preferences if length doesn't match
+    } else if (preferences.length != defaultPreferences.length) {
+        // If every preference in the array is the same type as the default, just recreate what's missing
+        if (preferences.length < defaultPreferences.length 
+        && preferences.every((pref, i) => { return typeof pref == typeof defaultPreferences[i] })) {
+            for (let i = preferences.length; i < defaultPreferences.length; i++) {
+                console.log(`Preference ${i} missing! Restoring...`);
+                preferences.push(defaultPreferences[i]);
+                updateLocalStorage('reclyne-preferences', preferences);
+            }
+            console.log(`Default preferences restored!`);
+        // If not, just remake prefs from scratch
+        } else {
+            console.log(`Preferences data invalid! Recreating...`);
+            updateLocalStorage('reclyne-preferences', defaultPreferences);
+            console.log(`Recreated preferences data!`);
+        }
     }
+    // If specific preference doesn't exist, restores just that one
+    preferences.forEach((pref, i) => {
+        if (typeof pref != typeof defaultPreferences[i]) {
+            console.log(`Preference ${i} invalid! Restoring...`);
+            updateStorageForPreference(i, defaultPreferences[i])
+            console.log(`Preference ${i} restored!`);
+        }
+    });
 }
 
 /**

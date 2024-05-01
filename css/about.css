@@ -1,0 +1,33 @@
+#about-box {
+    left: 86%;
+    top: 43%;
+    width: 24%;
+}
+
+#about-box p {
+    margin-left: 10px;
+}
+
+#about-box p::before {
+    content: '\2192';
+    margin-right: -5px;
+    position: relative;
+    left: -10px; /* Is it hacky? yes. Does it work? Also yes. */
+}
+
+.about-section {
+    margin: 0 5px 15px 5px;
+}
+
+.about-section:last-child {
+    margin-bottom: 0;
+}
+
+#about-box h4, #about-box h5 {
+    user-select: none;
+    cursor: default;
+}
+
+.about-section b {
+    font-size: small;
+}

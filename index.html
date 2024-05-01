@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="./css/displaybox.css"> <!-- Overall displaybox styling -->
         <link rel="stylesheet" href="./css/gotobox.css"> <!-- Gotobox & syntax box -->
         <link rel="stylesheet" href="./css/exportbox.css"> <!-- Export box -->
+        <link rel="stylesheet" href="./css/about.css"> <!-- About/Shortcuts box -->
         <link rel="stylesheet" href="./css/codeblock.css"> <!-- <code> styling -->
         <link rel="stylesheet" href="./css/wip.css"> <!-- WIP styling -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"> <!-- Icons -->
@@ -37,6 +38,7 @@
                 <div id="loading-message"></div>
             </div>
         </div>
+        <!-- Nav -->
         <nav>
             <div class="left-icons">
                 <a class="logostyle">reclyne</a>
@@ -55,7 +57,10 @@
                 <!-- Export data --> <i class="bi bi-box-arrow-down tooltip" id="export-data-button"><div class="tooltiptext">Export data<div class="tooltipextra">• Double-click to quick export</div></div></i>
             </div>
             <div class="right-icons">
-                <a class="logostyle">About</a> <!-- Doesn't do anything yet -->
+                <div id="about-button-cont" class="tooltip">
+                    <a class="logostyle" id="about-button">About</a>
+                    <div class="tooltiptext">Credits & Shortcuts</div>
+                </div>
             </div>
         </nav>
         <!-- Empty div that sits behind the nav so the calendar doesn't scroll into the nav -->
@@ -167,6 +172,34 @@
                 <p id="import-error">If you see this text, this is a bug.</p>
             </div> 
         </div>
+        <!-- About/Shortcuts section -->
+        <div id="about-box" class="display-box hidden-trans">
+            <div id="about-nav" class="display-box-header">
+                <h3 id="about-header">About reclyne...</h3>
+                <i class="bi bi-x-lg" id="syntax-close"></i>
+            </div>
+            <div class="display-box-content">
+                <div class="about-section">
+                    <h5>About</h5>
+                    <p><em>reclyne</em> is a lightweight calendar by LilyLambda built to showcase the utility of a line-by-line layout.</p>
+                    <p><em>reclyne</em> is currently in alpha. Check out the <a href="https://github.com/LilyLavender/reclyne" target="_blank">GitHub<i class="bi bi-box-arrow-up-right"></i></a> page for more information!</p>
+                </div>
+                <div class="about-section">
+                    <h5>Shortcuts</h5>
+                    <h6><em>reclyne</em>-specific shortcuts:</h6>
+                    <p>Save - <b>Ctrl+S</b></p>
+                    <p>Scroll to arrow - <b>Ctrl+&gt;</b></p>
+                    <p>Goto date - <b>Ctrl+G</b></p>
+                    <p>Quick import/export - <b>Double-click</b></p>
+                    <p>Movement on the grid - <b>Coming in beta!</b></p>
+                    <p>Mark/unmark as complete - <b>Coming in beta!</b></p>
+                    <h6>Other helpful shortcuts:</h6>
+                    <p>Find on page - <b>Ctrl+F</b></p>
+                    <p>Down/up one page - <b>Space/Shift+Space</b></p>
+                    <p>Top/bottom of page - <b>Home/End</b></p>
+                </div>
+            </div> 
+        </div>
         <footer></footer>
         <!-- SCRIPT -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery -->
@@ -185,6 +218,7 @@
         <script src="./js/port.js"></script> <!-- Helper function for import/export -->
         <script src="./js/export.js"></script> <!-- Exporting reclyne-data file -->
         <script src="./js/import.js"></script> <!-- Imports reclyne-data file -->
+        <script src="./js/about.js"></script> <!-- About/shortcuts section -->
         <script src="./js/theme.js"></script> <!-- Theme changer-related. Currently experimental -->
         <script src="./js/keydown.js"></script> <!-- Shortcuts -->
         <script src="./js/localstorage.js"></script> <!-- Saving & retrieving data -->

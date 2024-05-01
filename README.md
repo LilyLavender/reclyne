@@ -31,3 +31,5 @@ If you wish to help with programming *reclyne*, feel free to message my discord,
 All of the main code was written by [LilyLambda](https://github.com/LilyLavender). Much appreciated was some conceptual help from alpha tester [SyncGX](https://twitter.com/eguzerokkuman).
 
 *reclyne* uses [jQuery xcolor](https://github.com/infusion/jQuery-xcolor). Due to the lack of an xcolor cdn, xcolor is included in the js/plugins folder.
+
+*reclyne* uses [Bootstrap Icons](https://icons.getbootstrap.com/). 
