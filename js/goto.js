@@ -63,15 +63,17 @@ class GotoBox extends DisplayBox {
         $('#goto-line-3').on('click', () => { this.showDatePreview(); }); // Show preview of date when locale switcher elements are clicked
     }
     
-    // Methods
-    show() {
-        super.show();
+    // Overrides
+    showHelper() {
         // Put cursor in text box
         this.input.focus();
+        // Super
+        super.showHelper();
     }
 
-    hide() {
-        super.hide();
+    hideHelper() {
+        // Super
+        super.hideHelper();
         // Hide syntax box
         displayboxes[GOTO_SYNTAX_BOX].hide();
         // Clear & unfocus gotoInput
@@ -81,6 +83,7 @@ class GotoBox extends DisplayBox {
         this.preview.html("");
     }
 
+    // Methods
     /**
      * Goes to the date from gotoinput
      * @param {event} e - Should come from an event listener. Used for e.preventDefault();
@@ -161,31 +164,21 @@ class SyntaxBox extends DisplayBox {
         super('goto-syntax-box', 'goto-syntax');
 
         // Event listeners
-        $('#syntax-container').on('click', () => {
-            if (!this.isShown) {
-                this.show();
-            } else {
-                this.hide();
-            }
-        });
+        $('#syntax-container').on('click', () => this.toggle());
     }
     
-    // Methods
-    show() {
-        if (!this.isShown) {
-            // Visually show box
-            this.element.removeClass('hidden-trans');
-            // Update shown prop
-            this.setShown = true;
-        }
+    // Overrides
+    showHelper() {
+        // Visually show box
+        this.element.removeClass('hidden-trans');
+        // Update shown prop
+        this.setShown = true;
     }
 
-    hide() {
-        if (this.isShown) {
-            // Visually hide box
-            this.element.addClass('hidden-trans');
-            // Update shown prop
-            this.setShown = false;
-        }
+    hideHelper() {
+        // Visually hide box
+        this.element.addClass('hidden-trans');
+        // Update shown prop
+        this.setShown = false;
     }
 }

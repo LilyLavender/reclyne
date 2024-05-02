@@ -24,6 +24,7 @@ div {
 input[type=button], button {
     text-align: center;
     padding: 3px 5px;
+    cursor: pointer;
 
     transition: all .1s ease-in-out;
 }

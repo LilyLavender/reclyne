@@ -56,25 +56,22 @@ class PortBox extends DisplayBox {
 
     }
     
+    // Overrides
+    showHelper() {
+        // Populate portbox
+        this.populate();
+        // Super
+        super.showHelper();
+    }
+
+    hideHelper() {
+        // Super
+        super.hideHelper();
+        // Clear dataToPort map
+        dataToPort.clear();
+    }
+
     // Methods
-    show() {
-        if (!this.isShown) {
-            // Populate portbox
-            this.populate();
-        }
-        // Super
-        super.show();
-    }
-
-    hide() {
-        if (this.isShown) {
-            // Clear dataToPort map
-            dataToPort.clear();
-        }
-        // Super
-        super.hide();
-    }
-
     /**
      * Sorts allKeys array by year, then month
      * <br>Sorts in chronological order, ie jan-2024 comes before apr-2024

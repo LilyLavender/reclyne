@@ -35,6 +35,14 @@ class ImportBox extends PortBox {
         });
     }
 
+    // Overrides
+    show() {
+        if (this.isShown) {
+            this.hide();
+        }
+        this.showHelper();
+    }
+
     // Methods
     /**
      * Populates the import box with all month-day keys from reclyne-data file
@@ -98,11 +106,17 @@ class ImportBox extends PortBox {
         let d = document.createElement("input");
         d.setAttribute('type', 'file');
         d.setAttribute('id', 'fileinput');
+        d.setAttribute('accept', ".txt");
         document.body.appendChild(d);
         d.addEventListener('change', () => {
             // Get file
-            let myFile = new Blob([$('#fileinput').prop('files')[0]]);
-
+            let file0 = d.files[0];
+            // If no files were selected, return
+            if (file0 === undefined) {
+                return false;
+            }
+            // Get blob from file
+            let fileBlob = new Blob([file0]);
             let keys = [];
             let datas = [];
             // Read contents of file
@@ -117,6 +131,7 @@ class ImportBox extends PortBox {
                         // Save split lines to keys and datas array
                         keys.push(lineParts[0]);
                         datas.push(JSON.parse(lineParts[1]));
+                        // todo verify lineParts[1]
                     } else {
                         // Currently only here to test an elusive error
                         console.groupCollapsed(`Error parsing file at line ${i+1}`);
@@ -152,7 +167,7 @@ class ImportBox extends PortBox {
                     this.loadReclyneDataQuick();
                 }
             };
-            fr.readAsText(myFile);
+            fr.readAsText(fileBlob);
             document.body.removeChild(d);
         });
         d.click();

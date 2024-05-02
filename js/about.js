@@ -7,12 +7,6 @@ class AboutBox extends DisplayBox {
         super('about-box', 'about');
 
         // Event listeners
-        $('#about-button').on('click', () => {
-            if (!this.isShown) {
-                this.show();
-            } else {
-                this.hide();
-            }
-        });
+        $('#about-button').on('click', () => this.toggle());
     }
 }

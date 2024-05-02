@@ -51,27 +51,58 @@ class DisplayBox {
     }
 
     // Methods
+    /**
+     * Do not override show. Override showHelper instead.
+     */
     show() {
         if (!this.isShown) {
-            // Clear all other boxes
-            hideAllBoxes();
-            // Visually show box
-            this.element.removeClass('hidden-trans');
-            // Show overlay
-            overlay.removeClass('hidden');
-            // Update shown prop
-            this.setShown = true;
+            this.showHelper();
         }
     }
     
+    /**
+     * Do not override hide. Override hideHelper instead.
+     */
     hide() {
         if (this.isShown) {
-            // Visually hide box
-            this.element.addClass('hidden-trans');
-            // Hide overlay
-            overlay.addClass('hidden');
-            // Update shown prop
-            this.setShown = false;
+            this.hideHelper();
+        }
+    }
+
+    /**
+     * Main logic of showing a displaybox
+     */
+    showHelper() {
+        // Clear all other boxes
+        hideAllBoxes();
+        // Visually show box
+        this.element.removeClass('hidden-trans');
+        // Show overlay
+        overlay.removeClass('hidden');
+        // Update shown prop
+        this.setShown = true;
+    }
+
+    /**
+     * Main logic of hiding a displaybox
+     */
+    hideHelper() {
+        // Visually hide box
+        this.element.addClass('hidden-trans');
+        // Hide overlay
+        overlay.addClass('hidden');
+        // Update shown prop
+        this.setShown = false;
+    }
+
+    /**
+     * Toggle displaybox on/off
+     */
+    toggle() {
+        if (!this.isShown) {
+            this.show();
+        } else {
+            this.hide();
         }
     }
 }

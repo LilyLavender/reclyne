@@ -12,11 +12,7 @@ doc.on('keydown', function(e) {
             }
         } else if (e.key === 'g') {
             e.preventDefault();
-            if (!displayboxes[GOTO_BOX].isShown) {
-                displayboxes[GOTO_BOX].show();
-            } else {
-                displayboxes[GOTO_BOX].hide();
-            }
+            displayboxes[GOTO_BOX].toggle();
         }
     } else if (e.key === "Escape") {
         hideAllBoxes();
