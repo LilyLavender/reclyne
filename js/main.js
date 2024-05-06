@@ -84,26 +84,28 @@ function createPreferencesData() {
  * @param {*} num - Years to move the calendar forward. Can be negative, which moves the calendar backward
  * @param {*} onRefresh - Whether or not the code is being ran on refresh. This is used when scrolling to the arrow automatically
  */
-function updateDate(num, onRefresh) {
-    getEditedYearData(currentYear);
+async function updateDate(num, onRefresh) {
+    // Open ChangesBox if unsaved changes are present
+    if (saveButton.hasClass('btn-active')) {
+        const result = await trySaveFromCalendarToStorage();
+        if (!result) {
+            return;
+        }
+    }
     var currDate = parseInt(outputDate.html());
     currDate += num;
     currentYear = currDate;
     outputDate.html(currDate);
     generateTable(onRefresh);
+    hideAllBoxes();
 }
 
 // Moves the calendar forward one year when the nextyear button is clicked
-$('#next-date-box').on('click', function() {
-    updateDate(1, false);
-    hideAllBoxes();
-});
+$('#next-date-box').on('click', () => updateDate(1, false) );
 
 // Moves the calendar back one year when the previousyear button is clicked
-$('#prev-date-box').on('click', function() {
-    updateDate(-1, false);
-    hideAllBoxes();
-});
+$('#prev-date-box').on('click', () => updateDate(-1, false) );
+
 
 /**
  * Sets calendar to a specific year. Runs updateDate()
@@ -198,10 +200,9 @@ function generateTable(scroll) {
 
 /**
  * Saves all data from calendar to localstorage
- * @param {string} currYear - The year to save the data for. Pretty sure it doesn't work if you put in a year other than the current one
- * @todo Rename, remove argument necessity
  */
-function getEditedYearData(currYear) {
+function saveFromCalendarToStorage() {
+    let currYear = currentYear;
     for (let h = 0; h < 12; h++) {
         let currMonthShort = monthsShort[h];
         let currMonthLong = monthsLong[h];
@@ -226,10 +227,16 @@ function getEditedYearData(currYear) {
         // Only store data if it's not empty
         if (!dataToStore.every(function(a) { return !a.length })) {
             updateLocalStorage(`${currMonthShort}-${currYear}`, dataToStore);
-            updateSaveButtonSaved();
+            updateSaveButtonSaved(); // todo is this being ran twice
         } else {
             // Remove empty data from storage
             removeFromLocalStorage(`${currMonthShort}-${currYear}`);
         } 
     }
+    console.log("Saved!");
+}
+
+async function trySaveFromCalendarToStorage() {
+    displayboxes[CHANGES_BOX].show();
+    return displayboxes[CHANGES_BOX].waitForUserAction();
 }

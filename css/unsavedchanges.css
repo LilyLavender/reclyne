@@ -1,0 +1,13 @@
+#display-p1 {
+    text-align: center;
+    font-weight: bold;
+}
+
+#changes-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+#unsaved-changes-box .bi {
+    margin-right: 4px;
+}

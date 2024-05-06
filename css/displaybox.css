@@ -73,7 +73,7 @@ i[id$="close"]:hover {
     z-index: 2;
 }
 
-.display-box input[type="button"] {
+.display-box input[type="button"], .display-box button {
     padding: 6px;
     margin: 6px;
     background-color: var(--accent);

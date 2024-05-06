@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="./css/gotobox.css"> <!-- Gotobox & syntax box -->
         <link rel="stylesheet" href="./css/exportbox.css"> <!-- Export box -->
         <link rel="stylesheet" href="./css/about.css"> <!-- About/Shortcuts box -->
+        <link rel="stylesheet" href="./css/unsavedchanges.css"> <!-- Unsaved changes box -->
         <link rel="stylesheet" href="./css/codeblock.css"> <!-- <code> styling -->
         <link rel="stylesheet" href="./css/wip.css"> <!-- WIP styling -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"> <!-- Icons -->
@@ -138,7 +139,7 @@
                     </div>
                     <div id="export-line-2"></div>
                     <div id="export-line-3">
-                        <input type="button" id="export-button-cancel" value="Cancel"></input>
+                        <input type="button" id="export-button-cancel" value="Cancel" class="cancel-button"></input>
                         <input type="button" id="export-button-submit" value="Export Data"></input>
                     </div>
                 </form>
@@ -165,14 +166,14 @@
                         <!-- todo switch for replace/add -->
                     </div>
                     <div id="import-line-4">
-                        <input type="button" id="import-button-cancel" value="Cancel"></input>
+                        <input type="button" id="import-button-cancel" value="Cancel" class="cancel-button"></input>
                         <input type="button" id="import-button-submit" value="Import Data"></input>
                     </div>
                 </form>
                 <p id="import-error">If you see this text, this is a bug.</p>
             </div> 
         </div>
-        <!-- About/Shortcuts section -->
+        <!-- About/Shortcuts box -->
         <div id="about-box" class="display-box hidden-trans">
             <div id="about-nav" class="display-box-header">
                 <h3 id="about-header">About reclyne...</h3>
@@ -200,6 +201,21 @@
                 </div>
             </div> 
         </div>
+        <!-- Unsaved Changes box -->
+        <div id="unsaved-changes-box" class="display-box hidden-trans">
+            <div id="changes-nav" class="display-box-header">
+                <h3 id="changes-header">Unsaved changes!</h3>
+                <i class="bi bi-x-lg" id="changes-close"></i>
+            </div>
+            <div class="display-box-content">
+                <p id="display-p1">Save changes?</p>
+                <div id="changes-buttons">
+                    <button id="changes-button-cancel" class="cancel-button"><i class="bi bi-x-circle"></i>Cancel</button>
+                    <!-- <button id="changes-button-discard">Discard</button> todo -->
+                    <button id="changes-button-save"><i class="bi bi-floppy"></i>Save</button>
+                </div>
+            </div> 
+        </div>
         <footer></footer>
         <!-- SCRIPT -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- jQuery -->
@@ -218,7 +234,8 @@
         <script src="./js/port.js"></script> <!-- Helper function for import/export -->
         <script src="./js/export.js"></script> <!-- Exporting reclyne-data file -->
         <script src="./js/import.js"></script> <!-- Imports reclyne-data file -->
-        <script src="./js/about.js"></script> <!-- About/shortcuts section -->
+        <script src="./js/about.js"></script> <!-- About/shortcuts box -->
+        <script src="./js/unsavedchanges.js"></script> <!-- Unsaved changes box -->
         <script src="./js/theme.js"></script> <!-- Theme changer-related. Currently experimental -->
         <script src="./js/keydown.js"></script> <!-- Shortcuts -->
         <script src="./js/localstorage.js"></script> <!-- Saving & retrieving data -->

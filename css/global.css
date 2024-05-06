@@ -21,6 +21,11 @@ div {
 
 
 /* Transitions when hovering and clicking buttons */
+input, button {
+    all: unset;
+    font-family: sans-serif;
+}
+
 input[type=button], button {
     text-align: center;
     padding: 3px 5px;

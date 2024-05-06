@@ -72,6 +72,7 @@ doc.on('input', `table input[type='text']`, function() {
  * Update save button styling for when data is saved
  */
 function updateSaveButtonSaved() {
+    window.removeEventListener("beforeunload", beforeUnload);
     saveButton.removeClass("btn-active");
     favicon16.attr("href", "./favicon/favicon-16x16.png");
     favicon32.attr("href", "./favicon/favicon-32x32.png");
@@ -82,6 +83,7 @@ function updateSaveButtonSaved() {
  * Update save button styling for when data is unsaved
  */
 function updateSaveButtonUnsaved() {
+    window.addEventListener("beforeunload", beforeUnload);
     saveButton.addClass('btn-active');
     favicon16.attr("href", "./favicon/favicon-16x16-red.png");
     favicon32.attr("href", "./favicon/favicon-32x32-red.png");

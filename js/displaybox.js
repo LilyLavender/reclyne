@@ -2,6 +2,8 @@ const GOTO_BOX = 0;
 const GOTO_SYNTAX_BOX = 1;
 const IMPORT_BOX = 2;
 const EXPORT_BOX = 3;
+const ABOUT_BOX = 4;
+const CHANGES_BOX = 5;
 
 // Hides all boxes when an active box is clicked off of. Overlay is shown when a box is activated
 overlay.on('click', function() {
@@ -20,7 +22,7 @@ function hideAllBoxes() {
  * <br>Needs to be updated when a new type of displaybox is added
  */
 function createDisplayBoxes() {
-    displayboxes.push(new GotoBox(), new SyntaxBox(), new ImportBox(), new ExportBox(), new AboutBox());
+    displayboxes.push(new GotoBox(), new SyntaxBox(), new ImportBox(), new ExportBox(), new AboutBox(), new ChangesBox());
 }
 
 class DisplayBox {

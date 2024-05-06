@@ -16,11 +16,6 @@ table {
     -webkit-transition: all 200ms ease-in-out;
 }
 
-input {
-    all: unset;
-    font-family: sans-serif;
-}
-
 table input {
     text-align: center;
     width: 120px;
