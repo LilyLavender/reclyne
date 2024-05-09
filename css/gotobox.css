@@ -96,10 +96,6 @@ p:has(+ #date-format-arrow), #date-format-arrow + p {
     left: 80%;
 }
 
-#goto-syntax-box p {
-    margin-left: 10px;
-}
-
 .syntax-section {
     margin: 0 5px 15px 5px;
 }

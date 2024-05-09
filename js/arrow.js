@@ -7,10 +7,7 @@ function addArrow() {
     const currDate = new Date();
     const currDay = currDate.getDate();
     const currMonth = currDate.toLocaleString('en-US', { month: 'short' });
-    $('.day').filter(function(){ return $(this).text() === `${currMonth} ${currDay}`}).addClass('today').append($(`<i class="bi bi-arrow-right arrow-container"></i>`));
+    let arrowEle = $(`<i class="bi bi-arrow-right arrow-container"></i>`);
+    $('.day').filter(function(){ return $(this).text() === `${currMonth} ${currDay}`}).addClass('today').append(arrowEle);
+    arrowEle.on('click', () => { scrollToArrow(scrollToArrowDelayFast) });
 }
-
-// Scroll to arrow when it's clicked. Uses event delegation on the document because .arrow-container is added during runtime
-doc.on('click', '.arrow-container', function() {
-    scrollToArrow(scrollToArrowDelayFast);
-});

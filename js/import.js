@@ -82,19 +82,8 @@ class ImportBox extends PortBox {
         // Remove duplicate keys
         let allKeysFinal = [...new Set(allKeysSort)];
 
-        //Clear html
-        this.line2.html('');
         // Add elements to html
-        allKeysFinal.forEach((element) => {
-            let eleParts = element.split('-');
-            eleParts[0] = eleParts[0].charAt(0).toUpperCase() + eleParts[0].slice(1);
-            this.line2.append(`<div class="import-cont-${element}"><p class="import-p-${element}" data-key="${element}">${eleParts[0]} ${eleParts[1]}</p></div>`);
-            dataToPort.set(element, true);
-        });
-        let numItems = this.line2.children().length;
-        let gridSize = Math.ceil(Math.sqrt(numItems));
-        if (gridSize > maxGridSize) { gridSize = maxGridSize; }
-        this.line2.css('grid-template-columns', `repeat(${gridSize}, 1fr)`);
+        this.populateHelper(allKeysFinal);
     }
 
     /**

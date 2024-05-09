@@ -1,15 +1,15 @@
-#export-line-1, #import-line-1 {
+.port-line-1 {
     display: flex;
     align-items: center;
     padding-top: 0;
     margin-top: 0;
 }
 
-.export-line-1header, .import-line-1header {
+.port-line-header {
     margin-bottom: 2px;
 }
 
-#export-line-2, #import-line-2 {
+.port-line-2 {
     display: grid;
     justify-content: space-around;
     row-gap: 0.6em;
@@ -30,10 +30,10 @@ div[class^="export-cont-"] > p, div[class^="import-cont-"] > p {
     -webkit-transition: all 150ms ease-in-out;
 }
 
-#export-line-1 input[type="button"], #import-line-1 input[type="button"] {
+.port-line-1 input[type="button"] {
     margin-top: 0;
 }
 
-#export-line-3, #import-line-3 {
+.port-line-3 {
     margin-top: 4px;
 }

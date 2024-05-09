@@ -14,9 +14,9 @@ class PortBox extends DisplayBox {
         super(id, shortName);
         // Properties
         this.form = $(`#${shortName}-form`);
-        this.error = $(`#${shortName}-error`);
-        this.line2 = $(`#${shortName}-line-2`);
-        this.navButtons = $(`#${shortName}-buttons`);
+        this.error = $(`#${id} .port-error`);
+        this.line2 = $(`#${id} .port-line-2`);
+        this.navButtons = $(`#${id} .port-buttons`);
         this.buttonSubmit = $(`#${shortName}-button-submit`);
         this.dataButton = $(`#${shortName}-data-button`);
 
@@ -33,27 +33,6 @@ class PortBox extends DisplayBox {
             [this.line2.children()].forEach((child) => child.children().addClass('inactive'));
             this.buttonSubmit.addClass('inactive');
         });
-        // Allows toggling of a PortBox item on and off when clicked 
-        this.line2.on('click', `div[class^="${shortName}-cont-"]`, (e) => {
-            // Set value of key on click
-            let tar = $(e.target);
-            let key = tar.data("key");
-            if (dataToPort.get(key)) {
-                tar.addClass('inactive');
-                dataToPort.set(key, false);
-            } else {
-                tar.removeClass('inactive');
-                dataToPort.set(key, true);
-            }
-            
-            // Grey out submit button if every value is false
-            if (dataToPort.values().every((v) => v === false)) {
-                this.buttonSubmit.addClass('inactive');
-            } else {
-                this.buttonSubmit.removeClass('inactive');
-            }
-        });
-
     }
     
     // Overrides
@@ -91,5 +70,49 @@ class PortBox extends DisplayBox {
             }
         });
         return allKeys;
+    }
+
+    /**
+     * Adds elements to port-line-2 and binds event listeners
+     * @param {string[]} allKeys
+     */
+    populateHelper(allKeys) {
+        //Clear html
+        this.line2.html('');
+        // Add elements to html
+        allKeys.forEach((element) => {
+            let eleParts = element.split('-');
+            // Split month and year pairs from keys
+            eleParts[0] = eleParts[0].charAt(0).toUpperCase() + eleParts[0].slice(1);
+            // Create portCont element
+            let portCont = $(`<div class="${this.shortName}-cont-${element}"><p class="${this.shortName}-p-${element}" data-key="${element}">${eleParts[0]} ${eleParts[1]}</p></div>`);
+            // Bind event listener
+            portCont.on('click', () => {
+                // Set value of key on click
+                if (dataToPort.get(element)) {
+                    portCont.children().addClass('inactive');
+                    dataToPort.set(element, false);
+                } else {
+                    portCont.children().removeClass('inactive');
+                    dataToPort.set(element, true);
+                }
+                
+                // Grey out submit button if every value is false
+                if (dataToPort.values().every((v) => v === false)) {
+                    this.buttonSubmit.addClass('inactive');
+                } else {
+                    this.buttonSubmit.removeClass('inactive');
+                }
+            });
+            // Add portCont to port-line-2
+            this.line2.append(portCont);
+            // Set key to true in dataToPort
+            dataToPort.set(element, true);
+        });
+        // Set grid CSS
+        let numItems = this.line2.children().length;
+        let gridSize = Math.ceil(Math.sqrt(numItems));
+        if (gridSize > maxGridSize) { gridSize = maxGridSize; }
+        this.line2.css('grid-template-columns', `repeat(${gridSize}, 1fr)`);
     }
 }

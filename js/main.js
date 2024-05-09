@@ -187,9 +187,20 @@ function generateTable(scroll) {
         tableOutput += `</table>`;
         calEle.html(tableOutput);
     }
+
+    // Bind event handler to h2 headers
+    $(`h2[class*='-header']`).each(function() {
+        $(this).on('click', function() {
+            toggleMonthVis($(this).attr("value"));
+            $(this).toggleClass("open");
+        } );
+    });
+
+    // Hide elapsed months
     if (retrieveFromLocalStorage('reclyne-preferences')[HIDE_ELAPSED]) {
         updateElapsedMonths();
     }
+    // Scroll to arrow
     if (currentYear == new Date().getFullYear()) {
         addArrow();
         if (scroll) {

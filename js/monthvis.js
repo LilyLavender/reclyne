@@ -1,13 +1,3 @@
-// Toggle month visibility based on clicked h2 header. Uses event delegation on calendarDisplay because h2 headers are added during runtime
-calendarDisplay.on('click', `h2[class*="-header"]`, function(e) {
-    // Get specific header
-    let header = $(e.target);
-    // Toggle month visibility
-    toggleMonthVis(header.attr("value"));
-    // Toggle classes on header
-    header.toggleClass("open");
-});
-
 /**
  * Toggles the hidden class for a specific month header
  * @param {string} monthToHide - The month to toggle the visibility of

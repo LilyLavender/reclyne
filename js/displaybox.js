@@ -35,8 +35,10 @@ class DisplayBox {
      */
     constructor(id, shortName) {
         // Properties
+        this.id = id;
+        this.shortName = shortName;
         this.element = $(`#${id}`);
-        this.closeButton = $(`#${shortName}-nav .bi-x-lg`);
+        this.closeButton = $(`#${id} .bi-x-lg`);
         this.shown = false;
         
         // Event listeners

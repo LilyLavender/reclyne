@@ -4,10 +4,6 @@
     width: 24%;
 }
 
-#about-box p {
-    margin-left: 10px;
-}
-
 #about-box p::before {
     content: '\2192';
     margin-right: -5px;

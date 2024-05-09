@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="./css/header.css"> <!-- Table headers -->
         <link rel="stylesheet" href="./css/displaybox.css"> <!-- Overall displaybox styling -->
         <link rel="stylesheet" href="./css/gotobox.css"> <!-- Gotobox & syntax box -->
-        <link rel="stylesheet" href="./css/exportbox.css"> <!-- Export box -->
+        <link rel="stylesheet" href="./css/portbox.css"> <!-- Export/Import boxes -->
         <link rel="stylesheet" href="./css/about.css"> <!-- About/Shortcuts box -->
         <link rel="stylesheet" href="./css/unsavedchanges.css"> <!-- Unsaved changes box -->
         <link rel="stylesheet" href="./css/codeblock.css"> <!-- <code> styling -->
@@ -98,7 +98,7 @@
             </div> 
         </div>
         <!-- Goto syntax box -->
-        <div id="goto-syntax-box" class="display-box hidden-trans">
+        <div id="goto-syntax-box" class="display-box info-box hidden-trans">
             <div id="goto-syntax-nav" class="display-box-header">
                 <h3 id="syntax-header">Syntax</h3>
                 <i class="bi bi-x-lg" id="syntax-close"></i>
@@ -124,57 +124,55 @@
         </div>
         <!-- Export data box-->
         <div id="export-data-box" class="display-box hidden-trans">
-            <div id="export-nav" class="display-box-header">
+            <div class="display-box-header">
                 <h3>Export data</h3>
                 <i class="bi bi-x-lg" id="export-close"></i>
             </div>
             <div class="display-box-content">
                 <form id="export-form">
-                    <div id="export-line-1">
-                        <h4 class="export-line-1-header">Export the following data:</h4>
-                        <div id="export-buttons">
+                    <div class="port-line-1">
+                        <h4 class="port-line-header">Export the following data:</h4>
+                        <div class="port-buttons">
                             <input type="button" id="export-button-all" value="All"></input>
                             <input type="button" id="export-button-none" value="None"></input>
                         </div>
                     </div>
-                    <div id="export-line-2"></div>
-                    <div id="export-line-3">
+                    <div class="port-line-2"></div>
+                    <div class="port-line-3">
                         <input type="button" id="export-button-cancel" value="Cancel" class="cancel-button"></input>
                         <input type="button" id="export-button-submit" value="Export Data"></input>
                     </div>
                 </form>
-                <p id="export-error">If you see this text, this is a bug.</p>
+                <p class="port-error">If you see this text, this is a bug.</p>
             </div> 
         </div>
         <!-- Import data box-->
         <div id="import-data-box" class="display-box hidden-trans">
-            <div id="import-nav" class="display-box-header">
+            <div class="display-box-header">
                 <h3>Import data</h3>
                 <i class="bi bi-x-lg" id="import-close"></i>
             </div>
             <div class="display-box-content">
                 <form id="import-form">
-                    <div id="import-line-1">
-                        <h4 class="import-line-1-header">Import the following data:</h4>
-                        <div id="import-buttons">
+                    <div class="port-line-1">
+                        <h4 class="port-line-header">Import the following data:</h4>
+                        <div class="port-buttons">
                             <input type="button" id="import-button-all" value="All"></input>
                             <input type="button" id="import-button-none" value="None"></input>
                         </div>
                     </div>
-                    <div id="import-line-2"></div>
-                    <div id="import-line-3">
-                        <!-- todo switch for replace/add -->
-                    </div>
-                    <div id="import-line-4">
+                    <div class="port-line-2"></div>
+                    <div class="port-line-3"></div>
+                    <div class="port-line-4">
                         <input type="button" id="import-button-cancel" value="Cancel" class="cancel-button"></input>
                         <input type="button" id="import-button-submit" value="Import Data"></input>
                     </div>
                 </form>
-                <p id="import-error">If you see this text, this is a bug.</p>
+                <p class="port-error">If you see this text, this is a bug.</p>
             </div> 
         </div>
         <!-- About/Shortcuts box -->
-        <div id="about-box" class="display-box hidden-trans">
+        <div id="about-box" class="display-box info-box hidden-trans">
             <div id="about-nav" class="display-box-header">
                 <h3 id="about-header">About reclyne...</h3>
                 <i class="bi bi-x-lg" id="syntax-close"></i>

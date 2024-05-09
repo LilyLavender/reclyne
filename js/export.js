@@ -121,19 +121,8 @@ class ExportBox extends PortBox {
         // Sort allKeys array by month
         let allKeysSort = this.sortAllKeys(allKeys);
 
-        //Clear html
-        this.line2.html('');
         // Add elements to html
-        allKeysSort.forEach((element) => {
-            let eleParts = element.split('-');
-            eleParts[0] = eleParts[0].charAt(0).toUpperCase() + eleParts[0].slice(1);
-            this.line2.append(`<div class="export-cont-${element}"><p class="export-p-${element}" data-key="${element}">${eleParts[0]} ${eleParts[1]}</p></div>`);
-            dataToPort.set(element, true);
-        });
-        let numItems = this.line2.children().length;
-        let gridSize = Math.ceil(Math.sqrt(numItems));
-        if (gridSize > maxGridSize) { gridSize = maxGridSize; }
-        this.line2.css('grid-template-columns', `repeat(${gridSize}, 1fr)`);
+        this.populateHelper(allKeysSort);
     }
 
     /**

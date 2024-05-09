@@ -2,6 +2,7 @@ nav i {
     padding: 10px;
     font-size: 1.2em;
     border-radius: 20px;
+    cursor: pointer;
 
     transition: color 250ms ease,
                 background-color 250ms ease,

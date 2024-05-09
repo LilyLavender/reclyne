@@ -63,7 +63,9 @@ function updateButton(selector, setting, prefNum, class1, class2, onTitle, offTi
     updateStorageForPreference(prefNum, setting);
 }
 
-// Update save button styles when typing. Uses event delegation on the document because table content is added during runtime
+// Update save button styles when typing
+// Uses event delegation on the document because table content is added during runtime
+// Event delegation is the best option here because adding a seperate event handler to every input element lags substantially
 doc.on('input', `table input[type='text']`, function() {
     updateSaveButtonUnsaved();
 })
