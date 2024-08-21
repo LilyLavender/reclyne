@@ -51,6 +51,7 @@ class GotoBox extends DisplayBox {
         this.dateFormatArrow = $('#date-format-arrow');
         this.dateFormatLeft = $('p:has(+ #date-format-arrow)');
         this.dateFormatRight = $('#date-format-arrow + p');
+        this.previewTooltipText = "Preview will show up here";
         
         // Event listeners
         this.input.on('input', () => this.showDatePreview()); // Show preview of date when typing
@@ -67,6 +68,8 @@ class GotoBox extends DisplayBox {
     showHelper() {
         // Put cursor in text box
         this.input.focus();
+        // Change text in preview box
+        this.previewHelper.html(this.previewTooltipText);
         // Super
         super.showHelper();
     }
@@ -79,8 +82,7 @@ class GotoBox extends DisplayBox {
         // Clear & unfocus gotoInput
         this.input.val('').blur();
         // Clear preview box & helper
-        this.previewHelper.html("Preview will show up here").addClass('inactive');
-        this.preview.html("");
+        this.previewHelper.addClass('inactive');
     }
 
     // Methods
@@ -108,7 +110,7 @@ class GotoBox extends DisplayBox {
         let gotoDate = getGotoDate();
         if (!gotoDate[0]) {
             // Date in preview box invalid
-            this.previewHelper.html("Preview will show up here").addClass('inactive');
+            this.previewHelper.html(this.previewTooltipText).addClass('inactive');
             this.preview.html("");
         } else {
             // Date in preview box valid

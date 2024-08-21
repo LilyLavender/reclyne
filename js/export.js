@@ -130,21 +130,7 @@ class ExportBox extends PortBox {
      * @returns True if data was successfully saved, error message as a string otherwise
      */
     saveReclyneData() {
-        // Get names of all localStorage objects
-        let keys = Object.keys(localStorage);
-        // Declare important vars
-        let i = keys.length;
-        let allStorage = [];
-
-        // Add all data into allStorage array
-        while (i--) {
-            // Make sure data is actually reclyne's data
-            if (/^[a-z]{3}-\d{4}$/.test(keys[i].toString())
-            /*|| keys[i].includes("reclyne")*/) { // The commented part of the if is for the reclyne-preferences file. It was decided to not let the user import/export this, but this may change as reclyne-preferences grows larger
-                // Add key to first column & data to second
-                allStorage.push([keys[i], localStorage.getItem(keys[i])]);
-            }
-        }
+        let allStorage = getAllReclyneData();
 
         // Don't export if there's no data
         // (this function can't actually run usually if there's no data, since the form would be hidden)
@@ -213,4 +199,28 @@ class ExportBox extends PortBox {
         return ret;
     }
 
+}
+
+/**
+ * Gets all key-value pairs from localStorage
+ * @returns allStorage array
+ */
+function getAllReclyneData() {
+    // Get names of all localStorage objects
+    let keys = Object.keys(localStorage);
+    // Declare important vars
+    let i = keys.length;
+    let allStorage = [];
+
+    // Add all data into allStorage array
+    while (i--) {
+        // Make sure data is actually reclyne's data
+        if (/^[a-z]{3}-\d{4}$/.test(keys[i].toString())
+        /*|| keys[i].includes("reclyne")*/) { // The commented part of the if is for the reclyne-preferences file. It was decided to not let the user import/export this, but this may change as reclyne-preferences grows larger
+            // Add key to first column & data to second
+            allStorage.push([keys[i], localStorage.getItem(keys[i])]);
+        }
+    }
+    
+    return allStorage;
 }

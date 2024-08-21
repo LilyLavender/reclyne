@@ -51,9 +51,10 @@
                 </div>
                 <!-- Save button --> <i class="bi bi-floppy tooltip" id="save-button"><div class="tooltiptext">Save</div></i>
                 <!-- Autoscroll to today --> <i class="bi bi-arrow-right-circle tooltip" id="autoscroll-button"><div class="tooltiptext">If you see this text, this is a bug.</div></i>
-                <!-- Hide elapsed months --> <i class="bi bi-calendar2-check tooltip" id="elapsed-months-button"><div class="tooltiptext">If you see this text, this is a bug.</div></i>
+                <!-- Show/Hide elapsed months --> <i class="bi bi-calendar2-check tooltip" id="elapsed-months-button"><div class="tooltiptext">If you see this text, this is a bug.</div></i>
+                <!-- Edit all month's columns at once --> <i class="bi bi-pen tooltip" id="all-columns-button"><div class="tooltiptext">If you see this text, this is a bug.</div></i>
                 <!-- Clear month <i class="bi bi-x-diamond tooltip" id="clear-months-button"><div class="tooltiptext">Clear month<div class="tooltipextra">• Currently a WIP</div></div></i> -->
-                <!-- Set theme --> <i class="bi bi-palette tooltip" id="set-theme-button"><div class="tooltiptext">Customize theme<div class="tooltipextra">• Currently a WIP</div></div></i>
+                <!-- Set theme <i class="bi bi-palette tooltip" id="set-theme-button"><div class="tooltiptext">Customize theme<div class="tooltipextra">• Currently a WIP</div></div></i> -->
                 <!-- Import data --> <i class="bi bi-box-arrow-in-down tooltip" id="import-data-button"><div class="tooltiptext">Import data<div class="tooltipextra">• Double-click to quick import</div></div></i>
                 <!-- Export data --> <i class="bi bi-box-arrow-down tooltip" id="export-data-button"><div class="tooltiptext">Export data<div class="tooltipextra">• Double-click to quick export</div></div></i>
             </div>
@@ -88,7 +89,7 @@
                         </div>
                     </div>
                     <div id="goto-line-2">
-                        <p id="goto-preview-helper" class="inactive">Preview will appear here</p>
+                        <p id="goto-preview-helper" class="inactive"></p>
                         <p id="goto-preview"></p>
                     </div>
                     <div id="goto-line-3">
@@ -189,6 +190,7 @@
                     <p>Save - <b>Ctrl+S</b></p>
                     <p>Scroll to arrow - <b>Ctrl+&gt;</b></p>
                     <p>Goto date - <b>Ctrl+G</b></p>
+                    <p>Toggle edit all months mode - <b>Ctrl+E</b></p>
                     <p>Quick import/export - <b>Double-click</b></p>
                     <p>Movement on the grid - <b>Coming in beta!</b></p>
                     <p>Mark/unmark as complete - <b>Coming in beta!</b></p>

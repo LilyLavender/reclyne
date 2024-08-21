@@ -1,12 +1,20 @@
 :root {
-    /* Colors are added during runtime */
     --site-width: 850px;
+    /* Most colors are added during runtime
+    --dark: 
+    --accent: 
+    --accent-25: 
+    --accent-50: halfway between accent & light
+    --accent-75: 
+    --light: 
+    */
+    --none: rgba(0,0,0,0);
 }
 
 * {
     padding: 0;
     margin: 0;
-    font-family: sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -20,10 +28,9 @@ div {
 }
 
 
-/* Transitions when hovering and clicking buttons */
+/* Buttons */
 input, button {
     all: unset;
-    font-family: sans-serif;
 }
 
 input[type=button], button {

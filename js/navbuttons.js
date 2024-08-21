@@ -1,6 +1,7 @@
 const buttonData = [
-    ['#elapsed-months-button', 'bi-calendar2-check', 'bi-calendar2-check-fill', 'Show elapsed months', 'Hide elapsed months'], // hide-elapsed
-    ['#autoscroll-button', 'bi-arrow-right-circle', 'bi-arrow-right-circle-fill', 'Do not automatically scroll to today', 'Automatically scroll to today'] // autoscroll-to-arrow
+    [`#elapsed-months-button`, `bi-calendar2-check`, `bi-calendar2-check-fill`, `Show elapsed months`, `Hide elapsed months`], // hide-elapsed
+    [`#autoscroll-button`, `bi-arrow-right-circle`, `bi-arrow-right-circle-fill`, `Do not automatically scroll to today`, `Automatically scroll to today`], // autoscroll-to-arrow
+    [`#all-columns-button`, `bi-pen`, `bi-pen-fill`, `Edit each month's columns separately`, `Edit every month's columns at once`] // all-columns
 ];
 const saveButton = $('#save-button');
 const favicon16 = $("#favicon-16x16");
@@ -16,13 +17,18 @@ $(buttonData[AUTOSCROLL_TO_ARROW][0]).on('click', function() {
     updateButton(buttonData[AUTOSCROLL_TO_ARROW][0], "unk", AUTOSCROLL_TO_ARROW, buttonData[AUTOSCROLL_TO_ARROW][1], buttonData[AUTOSCROLL_TO_ARROW][2], buttonData[AUTOSCROLL_TO_ARROW][3], buttonData[AUTOSCROLL_TO_ARROW][4]);
 });
 
+// Update all-columns on click
+$(buttonData[ALL_COLUMNS][0]).on('click', function() {
+    updateButton(buttonData[ALL_COLUMNS][0], "unk", ALL_COLUMNS, buttonData[ALL_COLUMNS][1], buttonData[ALL_COLUMNS][2], buttonData[ALL_COLUMNS][3], buttonData[ALL_COLUMNS][4]);
+});
+
 /**
  * Update nav button styling based on preferences
  */
 function addClassesToNavIcons() {
     let preferences = retrieveFromLocalStorage('reclyne-preferences');
     for (i = 0; i < preferences.length; i++) {
-        if (i == 2 || i == 3) continue;
+        if (i != HIDE_ELAPSED && i != AUTOSCROLL_TO_ARROW && i != ALL_COLUMNS) continue; // todo optimize just this line
         updateButton(buttonData[i][0], preferences[i], i, buttonData[i][1], buttonData[i][2], buttonData[i][3], buttonData[i][4]);
     }
 }
@@ -66,7 +72,7 @@ function updateButton(selector, setting, prefNum, class1, class2, onTitle, offTi
 // Update save button styles when typing
 // Uses event delegation on the document because table content is added during runtime
 // Event delegation is the best option here because adding a seperate event handler to every input element lags substantially
-doc.on('input', `table input[type='text']`, function() {
+doc.on('input', `table tr > td > input[type='text']`, function() {
     updateSaveButtonUnsaved();
 })
 

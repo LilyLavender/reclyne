@@ -13,6 +13,9 @@ doc.on('keydown', function(e) {
         } else if (e.key === 'g') {
             e.preventDefault();
             displayboxes[GOTO_BOX].toggle();
+        } else if (e.key === 'e') {
+            e.preventDefault();
+            $('#all-columns-button').click();
         }
     } else if (e.key === "Escape") {
         hideAllBoxes();

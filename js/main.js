@@ -3,13 +3,15 @@ const defaultThemeColors = [
     // accentXX colors are generated during runtime
     ["Winter Reclyne", "#110b1d", "#d5d9f2", "#9da8ec"], 
     ["Spring Reclyne", "#0c1c0b", "#c9efce", "#53c763"], 
-    ["Summer Reclyne", "#1d130b", "#f3e696", "#ded95a"], 
-    ["Fall Reclyne", "#1d0f0b", "#f9cfb6", "#fa724c"]
+    ["Summer Reclyne", "#1d130b", "#fbf1b1", "##dbd150"], 
+    ["Fall Reclyne", "#1d0f0b", "#f9cfb6", "#f97b39"]
 ];
-// [hide-elapsed, autoscroll-to-arrow, month-first, theme-number]
-const defaultPreferences = [false, true, true, 0]; 
+// [hide-elapsed, autoscroll-to-arrow, all-columns, month-first, theme-number]
+const defaultPreferences = [false, true, true, true, 0]; 
 const outputDate = $('#output-date');
+const blankColumnName = "Column";
 var displayboxes = [];
+var prevColumnNames = [];
 
 // document.ready, runs when the page is loaded. Runs a lot of important code so reclyne functions properly
 doc.ready(function() {
@@ -145,6 +147,7 @@ function isLastDay(dateToCheck) {
  * @param {*} scroll - Whether or not to scroll to the arrow
  */
 function generateTable(scroll) {
+    let preferences = retrieveFromLocalStorage('reclyne-preferences');
     let tableOutput = "";
     const calEle = calendarDisplay;
     // MDO stands for month date object (verbose, i know)
@@ -154,6 +157,7 @@ function generateTable(scroll) {
         // Todo: see if we can optimize this bit
         let monthShort = MDO.toLocaleString('default', { month: 'short' });
         let monthLong = MDO.toLocaleString('default', { month: 'long' });
+        let monthShortLower = monthShort.toLowerCase();
         let monthLongLower = monthLong.toLowerCase();
         let numOfDays = MDO.getDate();
 
@@ -165,18 +169,28 @@ function generateTable(scroll) {
         // Add month header to output
         tableOutput += `<h2 class="${monthLongLower}-header open" value="${monthLongLower}">${monthLong}<i class="bi bi-caret-down"></i></h2>`;
         // Add table headers to output
-        tableOutput += `<tr><th>Date</th><th>Column 1</th><th>Column 2</th><th>Column 3</th><th>Column 4</th></tr>`;
+        let columCount = RDA ? RDA[0].length : 4;
+        tableOutput += `<tr>
+            <th class="non-editable-header">Date</th>`;
+        for (let i = 0; i < columCount; i++) {
+            let colName = RDA && RDA[0][i] ? RDA[0][i] : prevColumnNames[i] ? prevColumnNames[i] : blankColumnName;
+            console.log("colName before: " + colName);
+            tableOutput += `<th class="editable-header" header-num="${i+1}"><p>${colName}</p><input type="text" id="th-header-${i+1}-${monthShortLower}" class="hidden"></th>`;
+            prevColumnNames[i] = prevColumnNames == blankColumnName ? null : colName;
+            console.log(`prevColumnNames[${i}] after: ` + prevColumnNames[i]);
+        }
+        // Add main table content to output
         for (let i = 0; i < numOfDays; i++) {
             let d = new Date(currentYear, h, i+1);
             let weekDay = weekdaysShort[d.getDay()];
             // Add day in column 1 to output
             tableOutput += `<tr class="day"><td class="${weekDay}">${monthShort} ${i+1}</td>`;
-            for (let j = 0; j < 4; j++) {
+            for (let j = 0; j < columCount; j++) {
                 // Add data from the remaining columns
                 tableOutput += `<td><input type="text" value="`;
                 if (RDA) {
-                    if (RDA[j][i]) {
-                        tableOutput += RDA[j][i];
+                    if (RDA[j+2][i]) {
+                        tableOutput += RDA[j+2][i];
                     }
                 }
                 tableOutput += `" xpos="${j}" ypos="${i}" autocomplete="off" spellcheck="false"></td>`;
@@ -188,6 +202,9 @@ function generateTable(scroll) {
         calEle.html(tableOutput);
     }
 
+    // Add scrollbars to table
+    $(`th.editable-header`).append(`<div class="drag-header"></div>`);
+
     // Bind event handler to h2 headers
     $(`h2[class*='-header']`).each(function() {
         $(this).on('click', function() {
@@ -196,8 +213,52 @@ function generateTable(scroll) {
         } );
     });
 
+    // Bind event handler to th editable-headers
+    $(`th.editable-header`).each(function() {
+        let eh = $(this);
+        let ehp = eh.find("p");
+        let ehinput = eh.find("input");
+        let headerNum = eh.attr('header-num');
+        let pinputWidth = ehp.width();
+
+        // When clicked, allow columns to be renamed
+        eh.on("click", function() {
+            let oldColumName = ehp.addClass("hidden").text();
+            ehinput.val(oldColumName).width(pinputWidth).removeClass("hidden").focus();
+        });
+
+        // Save names & remove renamability from columns when unfocused
+        ehinput.on("focusout", function() {
+            updateSaveButtonUnsaved();
+            let newColumnName = ehinput.addClass("hidden").val();
+            if (newColumnName.trim() === "") { newColumnName = blankColumnName; }
+            ehp.removeClass("hidden");
+            // ALL_COLUMNS
+            if (preferences[ALL_COLUMNS]) {
+                $(`th.editable-header[header-num='${headerNum}'] > p`).text(newColumnName);
+                // Update localstorage for headers so other years work as well
+                // get storage
+                /*let all
+                for (let h = 0; h < 12; h++) {
+                    let MDO = new Date(currentYear, h+1, 0);
+                    let monthShort = MDO.toLocaleString('default', { month: 'short' });
+                    let monthLong = MDO.toLocaleString('default', { month: 'long' });
+                    let RDA = retrieveFromLocalStorage(`${monthShort.toLowerCase()}-${currentYear}`);
+                }*/
+                // sort so just non-current year ones
+
+                // change header
+
+                // save storage
+
+            } else {
+                ehp.text(newColumnName);
+            }
+        });
+    });
+
     // Hide elapsed months
-    if (retrieveFromLocalStorage('reclyne-preferences')[HIDE_ELAPSED]) {
+    if (preferences[HIDE_ELAPSED]) {
         updateElapsedMonths();
     }
     // Scroll to arrow
@@ -207,6 +268,9 @@ function generateTable(scroll) {
             scrollToArrow(0);
         }
     }
+
+    // Make drag-headers draggable
+    dragElements($('div.drag-header'));
 }
 
 /**
@@ -218,19 +282,37 @@ function saveFromCalendarToStorage() {
         let currMonthShort = monthsShort[h];
         let currMonthLong = monthsLong[h];
         let dataToStore = [];
-        for (let i = 0; i < 4; i++) {
+        let currentMonthEhs = $(`.${currMonthLong}-table th.editable-header`);
+        let currentMonthPs = $(`.${currMonthLong}-table th.editable-header > p`);
+
+        // Set number of columns in dataToStore
+        let columnNums = parseInt(currentMonthPs.length) + 2;
+        for (let i = 0; i < columnNums; i++) {
             dataToStore[i] = [];
         }
-        $(`.${currMonthLong}-table input[type="text"]`).each(function() {
-            let xpos = $(this).attr('xpos');
-            let ypos = $(this).attr('ypos');
+
+        // Add column names and widths to dataToStore
+        currentMonthEhs.each(function() {
+            let eh = $(this);
+            let colName = eh.find('p').text();
+            let colWidth = eh.width();
+            let headerNum = eh.attr('header-num') - 1;
+
+            dataToStore[0][headerNum] = colName;
+            dataToStore[1][headerNum] = colWidth;
+        });
+
+        // Add headers to dataToStore
+        $(`.${currMonthLong}-table td input[type="text"]`).each(function() {
+            let xpos = parseInt($(this).attr('xpos'));
+            let ypos = parseInt($(this).attr('ypos'));
             let value = $(this).val();
 
             // Removes the section character. Section character is used to parse the reclyne-data file
             value = value.replace('§', '');
-            // Stores data into proper slot in dataToStore array
+            // Stores data into proper slot in dataToStore
             if (value !== '') {
-                dataToStore[xpos][ypos] = value;
+                dataToStore[xpos+2][ypos] = value;
             }
         });
 
@@ -238,7 +320,7 @@ function saveFromCalendarToStorage() {
         // Only store data if it's not empty
         if (!dataToStore.every(function(a) { return !a.length })) {
             updateLocalStorage(`${currMonthShort}-${currYear}`, dataToStore);
-            updateSaveButtonSaved(); // todo is this being ran twice
+            updateSaveButtonSaved(); // todo is this being ran twice?
         } else {
             // Remove empty data from storage
             removeFromLocalStorage(`${currMonthShort}-${currYear}`);
@@ -250,4 +332,41 @@ function saveFromCalendarToStorage() {
 async function trySaveFromCalendarToStorage() {
     displayboxes[CHANGES_BOX].show();
     return displayboxes[CHANGES_BOX].waitForUserAction();
+}
+
+/**
+ * Allows every element passed into the function to be draggable (X only)
+ * @param {jQuery element array} elements 
+ * @todo dragY? rename?
+ */
+function dragElements(elements) {
+    elements.each(function() {
+        var element = $(this);
+        var pos1 = 0, pos3 = 0;
+        element.on("mousedown", dragMouseDown);
+
+        function dragMouseDown(e) {
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos1 = e.clientX;
+            pos3 = parseInt(element.css("right"), 10) || 0;
+            $(document).on("mouseup", closeDragElement);
+            $(document).on("mousemove", elementDrag);
+        }
+
+        function elementDrag(e) {
+            e.preventDefault();
+            // calculate the horizontal movement:
+            var newPos1 = e.clientX;
+            var newPos3 = pos3 - (newPos1 - pos1);
+            // set the element's new horizontal position:
+            element.css("right", newPos3 + "px");
+        }
+
+        function closeDragElement() {
+            // stop moving when mouse button is released:
+            $(document).off("mouseup", closeDragElement);
+            $(document).off("mousemove", elementDrag);
+        }
+    });
 }

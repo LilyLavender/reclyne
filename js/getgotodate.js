@@ -3,6 +3,8 @@
  * <br>The two bools are used in scrollToDate(). See that function for examples of their usage.
  * @returns array of [date, bool, bool]. First arg is false if text doesn't match an allowed syntax. The bools are "scroll to month" and "scroll to day" respectively. If both are false, you're just going to a year.
  * @todo make the return mechanism easier to understand
+ * 
+ * ⎛⎝(•ⱅ•)⎠⎞ 
  */
 function getGotoDate() {
     let input = displayboxes[GOTO_BOX].input.val();

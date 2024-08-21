@@ -47,6 +47,7 @@ nav::after {
 
 div.left-icons {
     justify-content: left;
+    cursor: none;
 }
 
 div.year-select {
@@ -65,7 +66,7 @@ footer {
 }
 
 #about-button {
-    cursor: pointer;
+    cursor: help;
 }
 
 #output-date {

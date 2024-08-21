@@ -25,7 +25,7 @@ class ImportBox extends PortBox {
             clearTimeout(importDataTimer);
             this.loadReclyneData(true);
         });
-        // Imports select data from reclyne data file when the "import data" button in the import box is clicked
+        // Imports select data from reclyne-data file when the "import data" button in the import box is clicked
         this.buttonSubmit.on('click', () => {
             // Makes sure button is active
             if (!$(this).hasClass('inactive')) {
