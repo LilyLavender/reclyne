@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './assets/global.css'
 import './assets/classes.css'
@@ -18,4 +19,6 @@ import './assets/codeblock.css'
 import './assets/wip.css'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+app.use(createPinia())
+app.mount('#app')

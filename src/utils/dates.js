@@ -1,0 +1,7 @@
+export const weekdaysLong = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+export const weekdaysShort = ["sun","mon","tue","wed","thu","fri","sat"]
+export const monthsLong = ["january","february","march","april","may","june","july","august","september","october","november","december"]
+export const monthsLongUpper = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+export const monthsShort = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"]
+export const monthsShortUpper = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+export const allMonthsNames = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec","january","february","march","april","june","july","august","september","october","november","december"]
