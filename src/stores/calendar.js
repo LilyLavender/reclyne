@@ -7,6 +7,7 @@ export const useCalendarStore = defineStore('calendar', () => {
     const activeDialog      = ref(null) // null | 'goto' | 'syntax' | 'import' | 'export' | 'about' | 'changes'
     const calendarReady     = ref(false)
     const sharedColumnNames = ref(['Column', 'Column', 'Column', 'Column'])
+    const saveRequested     = ref(0)
 
     function setActiveDialog(name) {
         activeDialog.value = name
@@ -20,24 +21,50 @@ export const useCalendarStore = defineStore('calendar', () => {
         calendarReady.value = true
     }
 
-    function updateYear(delta) {
+    // Non-reactive — holds the resolve fn for the pending unsaved-changes confirmation
+    let pendingSaveResolve = null
+
+    function saveCalendar() {
+        if (activeDialog.value === 'changes') {
+            // ChangesBox is open; user explicitly clicked Save inside it
+            resolvePendingSave(true)
+        } else if (unsavedChanges.value) {
+            saveRequested.value++
+        }
+    }
+
+    async function trySaveCalendar() {
+        setActiveDialog('changes')
+        return new Promise(resolve => {
+            pendingSaveResolve = resolve
+        })
+    }
+
+    function resolvePendingSave(shouldSave) {
+        if (pendingSaveResolve) {
+            pendingSaveResolve(shouldSave)
+            pendingSaveResolve = null
+        }
+        closeAllDialogs()
+    }
+
+    async function updateYear(delta) {
+        if (unsavedChanges.value) {
+            const proceed = await trySaveCalendar()
+            if (!proceed) return
+        }
         currentYear.value += delta
         closeAllDialogs()
     }
 
     function setYearTo(year) {
-        if (currentYear.value !== year) {
-            updateYear(year - currentYear.value)
-        }
-    }
-
-    function saveCalendar() {
-        // Implemented in section 9
+        if (currentYear.value !== year) updateYear(year - currentYear.value)
     }
 
     return {
-        currentYear, unsavedChanges, activeDialog, calendarReady, sharedColumnNames,
+        currentYear, unsavedChanges, activeDialog, calendarReady, sharedColumnNames, saveRequested,
         setActiveDialog, closeAllDialogs, markCalendarReady,
-        updateYear, setYearTo, saveCalendar,
+        saveCalendar, trySaveCalendar, resolvePendingSave,
+        updateYear, setYearTo,
     }
 })

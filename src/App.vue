@@ -15,6 +15,13 @@ function beforeUnload(e) {
     e.preventDefault()
 }
 
+function onKeyDown(e) {
+    if (e.ctrlKey && e.key === 's') {
+        e.preventDefault()
+        calendarStore.saveCalendar()
+    }
+}
+
 watch(() => calendarStore.unsavedChanges, (hasChanges) => {
     if (hasChanges) {
         window.addEventListener('beforeunload', beforeUnload)
@@ -25,10 +32,12 @@ watch(() => calendarStore.unsavedChanges, (hasChanges) => {
 
 onMounted(() => {
     prefsStore.initializeTheme()
+    document.addEventListener('keydown', onKeyDown)
 })
 
 onUnmounted(() => {
     window.removeEventListener('beforeunload', beforeUnload)
+    document.removeEventListener('keydown', onKeyDown)
 })
 </script>
 
