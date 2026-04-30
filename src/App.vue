@@ -25,8 +25,6 @@ watch(() => calendarStore.unsavedChanges, (hasChanges) => {
 
 onMounted(() => {
     prefsStore.initializeTheme()
-    // TODO: replace with CalendarDisplay 'ready' emit in section 6
-    setTimeout(() => calendarStore.markCalendarReady(), 20)
 })
 
 onUnmounted(() => {
