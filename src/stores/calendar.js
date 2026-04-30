@@ -2,10 +2,11 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const useCalendarStore = defineStore('calendar', () => {
-    const currentYear    = ref(new Date().getFullYear())
-    const unsavedChanges = ref(false)
-    const activeDialog   = ref(null) // null | 'goto' | 'syntax' | 'import' | 'export' | 'about' | 'changes'
-    const calendarReady  = ref(false)
+    const currentYear       = ref(new Date().getFullYear())
+    const unsavedChanges    = ref(false)
+    const activeDialog      = ref(null) // null | 'goto' | 'syntax' | 'import' | 'export' | 'about' | 'changes'
+    const calendarReady     = ref(false)
+    const sharedColumnNames = ref(['Column', 'Column', 'Column', 'Column'])
 
     function setActiveDialog(name) {
         activeDialog.value = name
@@ -35,7 +36,7 @@ export const useCalendarStore = defineStore('calendar', () => {
     }
 
     return {
-        currentYear, unsavedChanges, activeDialog, calendarReady,
+        currentYear, unsavedChanges, activeDialog, calendarReady, sharedColumnNames,
         setActiveDialog, closeAllDialogs, markCalendarReady,
         updateYear, setYearTo, saveCalendar,
     }
