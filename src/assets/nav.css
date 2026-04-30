@@ -1,0 +1,116 @@
+nav i {
+    padding: 10px;
+    font-size: 1.2em;
+    border-radius: 20px;
+    cursor: pointer;
+
+    transition: color 250ms ease,
+                background-color 250ms ease,
+                border-radius 150ms ease;
+}
+
+.btn-active {
+    background-color: var(--accent);
+    border-radius: 8px;
+    color: white;
+}
+
+.btn-light {
+    color: var(--accent);
+
+    transition: unset;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    /* top right bottom left */
+    padding: 16px 0 24px 0;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 4;
+}
+
+nav::after {
+    content: "";
+    position: absolute;
+    z-index: 5;
+    bottom: 4px;
+    border-bottom: 4px solid var(--light);
+    width: 100%;
+}
+
+div.left-icons {
+    justify-content: left;
+    cursor: none;
+}
+
+div.year-select {
+    display: inline-block;
+    width: max-content;
+    margin-right: 20px;
+}
+
+div.middle-icons {
+    justify-content: space-between;
+    display: flex;
+}
+
+footer {
+    height: 60px;
+}
+
+#about-button {
+    cursor: help;
+}
+
+#output-date {
+    all: unset;
+    padding: 10px;
+    background-color: var(--accent);
+    color: white;
+    text-align: center;
+    display: inline-block;
+    font-weight: 600;
+    font-size: large;
+    cursor: default;
+    user-select: none;
+}
+
+#output-date + button, button:has(+ #output-date) {
+    background-color: var(--accent);
+    display: inline-block;
+    color: white;
+    padding: 10px;
+    font-weight: 600;
+    font-size: large;
+    width: unset;
+    cursor: pointer;
+    border: none;
+}
+
+button:has(+ #output-date) {
+    border-radius: 8px 0 0 8px;
+    padding-left: 12px;
+}
+
+#output-date + button {
+    border-radius: 0 8px 8px 0;
+    padding-right: 12px;
+}
+
+
+/* Fixes a bug with yearselect tooltip position */
+.year-select .tooltip {
+    position: relative;
+    z-index: 6;
+}
+
+.year-select .tooltip .tooltiptext {
+    transform: translateY(13px);
+}

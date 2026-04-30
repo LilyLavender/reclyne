@@ -1,0 +1,11 @@
+code {
+    font-family: monospace;
+    font-size: inherit;
+}
+  
+p > code, li > code, dd > code, td > code {
+    background-color: var(--accent-50);
+    padding: .1rem .3rem .2rem;
+    border-radius: .2rem;
+    display: inline-block;
+}

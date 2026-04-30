@@ -1,0 +1,39 @@
+.port-line-1 {
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.port-line-header {
+    margin-bottom: 2px;
+}
+
+.port-line-2 {
+    display: grid;
+    justify-content: space-around;
+    row-gap: 0.6em;
+    column-gap: 0.4em;
+}
+
+div[class^="export-cont-"] > p, div[class^="import-cont-"] > p {
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    background-color: var(--accent-25);
+    padding: 5px;
+    border-radius: 6px;
+
+    transition: all 150ms ease-in-out;
+    -o-transition: all 150ms ease-in-out;
+    -moz-transition: all 150ms ease-in-out;
+    -webkit-transition: all 150ms ease-in-out;
+}
+
+.port-line-1 input[type="button"] {
+    margin-top: 0;
+}
+
+.port-line-3 {
+    margin-top: 4px;
+}

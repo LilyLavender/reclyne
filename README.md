@@ -25,10 +25,10 @@ As *reclyne* is currently in alpha, it is not recommended to use at this very mo
 Report bugs, nitpicks, features you want, or whatever else to the issues page  
 When reporting bugs, please include your browser & operating system. It helps optimize for other browsers and devices
 #### Programming
-If you wish to help with programming *reclyne*, feel free to message my discord, @LilyLambda. Or just make a pr. Code is commented fairly well, and if you have JSDoc installed, you can run the JSDoc command for the js file you'd like documentation for.
+If you wish to help with programming *reclyne*, feel free to message me or make a pr. Code is commented fairly well, and if you have JSDoc installed, you can run the JSDoc command for the js file you'd like documentation for.
 
 ## Credits
-All of the main code was written by [LilyLambda](https://github.com/LilyLavender). Much appreciated was some conceptual help from alpha tester [SyncGX](https://twitter.com/eguzerokkuman).
+All of the main code was written by [Lily](https://github.com/LilyLavender).
 
 *reclyne* uses [jQuery xcolor](https://github.com/infusion/jQuery-xcolor). Due to the lack of an xcolor cdn, xcolor is included in the js/plugins folder.
 

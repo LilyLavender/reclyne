@@ -1,0 +1,51 @@
+h2 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    width: fit-content;
+    font-style: italic;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+
+    transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+}
+
+h2 i {
+    font-size: 1.1em;
+    margin-left: 5px;
+    position: relative;
+    top: 3px;
+    z-index: -1;
+    opacity: 0%;
+
+    transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+}
+
+h2:hover i {
+    opacity: 100%;
+}
+
+h2.open {
+    margin-left: 40px; 
+}
+
+h2 i::before {
+    transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+}
+
+h2:not(.open) i::before {
+    transform: rotate(-90deg);
+}
+
+h2:not(.open) i {
+    top: 1px;
+}

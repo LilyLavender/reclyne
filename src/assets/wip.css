@@ -1,0 +1,43 @@
+/* Unfinished Videos */
+/*td:nth-child(4):not(.complete):has(:not(input[value=""])) > input {
+    background-color: lightpink;
+}*/
+
+/* Days with no work */
+/*td.noWork > input, td.thu + td + td > input, td.fri + td + td > input {
+    background-color: dimgrey !important;
+}*/
+
+/* Work week start/end */
+/*td.sat + td + td > input {
+    border-bottom: var(--dark) 1px solid;
+}*/
+
+/* Will change when theme changer is added */
+td.mon {
+    background-color: #fffb0c;
+}
+
+td.tue {
+    background-color: #54b50e;
+}
+
+td.wed {
+    background-color: #2323ce;
+}
+
+td.thu {
+    background-color: #0c5f08;
+}
+
+td.fri {
+    background-color: #d61111;
+}
+
+td.sat, td.sun {
+    background-color: #ff3bd8;
+}
+
+/*td {
+    background-color: var(--accent-75) !important;
+}*/
