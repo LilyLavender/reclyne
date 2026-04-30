@@ -19,5 +19,24 @@ export const useCalendarStore = defineStore('calendar', () => {
         calendarReady.value = true
     }
 
-    return { currentYear, unsavedChanges, activeDialog, calendarReady, setActiveDialog, closeAllDialogs, markCalendarReady }
+    function updateYear(delta) {
+        currentYear.value += delta
+        closeAllDialogs()
+    }
+
+    function setYearTo(year) {
+        if (currentYear.value !== year) {
+            updateYear(year - currentYear.value)
+        }
+    }
+
+    function saveCalendar() {
+        // Implemented in section 9
+    }
+
+    return {
+        currentYear, unsavedChanges, activeDialog, calendarReady,
+        setActiveDialog, closeAllDialogs, markCalendarReady,
+        updateYear, setYearTo, saveCalendar,
+    }
 })

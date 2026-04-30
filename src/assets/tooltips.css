@@ -1,10 +1,15 @@
+/* Tooltip container */
+.tooltip {
+    position: relative;
+}
+
 /* Tooltip Text */
 .tooltip .tooltiptext {
     width: fit-content;
     white-space: nowrap;
     background-color: var(--dark);
     color: var(--light);
-    opacity: 0%;
+    opacity: 0;
     text-align: left;
     padding: 6px;
     border-radius: 6px;
@@ -15,6 +20,13 @@
     font-size: medium;
     font-style: italic;
     font-weight: normal;
+    transition: opacity 200ms ease-in-out;
+    transition-delay: 0s;
+}
+
+.tooltip:hover .tooltiptext {
+    opacity: 0.75;
+    transition-delay: 800ms;
 }
 
 /* Second line of tooltip text */

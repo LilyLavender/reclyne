@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useCalendarStore } from './stores/calendar'
 import { usePreferencesStore } from './stores/preferences'
 import LoadingScreen from './components/LoadingScreen.vue'
@@ -8,6 +8,8 @@ import CalendarDisplay from './components/CalendarDisplay.vue'
 
 const calendarStore = useCalendarStore()
 const prefsStore = usePreferencesStore()
+
+const phantomNavHeight = ref(0)
 
 function beforeUnload(e) {
     e.preventDefault()
@@ -34,8 +36,8 @@ onUnmounted(() => {
 
 <template>
   <LoadingScreen />
-  <AppNav />
-  <div class="phantom-nav"></div>
+  <AppNav @nav-height="h => phantomNavHeight = h" />
+  <div class="phantom-nav" :style="{ height: phantomNavHeight + 'px' }"></div>
   <div class="overlay" :class="{ hidden: !calendarStore.activeDialog }" @click="calendarStore.closeAllDialogs()"></div>
   <CalendarDisplay />
   <footer></footer>
