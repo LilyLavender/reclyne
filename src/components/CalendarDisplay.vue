@@ -80,7 +80,7 @@ onMounted(async () => {
   <div class="calendar-display">
     <MonthTable
       v-for="i in 12"
-      :key="i"
+      :key="`${i}-${calendarStore.dataVersion}`"
       :ref="el => { if (el) monthTableRefs[i - 1] = el }"
       :monthIndex="i - 1"
       :year="calendarStore.currentYear"

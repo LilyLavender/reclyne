@@ -3,7 +3,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import { useCalendarStore } from '../stores/calendar'
 import { usePreferencesStore } from '../stores/preferences'
 
-const emit = defineEmits(['nav-height'])
+const emit = defineEmits(['nav-height', 'import-click', 'quick-import', 'export-click', 'quick-export'])
 
 const calendarStore = useCalendarStore()
 const prefsStore = usePreferencesStore()
@@ -43,6 +43,10 @@ watch(() => calendarStore.unsavedChanges, (hasChanges) => {
       <div class="year-select">
         <button class="tooltip" @click="calendarStore.updateYear(-1)">&lt;<div class="tooltiptext">Go back one year</div></button><p id="output-date">{{ calendarStore.currentYear }}</p><button class="tooltip" @click="calendarStore.updateYear(1)">&gt;<div class="tooltiptext">Go forward one year</div></button>
       </div>
+      <i class="bi bi-search tooltip" id="goto-nav"
+         @click="calendarStore.setActiveDialog('goto')">
+        <div class="tooltiptext">Go to date<div class="tooltipextra">• Ctrl+G</div></div>
+      </i>
       <i class="bi bi-floppy tooltip"
          :class="{ 'btn-active': calendarStore.unsavedChanges }"
          @click="calendarStore.saveCalendar()">
@@ -63,10 +67,14 @@ watch(() => calendarStore.unsavedChanges, (hasChanges) => {
          @click="prefsStore.allColumns = !prefsStore.allColumns">
         <div class="tooltiptext">{{ allColumnsTooltip }}</div>
       </i>
-      <i class="bi bi-box-arrow-in-down tooltip" @click="calendarStore.setActiveDialog('import')">
+      <i class="bi bi-box-arrow-in-down tooltip"
+         @click="emit('import-click')"
+         @dblclick.prevent="emit('quick-import')">
         <div class="tooltiptext">Import data<div class="tooltipextra">• Double-click to quick import</div></div>
       </i>
-      <i class="bi bi-box-arrow-down tooltip" @click="calendarStore.setActiveDialog('export')">
+      <i class="bi bi-box-arrow-down tooltip"
+         @click="emit('export-click')"
+         @dblclick.prevent="emit('quick-export')">
         <div class="tooltiptext">Export data<div class="tooltipextra">• Double-click to quick export</div></div>
       </i>
     </div>

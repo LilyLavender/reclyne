@@ -4,10 +4,11 @@ import { ref } from 'vue'
 export const useCalendarStore = defineStore('calendar', () => {
     const currentYear       = ref(new Date().getFullYear())
     const unsavedChanges    = ref(false)
-    const activeDialog      = ref(null) // null | 'goto' | 'syntax' | 'import' | 'export' | 'about' | 'changes'
+    const activeDialog      = ref(null) // null | 'goto' | 'import' | 'export' | 'about' | 'changes'
     const calendarReady     = ref(false)
     const sharedColumnNames = ref(['Column', 'Column', 'Column', 'Column'])
     const saveRequested     = ref(0)
+    const dataVersion       = ref(0)
 
     function setActiveDialog(name) {
         activeDialog.value = name
@@ -26,11 +27,16 @@ export const useCalendarStore = defineStore('calendar', () => {
 
     function saveCalendar() {
         if (activeDialog.value === 'changes') {
-            // ChangesBox is open; user explicitly clicked Save inside it
+            // ChangesBox is open; user explicitly clicked Save inside it — save first, then let caller proceed
+            saveRequested.value++
             resolvePendingSave(true)
         } else if (unsavedChanges.value) {
             saveRequested.value++
         }
+    }
+
+    function bumpDataVersion() {
+        dataVersion.value++
     }
 
     async function trySaveCalendar() {
@@ -62,9 +68,9 @@ export const useCalendarStore = defineStore('calendar', () => {
     }
 
     return {
-        currentYear, unsavedChanges, activeDialog, calendarReady, sharedColumnNames, saveRequested,
+        currentYear, unsavedChanges, activeDialog, calendarReady, sharedColumnNames, saveRequested, dataVersion,
         setActiveDialog, closeAllDialogs, markCalendarReady,
-        saveCalendar, trySaveCalendar, resolvePendingSave,
+        saveCalendar, trySaveCalendar, resolvePendingSave, bumpDataVersion,
         updateYear, setYearTo,
     }
 })
