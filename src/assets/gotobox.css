@@ -1,6 +1,10 @@
 #goto-nav {
     user-select: none;
-    cursor: default;
+    cursor: pointer;
+}
+
+#goto-box {
+    min-width: 300px;
 }
 
 #goto-line-1 {
@@ -13,7 +17,7 @@
     text-align: left;
     height: 19px;
     padding: 3px;
-    max-width: 135px;
+    width: 155px;
 
     transition: all 150ms ease-in-out;
     -o-transition: all 150ms ease-in-out;
@@ -81,7 +85,7 @@
     -webkit-transition: all 150ms ease-in-out;
 }
 
-p:has(+ #date-format-arrow), #date-format-arrow + p {
+:has(+ #date-format-arrow), #date-format-arrow + p {
     transition: all 150ms ease-in-out;
     -o-transition: all 150ms ease-in-out;
     -moz-transition: all 150ms ease-in-out;
@@ -102,6 +106,10 @@ p:has(+ #date-format-arrow), #date-format-arrow + p {
 
 .syntax-section:last-child {
     margin-bottom: 0;
+}
+
+.syntax-section p {
+    padding-left: 8px;
 }
 
 #goto-syntax-box h3, #goto-syntax-box h4, #goto-syntax-box p {

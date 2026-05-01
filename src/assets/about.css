@@ -27,3 +27,7 @@
 .about-section b {
     font-size: small;
 }
+
+.about-section p, .about-section h6 {
+    padding-left: 8px;
+}

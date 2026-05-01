@@ -67,14 +67,27 @@ function scrollToDate(date, hasMonth, hasDay) {
         const day   = date.getDate()
         const text  = `${short} ${day}`
         el = Array.from(document.querySelectorAll('td')).find(td => td.textContent.trim() === text)
+        if (el) {
+            const table = el.closest('table')
+            if (table && table.classList.contains('hidden')) {
+                table.previousElementSibling?.click()
+                setTimeout(() => doScroll(el), 100)
+                return
+            }
+        }
     } else if (hasMonth) {
         const monthLong = monthsLong[date.getMonth()]
         el = document.querySelector(`h2.${monthLong}-header`)
+        if (el && !el.classList.contains('open')) el.click()
     } else {
         el = document.querySelector('.phantom-nav')
     }
 
     if (!el) return
+    doScroll(el)
+}
+
+function doScroll(el) {
     const offset = el.getBoundingClientRect().top + window.scrollY - window.innerHeight / 4 + 3
     window.scrollTo({ top: offset, behavior: 'smooth' })
 }
@@ -90,23 +103,23 @@ function toggleFormat() {
 </script>
 
 <template>
-  <DialogBase dialogName="goto" title="Go to Date">
+  <DialogBase dialogName="goto" title="Go To...">
     <template #header-extra>
       <div id="syntax-container" @click="showSyntax = !showSyntax">
-        <p>Syntaxes</p>
+        <p>Syntax</p>
       </div>
     </template>
 
     <form id="goto-form" @submit.prevent="handleSubmit">
       <div id="goto-line-1">
-        <span id="goto-input-label">Date</span>
+        <span id="goto-input-label">Date:</span>
         <input
           id="goto-input"
           v-model="inputVal"
           @input="updatePreview"
           autocomplete="off"
         />
-        <button id="goto-submit-button" type="submit">Go</button>
+        <button id="goto-submit-button" type="submit">Goto!</button>
       </div>
 
       <div id="goto-line-2">
@@ -116,7 +129,7 @@ function toggleFormat() {
 
       <div id="goto-line-3" @click="updatePreview">
         <p :class="{ inactive: prefsStore.monthFirst }" @click.stop="setFormat(false)">Day first</p>
-        <p id="date-format-arrow" :class="arrowClass" @click.stop="toggleFormat">↓</p>
+        <i id="date-format-arrow" class="bi bi-arrow-up" :class="arrowClass" @click.stop="toggleFormat"></i>
         <p :class="{ inactive: !prefsStore.monthFirst }" @click.stop="setFormat(true)">Month first</p>
       </div>
     </form>

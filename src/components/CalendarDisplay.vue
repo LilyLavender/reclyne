@@ -1,5 +1,6 @@
 <script setup>
 import { nextTick, onMounted, ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useCalendarStore } from '../stores/calendar'
 import { usePreferencesStore } from '../stores/preferences'
 import { saveMonthData } from '../composables/useCalendarData'
@@ -7,16 +8,17 @@ import MonthTable from './MonthTable.vue'
 
 const calendarStore = useCalendarStore()
 const prefsStore    = usePreferencesStore()
+const { saveRequested, scrollRequested } = storeToRefs(calendarStore)
 
 const todayYear      = new Date().getFullYear()
 const monthTableRefs = ref([])
 
 // ─── Scroll ───────────────────────────────────────────────────────────────────
-function scrollToArrow() {
+function scrollToArrow(smooth = false) {
     const arrow = document.querySelector('.arrow-container')
     if (!arrow) return
     const offset = arrow.getBoundingClientRect().top + window.scrollY - window.innerHeight / 4 + 3
-    window.scrollTo({ top: offset, behavior: 'instant' })
+    window.scrollTo({ top: offset, behavior: smooth ? 'smooth' : 'instant' })
 }
 
 watch(() => calendarStore.currentYear, async (newYear) => {
@@ -36,11 +38,11 @@ function saveAllMonths() {
         const mt = monthTableRefs.value[i]
         if (!mt) continue
 
-        const colCount   = mt.colCount.value
-        const colNames   = prefsStore.allColumns ? calendarStore.sharedColumnNames : mt.localColNames.value
-        const colWidths  = mt.colWidths.value
-        const rows       = mt.rows.value
-        const monthShort = mt.monthShort.value
+        const colCount   = mt.colCount
+        const colNames   = prefsStore.allColumns ? calendarStore.sharedColumnNames : mt.localColNames
+        const colWidths  = mt.colWidths
+        const rows       = mt.rows
+        const monthShort = mt.monthShort
 
         // Build RDA: [0]=names [1]=widths [j+2]=sparse column data
         const rda = Array.from({ length: colCount + 2 }, () => [])
@@ -59,18 +61,17 @@ function saveAllMonths() {
         saveMonthData(monthShort, year, rda)
     }
 
-    calendarStore.unsavedChanges = false
-    console.log('Saved!')
+    calendarStore.markSaved()
 }
 
 // Trigger save whenever the store signals it
-watch(() => calendarStore.saveRequested, () => saveAllMonths())
+watch(saveRequested, () => saveAllMonths())
 
 // Trigger scroll-to-arrow whenever the store signals it
-watch(() => calendarStore.scrollRequested, async () => {
+watch(scrollRequested, async () => {
     calendarStore.setYearTo(new Date().getFullYear())
     await nextTick()
-    scrollToArrow()
+    scrollToArrow(true)
 })
 
 // ─── Mount ───────────────────────────────────────────────────────────────────

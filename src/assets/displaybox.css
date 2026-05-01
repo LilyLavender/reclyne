@@ -39,6 +39,7 @@
 
 .display-box h4 {
     font-weight: 500;
+    font-style: italic;
 }
 
 i[id$="close"] {
