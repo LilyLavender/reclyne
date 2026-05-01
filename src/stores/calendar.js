@@ -8,6 +8,7 @@ export const useCalendarStore = defineStore('calendar', () => {
     const calendarReady     = ref(false)
     const sharedColumnNames = ref(['Column', 'Column', 'Column', 'Column'])
     const saveRequested     = ref(0)
+    const scrollRequested   = ref(0)
     const dataVersion       = ref(0)
 
     function setActiveDialog(name) {
@@ -33,6 +34,10 @@ export const useCalendarStore = defineStore('calendar', () => {
         } else if (unsavedChanges.value) {
             saveRequested.value++
         }
+    }
+
+    function requestScroll() {
+        scrollRequested.value++
     }
 
     function bumpDataVersion() {
@@ -68,9 +73,9 @@ export const useCalendarStore = defineStore('calendar', () => {
     }
 
     return {
-        currentYear, unsavedChanges, activeDialog, calendarReady, sharedColumnNames, saveRequested, dataVersion,
+        currentYear, unsavedChanges, activeDialog, calendarReady, sharedColumnNames, saveRequested, scrollRequested, dataVersion,
         setActiveDialog, closeAllDialogs, markCalendarReady,
-        saveCalendar, trySaveCalendar, resolvePendingSave, bumpDataVersion,
+        saveCalendar, trySaveCalendar, resolvePendingSave, requestScroll, bumpDataVersion,
         updateYear, setYearTo,
     }
 })

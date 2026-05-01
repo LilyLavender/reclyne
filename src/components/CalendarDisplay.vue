@@ -66,6 +66,13 @@ function saveAllMonths() {
 // Trigger save whenever the store signals it
 watch(() => calendarStore.saveRequested, () => saveAllMonths())
 
+// Trigger scroll-to-arrow whenever the store signals it
+watch(() => calendarStore.scrollRequested, async () => {
+    calendarStore.setYearTo(new Date().getFullYear())
+    await nextTick()
+    scrollToArrow()
+})
+
 // ─── Mount ───────────────────────────────────────────────────────────────────
 onMounted(async () => {
     await nextTick()

@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useCalendarStore } from './stores/calendar'
 import { usePreferencesStore } from './stores/preferences'
+import { useKeyboardShortcuts } from './composables/useKeyboardShortcuts'
 import LoadingScreen from './components/LoadingScreen.vue'
 import AppNav from './components/AppNav.vue'
 import CalendarDisplay from './components/CalendarDisplay.vue'
@@ -18,23 +19,10 @@ const phantomNavHeight = ref(0)
 const importBoxRef  = ref(null)
 const exportBoxRef  = ref(null)
 
+useKeyboardShortcuts()
+
 function beforeUnload(e) {
     e.preventDefault()
-}
-
-function onKeyDown(e) {
-    if (e.key === 'Escape') {
-        calendarStore.closeAllDialogs()
-        return
-    }
-    if (!e.ctrlKey) return
-    if (e.key === 's') {
-        e.preventDefault()
-        calendarStore.saveCalendar()
-    } else if (e.key === 'g') {
-        e.preventDefault()
-        calendarStore.setActiveDialog('goto')
-    }
 }
 
 watch(() => calendarStore.unsavedChanges, (hasChanges) => {
@@ -47,12 +35,10 @@ watch(() => calendarStore.unsavedChanges, (hasChanges) => {
 
 onMounted(() => {
     prefsStore.initializeTheme()
-    document.addEventListener('keydown', onKeyDown)
 })
 
 onUnmounted(() => {
     window.removeEventListener('beforeunload', beforeUnload)
-    document.removeEventListener('keydown', onKeyDown)
 })
 </script>
 
