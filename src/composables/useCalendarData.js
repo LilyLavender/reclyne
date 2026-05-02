@@ -5,7 +5,7 @@ export function getMonthData(monthShort, year) {
 }
 
 export function saveMonthData(monthShort, year, rda) {
-    const isEmpty = rda.every(arr => !arr.length)
+    const isEmpty = rda.slice(2).every(arr => !arr.length)
     if (!isEmpty) {
         updateLocalStorage(`${monthShort}-${year}`, rda)
     } else {

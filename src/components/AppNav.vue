@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useCalendarStore } from '../stores/calendar'
 import { usePreferencesStore } from '../stores/preferences'
 
@@ -23,6 +23,31 @@ const allColumnsIcon  = computed(() => prefsStore.allColumns        ? 'bi-pen-fi
 const elapsedTooltip    = computed(() => prefsStore.hideElapsed       ? 'Show elapsed months'                    : 'Hide elapsed months')
 const autoscrollTooltip = computed(() => prefsStore.autoscrollToArrow ? 'Do not automatically scroll to today'  : 'Automatically scroll to today')
 const allColumnsTooltip = computed(() => prefsStore.allColumns        ? "Edit each month's columns separately"   : "Edit every month's columns at once")
+
+// Double-click disambiguation for import/export
+let importTimer = null
+let exportTimer = null
+
+function onImportClick() {
+    clearTimeout(importTimer)
+    importTimer = setTimeout(() => { importTimer = null; emit('import-click') }, 250)
+}
+function onImportDblClick() {
+    clearTimeout(importTimer)
+    importTimer = null
+    emit('quick-import')
+}
+function onExportClick() {
+    clearTimeout(exportTimer)
+    exportTimer = setTimeout(() => { exportTimer = null; emit('export-click') }, 250)
+}
+function onExportDblClick() {
+    clearTimeout(exportTimer)
+    exportTimer = null
+    emit('quick-export')
+}
+
+onUnmounted(() => { clearTimeout(importTimer); clearTimeout(exportTimer) })
 
 // Favicon + page title react to unsaved changes
 watch(() => calendarStore.unsavedChanges, (hasChanges) => {
@@ -68,13 +93,13 @@ watch(() => calendarStore.unsavedChanges, (hasChanges) => {
         <div class="tooltiptext">{{ allColumnsTooltip }}</div>
       </i>
       <i class="bi bi-box-arrow-in-down tooltip"
-         @click="emit('import-click')"
-         @dblclick.prevent="emit('quick-import')">
+         @click="onImportClick"
+         @dblclick.prevent="onImportDblClick">
         <div class="tooltiptext">Import data<div class="tooltipextra">• Double-click to quick import</div></div>
       </i>
       <i class="bi bi-box-arrow-down tooltip"
-         @click="emit('export-click')"
-         @dblclick.prevent="emit('quick-export')">
+         @click="onExportClick"
+         @dblclick.prevent="onExportDblClick">
         <div class="tooltiptext">Export data<div class="tooltipextra">• Double-click to quick export</div></div>
       </i>
     </div>
