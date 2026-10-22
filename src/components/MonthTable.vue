@@ -53,6 +53,7 @@ function applyStorageLoad() {
 applyStorageLoad()
 
 watch(() => props.year, applyStorageLoad)
+watch(() => calendarStore.reloadRequested, applyStorageLoad)
 
 // ─── Column names (shared vs per-month) ──────────────────────────────────────
 const displayColNames = computed(() =>

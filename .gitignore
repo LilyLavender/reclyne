@@ -1,6 +1,7 @@
 # Markdown
 /*.md
 !README.md
+.claude/
 
 # Dependencies
 node_modules/

@@ -88,7 +88,7 @@ function doQuickImport(parsed) {
     parsed
         .filter(e => /^[a-z]{3}-\d{4}$/.test(e.key))
         .forEach(e => localStorage.setItem(e.key, JSON.stringify(e.data)))
-    calendarStore.bumpDataVersion()
+    calendarStore.requestReload()
     calendarStore.closeAllDialogs()
 }
 
@@ -99,7 +99,7 @@ function doImport() {
         .filter(e => selected.value[e.key])
         .forEach(e => localStorage.setItem(e.key, JSON.stringify(e.data)))
 
-    calendarStore.bumpDataVersion()
+    calendarStore.requestReload()
     calendarStore.closeAllDialogs()
 }
 
