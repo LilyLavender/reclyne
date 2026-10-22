@@ -54,8 +54,9 @@ watch(() => calendarStore.unsavedChanges, (hasChanges) => {
     document.title = hasChanges ? 'reclyne - Unsaved Changes' : 'reclyne'
     const fav16 = document.getElementById('favicon-16x16')
     const fav32 = document.getElementById('favicon-32x32')
-    if (fav16) fav16.href = hasChanges ? '/favicon/favicon-16x16-red.png' : '/favicon/favicon-16x16.png'
-    if (fav32) fav32.href = hasChanges ? '/favicon/favicon-32x32-red.png' : '/favicon/favicon-32x32.png'
+    const base  = import.meta.env.BASE_URL
+    if (fav16) fav16.href = base + (hasChanges ? 'favicon/favicon-16x16-red.png' : 'favicon/favicon-16x16.png')
+    if (fav32) fav32.href = base + (hasChanges ? 'favicon/favicon-32x32-red.png' : 'favicon/favicon-32x32.png')
 })
 </script>
 
