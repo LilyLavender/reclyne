@@ -39,14 +39,19 @@ export const usePreferencesStore = defineStore('preferences', () => {
     const monthFirst         = ref(prefs[3])
     const themeNumber        = ref(prefs[4])
 
+    // Debounced so rapid toggles only hit localStorage once
+    let debounceTimer = null
     watch([hideElapsed, autoscrollToArrow, allColumns, monthFirst, themeNumber], () => {
-        updateLocalStorage(PREFS_KEY, [
-            hideElapsed.value,
-            autoscrollToArrow.value,
-            allColumns.value,
-            monthFirst.value,
-            themeNumber.value,
-        ])
+        clearTimeout(debounceTimer)
+        debounceTimer = setTimeout(() => {
+            updateLocalStorage(PREFS_KEY, [
+                hideElapsed.value,
+                autoscrollToArrow.value,
+                allColumns.value,
+                monthFirst.value,
+                themeNumber.value,
+            ])
+        }, 300)
     })
 
     return { hideElapsed, autoscrollToArrow, allColumns, monthFirst, themeNumber }

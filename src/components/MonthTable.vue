@@ -19,6 +19,9 @@ const numDays        = computed(() => monthDate.value.getDate())
 const monthShort     = computed(() => monthDate.value.toLocaleString('default', { month: 'short' }).toLowerCase())
 const monthLong      = computed(() => monthDate.value.toLocaleString('default', { month: 'long' }))
 const monthLongLower = computed(() => monthLong.value.toLowerCase())
+const rowDates       = computed(() =>
+    Array.from({ length: numDays.value }, (_, i) => new Date(props.year, props.monthIndex, i + 1))
+)
 
 // ─── Storage ─────────────────────────────────────────────────────────────────
 function loadFromStorage() {
@@ -201,7 +204,7 @@ defineExpose({ monthShort, monthLong, colCount, localColNames, colWidths, rows, 
       v-for="(row, i) in rows"
       :key="i"
       :ref="el => { if (el) rowRefs[i] = el }"
-      :date="new Date(year, monthIndex, i + 1)"
+      :date="rowDates[i]"
       :rowData="row"
       :isToday="todayIdx === i"
       :isTodayLastDay="todayIsLastDay && todayIdx === i"
