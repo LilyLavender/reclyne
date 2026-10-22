@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { weekdaysShort } from '../utils/dates'
 import { scrollToEl } from '../utils/scroll'
 
@@ -25,10 +25,13 @@ function onInput(j, val) {
 function onArrowClick(e) {
     scrollToEl(e.currentTarget, true)
 }
+
+const el = ref(null)
+defineExpose({ el })
 </script>
 
 <template>
-  <tr class="day" :class="{ today: isToday }">
+  <tr ref="el" class="day" :class="{ today: isToday }">
     <td
       :class="weekday"
       :style="isTodayLastDay ? { borderBottomLeftRadius: '0' } : {}"

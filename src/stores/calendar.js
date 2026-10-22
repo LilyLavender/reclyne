@@ -10,6 +10,7 @@ export const useCalendarStore = defineStore('calendar', () => {
     const saveRequested     = ref(0)
     const scrollRequested   = ref(0)
     const reloadRequested   = ref(0)
+    const scrollTarget      = ref(null) // null | { type: 'top' | 'month' | 'day', month: number|null, day: number|null }
 
     function setActiveDialog(name) {
         activeDialog.value = activeDialog.value === name ? null : name
@@ -48,6 +49,14 @@ export const useCalendarStore = defineStore('calendar', () => {
         reloadRequested.value++
     }
 
+    function setScrollTarget(target) {
+        scrollTarget.value = target
+    }
+
+    function clearScrollTarget() {
+        scrollTarget.value = null
+    }
+
     async function trySaveCalendar() {
         setActiveDialog('changes')
         return new Promise(resolve => {
@@ -72,14 +81,15 @@ export const useCalendarStore = defineStore('calendar', () => {
         closeAllDialogs()
     }
 
-    function setYearTo(year) {
-        if (currentYear.value !== year) updateYear(year - currentYear.value)
+    // Resolves once the year change has gone through or been cancelled
+    async function setYearTo(year) {
+        if (currentYear.value !== year) await updateYear(year - currentYear.value)
     }
 
     return {
-        currentYear, unsavedChanges, activeDialog, calendarReady, sharedColumnNames, saveRequested, scrollRequested, reloadRequested,
+        currentYear, unsavedChanges, activeDialog, calendarReady, sharedColumnNames, saveRequested, scrollRequested, reloadRequested, scrollTarget,
         setActiveDialog, closeAllDialogs, markCalendarReady,
-        saveCalendar, trySaveCalendar, resolvePendingSave, markSaved, requestScroll, requestReload,
+        saveCalendar, trySaveCalendar, resolvePendingSave, markSaved, requestScroll, requestReload, setScrollTarget, clearScrollTarget,
         updateYear, setYearTo,
     }
 })

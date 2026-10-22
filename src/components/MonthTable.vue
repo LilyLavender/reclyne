@@ -72,6 +72,10 @@ onMounted(() => {
 // ─── Collapse / expand ───────────────────────────────────────────────────────
 const collapsed = ref(false)
 
+function expand() {
+    collapsed.value = false
+}
+
 function isElapsedMonth() {
     return props.year === new Date().getFullYear() && props.monthIndex < new Date().getMonth()
 }
@@ -144,12 +148,22 @@ function handleRowUpdate(i, newRow) {
     calendarStore.unsavedChanges = true
 }
 
-// Expose for save (section 9)
-defineExpose({ monthShort, monthLong, colCount, localColNames, colWidths, rows })
+// ─── Element refs for goto scrolling ─────────────────────────────────────────
+const headerEl = ref(null)
+const rowRefs  = ref([])
+
+/** Returns the row for a 1-based day of the month, or null. */
+function getRowEl(day) {
+    return rowRefs.value[day - 1]?.el ?? null
+}
+
+// Expose for save (CalendarDisplay) and goto scrolling
+defineExpose({ monthShort, monthLong, colCount, localColNames, colWidths, rows, expand, headerEl, getRowEl })
 </script>
 
 <template>
   <h2
+    ref="headerEl"
     :class="[`${monthLongLower}-header`, { open: !collapsed }]"
     @click="collapsed = !collapsed"
   >{{ monthLong }}<i class="bi bi-caret-down"></i></h2>
@@ -186,6 +200,7 @@ defineExpose({ monthShort, monthLong, colCount, localColNames, colWidths, rows }
     <DayRow
       v-for="(row, i) in rows"
       :key="i"
+      :ref="el => { if (el) rowRefs[i] = el }"
       :date="new Date(year, monthIndex, i + 1)"
       :rowData="row"
       :isToday="todayIdx === i"

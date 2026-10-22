@@ -3,7 +3,6 @@ import { computed, nextTick, ref, watch } from 'vue'
 import { useCalendarStore } from '../../stores/calendar'
 import { usePreferencesStore } from '../../stores/preferences'
 import { getGotoDate, getPrettyDate } from '../../utils/gotoDate'
-import { monthsLong } from '../../utils/dates'
 import DialogBase from './DialogBase.vue'
 import SyntaxBox from './SyntaxBox.vue'
 
@@ -47,7 +46,7 @@ function updatePreview() {
     }
 }
 
-function handleSubmit() {
+async function handleSubmit() {
     const result = getGotoDate(inputVal.value, calendarStore.currentYear, prefsStore.monthFirst)
     if (!result[0]) return
 
@@ -55,41 +54,16 @@ function handleSubmit() {
     const targetYear = date.getFullYear()
 
     calendarStore.closeAllDialogs()
-    calendarStore.setYearTo(targetYear)
+    await calendarStore.setYearTo(targetYear)
+    // Year change was cancelled in the unsaved-changes dialog
+    if (calendarStore.currentYear !== targetYear) return
 
-    setTimeout(() => scrollToDate(date, hasMonth, hasDay), 400)
-}
-
-function scrollToDate(date, hasMonth, hasDay) {
-    let el
-    if (hasMonth && hasDay) {
-        const short = date.toLocaleString('default', { month: 'short' })
-        const day   = date.getDate()
-        const text  = `${short} ${day}`
-        el = Array.from(document.querySelectorAll('td')).find(td => td.textContent.trim() === text)
-        if (el) {
-            const table = el.closest('table')
-            if (table && table.classList.contains('hidden')) {
-                table.previousElementSibling?.click()
-                setTimeout(() => doScroll(el), 100)
-                return
-            }
-        }
-    } else if (hasMonth) {
-        const monthLong = monthsLong[date.getMonth()]
-        el = document.querySelector(`h2.${monthLong}-header`)
-        if (el && !el.classList.contains('open')) el.click()
-    } else {
-        el = document.querySelector('.phantom-nav')
-    }
-
-    if (!el) return
-    doScroll(el)
-}
-
-function doScroll(el) {
-    const offset = el.getBoundingClientRect().top + window.scrollY - window.innerHeight / 4 + 3
-    window.scrollTo({ top: offset, behavior: 'smooth' })
+    const type = hasMonth && hasDay ? 'day' : hasMonth ? 'month' : 'top'
+    calendarStore.setScrollTarget({
+        type,
+        month: hasMonth ? date.getMonth() : null,
+        day:   hasDay ? date.getDate() : null,
+    })
 }
 
 function setFormat(monthFirst) {

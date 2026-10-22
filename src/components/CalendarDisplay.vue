@@ -9,7 +9,7 @@ import MonthTable from './MonthTable.vue'
 
 const calendarStore = useCalendarStore()
 const prefsStore    = usePreferencesStore()
-const { saveRequested, scrollRequested } = storeToRefs(calendarStore)
+const { saveRequested, scrollRequested, scrollTarget } = storeToRefs(calendarStore)
 
 const todayYear      = new Date().getFullYear()
 const monthTableRefs = ref([])
@@ -72,6 +72,28 @@ watch(scrollRequested, async () => {
     calendarStore.setYearTo(new Date().getFullYear())
     await nextTick()
     scrollToArrow(true)
+})
+
+// ─── Goto scrolling ──────────────────────────────────────────────────────────
+// GotoBox sets a target on the store once the year is correct.
+// This resolves it to an element via MonthTable refs, expanding the month first if needed.
+watch(scrollTarget, async (target) => {
+    if (!target) return
+    await nextTick()
+
+    if (target.type === 'top') {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+        const mt = monthTableRefs.value[target.month]
+        if (mt) {
+            mt.expand()
+            await nextTick()
+            const el = target.type === 'day' ? mt.getRowEl(target.day) : mt.headerEl
+            if (el) scrollToEl(el, true)
+        }
+    }
+
+    calendarStore.clearScrollTarget()
 })
 
 // ─── Mount ───────────────────────────────────────────────────────────────────
