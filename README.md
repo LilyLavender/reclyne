@@ -2,22 +2,25 @@
 #### *reclyne* is a lightweight calendar built to showcase the utility of a line-by-line layout.
 *reclyne* is designed to have everything you need to know in the app itself. However, the Wiki on this GitHub page exists to provide clarification.
 
-## Installation
-As *reclyne* is currently in alpha, it is not recommended to use at this very moment. Despite this, installation instructions are as follows:  
+## Using *reclyne*
+*reclyne* runs in the browser at https://lilylavender.github.io/reclyne/
 
-#### Through files (recommended)
-1. Click the green `<> Code` button in the top right
-2. Select the last option, `Download ZIP`
-3. (Windows) In File Explorer, right-click `reclyne-main.zip` and select `Extract All...`  
-(Mac) In Finder, double-click `reclyne-main.zip`
-4. Open `reclyne-main` and double-click `index.html`. This should open *reclyne* in your browser
-5. Bookmark *reclyne* so you don't lose it.
+All data is stored in your browser's local storage. Use the export button to back it up and the import button to restore it.
 
-#### Through git
-`git clone https://github.com/LilyLavender/reclyne`
+## Development
+Requires [Node.js](https://nodejs.org/).
+
+```
+npm install       # install dependencies
+npm run dev       # start the dev server with hot reload
+npm run build     # production build to dist/
+npm run preview   # serve the production build locally
+```
+
+Pushes to `main` are built and deployed to GitHub Pages automatically.
 
 ## Optimization
-- As of now, *reclyne* has only been tested on Chrome, but optimizaton for other browsers is planned for beta.
+- As of now, *reclyne* has only been tested on Chrome and Firefox, but optimization for other browsers is planned for beta.
 - *reclyne* is currently optimized for PC usage. Mobile optimization is not currently planned.
 
 ## How Can I Help?
@@ -25,11 +28,11 @@ As *reclyne* is currently in alpha, it is not recommended to use at this very mo
 Report bugs, nitpicks, features you want, or whatever else to the issues page  
 When reporting bugs, please include your browser & operating system. It helps optimize for other browsers and devices
 #### Programming
-If you wish to help with programming *reclyne*, feel free to message me or make a pr. Code is commented fairly well, and if you have JSDoc installed, you can run the JSDoc command for the js file you'd like documentation for.
+If you wish to help with programming *reclyne*, feel free to message me or make a pr.
 
 ## Credits
 All of the main code was written by [Lily](https://github.com/LilyLavender).
 
-*reclyne* uses [jQuery xcolor](https://github.com/infusion/jQuery-xcolor). Due to the lack of an xcolor cdn, xcolor is included in the js/plugins folder.
+*reclyne* is built with [Vue](https://vuejs.org/), [Vite](https://vite.dev/), and [Pinia](https://pinia.vuejs.org/).
 
-*reclyne* uses [Bootstrap Icons](https://icons.getbootstrap.com/). 
+*reclyne* uses [Bootstrap Icons](https://icons.getbootstrap.com/).
