@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { weekdaysShort } from '../utils/dates'
+import { scrollToEl } from '../utils/scroll'
 
 const props = defineProps({
     date:           { type: Date,    required: true },
@@ -22,9 +23,7 @@ function onInput(j, val) {
 }
 
 function onArrowClick(e) {
-    const arrow  = e.currentTarget
-    const offset = arrow.getBoundingClientRect().top + window.scrollY - window.innerHeight / 4 + 3
-    window.scrollTo({ top: offset, behavior: 'smooth' })
+    scrollToEl(e.currentTarget, true)
 }
 </script>
 

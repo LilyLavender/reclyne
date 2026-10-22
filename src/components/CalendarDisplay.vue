@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia'
 import { useCalendarStore } from '../stores/calendar'
 import { usePreferencesStore } from '../stores/preferences'
 import { saveMonthData } from '../composables/useCalendarData'
+import { scrollToEl } from '../utils/scroll'
 import MonthTable from './MonthTable.vue'
 
 const calendarStore = useCalendarStore()
@@ -17,8 +18,7 @@ const monthTableRefs = ref([])
 function scrollToArrow(smooth = false) {
     const arrow = document.querySelector('.arrow-container')
     if (!arrow) return
-    const offset = arrow.getBoundingClientRect().top + window.scrollY - window.innerHeight / 4 + 3
-    window.scrollTo({ top: offset, behavior: smooth ? 'smooth' : 'instant' })
+    scrollToEl(arrow, smooth)
 }
 
 watch(() => calendarStore.currentYear, async (newYear) => {
